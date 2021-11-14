@@ -1,0 +1,9 @@
+.ant-form-item-control-input-content {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ant-form-item-control-input-content button {
+  margin-left: 10px;
+}

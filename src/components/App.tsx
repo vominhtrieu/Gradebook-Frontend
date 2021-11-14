@@ -5,21 +5,21 @@ import "./App.css";
 import Main from "./Main";
 
 function App() {
-    return (
-        <Router>
-            <Switch>
-                <Route path="/signin">
-                    <SignIn />
-                </Route>
-                <Route path="/signup">
-                    <SignUp />
-                </Route>
-                <Route path="*">
-                    <Main />
-                </Route>
-            </Switch>
-        </Router>
-    );
+  return (
+    <Router>
+      <Switch>
+        <Route path="/signin">
+          <SignIn />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route path="*">
+          <Main />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
