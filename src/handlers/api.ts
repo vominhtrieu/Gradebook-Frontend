@@ -31,7 +31,6 @@ export const postData = (url: string, data: any): Promise<any> => {
     if (res.status === 401) {
       localStorage.removeItem("token");
     }
-    console.log(res);
     return res.json();
   });
 };
