@@ -1,7 +1,6 @@
-import React from "react";
+import { createContext } from "react";
 
-export const MainContext = React.createContext({
-    reloadNeeded: true,
-    setReloadNeeded: (param: any) => {
-    },
+export const MainContext = createContext({
+  reloadNeeded: true,
+  setReloadNeeded: (param: any) => {},
 });
