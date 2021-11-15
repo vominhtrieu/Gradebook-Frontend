@@ -5,7 +5,9 @@ import { Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import Homepage from "./class/Homepage";
 import Profile from "./profile/Profile";
 import NewClass from "./class/NewClass";
+import ClassDetailPublic from "./class/ClassDetailPublic";
 import { MainContext } from "../contexts/main";
+import ClassDetailJoined from "./class/ClassDetailJoined";
 
 
 export default function Main() {
@@ -48,6 +50,8 @@ export default function Main() {
                         </Route>
                         <Route exact path="/profile">
                             <Profile />
+                        </Route>
+                        <Route path="/class/detail/:tab?" component={ClassDetailJoined}>
                         </Route>
                         <Route path="*">
                             <p>404 Page Not Found</p>
