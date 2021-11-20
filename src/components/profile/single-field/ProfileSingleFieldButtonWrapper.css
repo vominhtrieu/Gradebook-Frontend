@@ -1,9 +1,10 @@
-.ant-form-item-control-input-content {
-  margin-top: 5px;
+.profile-single-field-button-wrapper .ant-form-item-control-input-content {
   display: flex;
   justify-content: flex-end;
 }
 
-.ant-form-item-control-input-content button {
+.profile-single-field-button-wrapper
+  .ant-form-item-control-input-content
+  button {
   margin-left: 10px;
 }

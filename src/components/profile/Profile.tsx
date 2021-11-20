@@ -63,9 +63,11 @@ export default function Profile() {
           }}
         />
         <ProfileButton title="name" href="/profile/name" block>
-          {user.name}
+          Click here to change your name
         </ProfileButton>
-        <ProfileButton title="password" href="/profile/password" block />
+        <ProfileButton title="password" href="/profile/password" block>
+          Click here to change your password
+        </ProfileButton>
       </Card>
       <Card
         style={{ width: "100%", borderRadius: "8px" }}
