@@ -9,7 +9,7 @@ export default function ProfileSingleFieldInputBox({
       {...props}
       style={{
         fontWeight: 700,
-        marginBottom: "3px",
+        marginBottom: "10px",
         textTransform: "uppercase",
       }}
     />

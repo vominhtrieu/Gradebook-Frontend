@@ -5,5 +5,9 @@ import "./ProfileSingleFieldButtonWrapper.css";
 export default function ProfileSingleFieldButtonWrapper({
   children,
 }: React.PropsWithChildren<{}>) {
-  return <FormItem>{children}</FormItem>;
+  return (
+    <FormItem className="profile-single-field-button-wrapper">
+      {children}
+    </FormItem>
+  );
 }

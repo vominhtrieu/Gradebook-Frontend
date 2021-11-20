@@ -2,11 +2,11 @@ import { Form, Input, Button, Card, message, Spin } from "antd";
 import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import "./Auth.css";
 import { Link, useHistory } from "react-router-dom";
-import { postData } from "../../handlers/api";
 import { useState } from "react";
 import userNameRules from "../../form-rules/userName";
 import userPasswordRules from "../../form-rules/userPassword";
 import userEmailRules from "../../form-rules/userEmail";
+import signUpHandler from "../../handlers/signUp";
 
 function SignUp() {
   const [loading, setLoading] = useState(false);
@@ -18,17 +18,11 @@ function SignUp() {
     form
       .validateFields()
       .then(async values => {
-        try {
-          const data = await postData("/signup", values);
-          if (data.id > 0) {
-            message.success(`Your account has been created, time to sign in!`);
-            history.push("/signin");
-          } else {
-            message.error(data);
-          }
-        } catch (e) {
-          message.error("Some thing went wrong!");
-        } finally {
+        const signUpIsSuccessful = await signUpHandler(values);
+
+        if (signUpIsSuccessful) {
+          history.push("/signin");
+        } else {
           setLoading(false);
         }
       })

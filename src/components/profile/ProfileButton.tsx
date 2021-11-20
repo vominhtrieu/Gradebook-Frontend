@@ -15,15 +15,10 @@ export default function ProfileButton({ ...props }: ProfileButtonProps) {
         <Typography.Title className="profile-btn_title">
           {props.title}
         </Typography.Title>
-        {props.title === "password" ? (
-          <Typography.Text className="profile-btn_description">
-            Click here to change your password
-          </Typography.Text>
-        ) : (
-          <Typography.Text className="profile-btn_description">
-            {props.children}
-          </Typography.Text>
-        )}
+
+        <Typography.Text className="profile-btn_description">
+          {props.children}
+        </Typography.Text>
         <RightOutlined />
       </Space>
     </Button>

@@ -2,7 +2,7 @@ import { Rule } from "rc-field-form/lib/interface";
 
 const userNameValidator = async (rule: any, value: any): Promise<string> => {
   const minLength = 6;
-  const maxLength = 50;
+  const maxLength = 60;
   const pattern = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
   const valueStr = (value as string).trim();
 
