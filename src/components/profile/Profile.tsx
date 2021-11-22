@@ -96,7 +96,7 @@ export default function Profile() {
         <h3>Your courses:</h3>
         <Row>
             {
-                user.classrooms.length > 0 ? user.classrooms.map((classroom: any, i: number) => (
+                user.classroomCount > 0 ? user.classrooms.map((classroom: any, i: number) => (
                     <Col key={i} lg={{span: 6}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}}>
                         <Class classID={classroom.id} name={classroom.name} teacher={user}
                                cover={classroom.image} />
