@@ -2,7 +2,7 @@ import { Form, message, Spin } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { MainContext } from "../../../contexts/main";
-import userNameRules from "../../../form-rules/userName";
+import userStudentIdRules from "../../../form-rules/userStudentId";
 import { getData, postData } from "../../../handlers/api";
 import ProfileSingleFieldButton from "./ProfileSingleFieldButton";
 import ProfileSingleFieldButtonWrapper from "./ProfileSingleFieldButtonWrapper";
@@ -10,7 +10,7 @@ import ProfileSingleFieldContainer from "./ProfileSingleFieldContainer";
 import ProfileSingleFieldInput from "./ProfileSingleFieldInput";
 import ProfileSingleFieldInputBox from "./ProfileSingleFieldInputBox";
 
-export default function ChangeName() {
+export default function ChangeStudentId() {
   const [user, setUser]: any = useState(null);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
@@ -18,7 +18,7 @@ export default function ChangeName() {
   const history = useHistory();
 
   const fetchData = () => {
-    getData("/users/profile/name")
+    getData("/users/profile/studentId")
       .then((user: any) => {
         setUser(user);
         mainContext.setReloadNeeded(false);
@@ -26,22 +26,22 @@ export default function ChangeName() {
       .catch(() => message.error("Something went wrong!"));
   };
 
-  const updateName = () => {
+  const updateStudentId = () => {
     form
       .validateFields()
       .then(values => {
-        if (user.name === values["new name"].trim()) {
-          return message.error("This is your current name!");
+        if (user.studentId === values["new student id"].trim()) {
+          return message.error("This is your current student id!");
         }
 
-        postData("/users/profile/name", {
-          name: values["new name"].trim(),
+        postData("/users/profile/studentId", {
+          studentId: values["new student id"].trim(),
         })
           .then((user: any) => {
-            form.setFieldsValue({ "new name": "" });
+            form.setFieldsValue({ "new student id": "" });
             setUser(user);
             mainContext.setReloadNeeded(true);
-            return message.success("Your name has changed!");
+            return message.success("Your student id has changed!");
           })
           .catch(() => message.error("Something went wrong!"));
       })
@@ -65,13 +65,19 @@ export default function ChangeName() {
   }, [user, mainContext]);
 
   return (
-    <ProfileSingleFieldContainer title="change name">
+    <ProfileSingleFieldContainer title="change student id">
       <Form layout="vertical" form={form}>
-        <ProfileSingleFieldInputBox name="current name">
-          <ProfileSingleFieldInput placeholder={user?.name} disabled />
+        <ProfileSingleFieldInputBox name="current student id">
+          <ProfileSingleFieldInput
+            placeholder={user?.studentId ? user?.studentId : "None"}
+            disabled
+          />
         </ProfileSingleFieldInputBox>
-        <ProfileSingleFieldInputBox name="new name" rules={userNameRules}>
-          <ProfileSingleFieldInput placeholder="New Name" />
+        <ProfileSingleFieldInputBox
+          name="new student id"
+          rules={userStudentIdRules}
+        >
+          <ProfileSingleFieldInput placeholder="New Student Id" />
         </ProfileSingleFieldInputBox>
         <ProfileSingleFieldButtonWrapper>
           <ProfileSingleFieldButton
@@ -83,7 +89,7 @@ export default function ChangeName() {
           <ProfileSingleFieldButton
             size="large"
             type="primary"
-            onClick={updateName}
+            onClick={updateStudentId}
             disabled={loading}
           >
             {loading ? <Spin style={{ paddingRight: 5 }} /> : null} Save

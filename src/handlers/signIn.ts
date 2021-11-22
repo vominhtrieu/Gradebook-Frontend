@@ -30,6 +30,11 @@ export const signIn = (
     .validateFields()
     .then(async values => {
       const loginIsSuccessful = await signInHandler(values);
+
+      if (!loginIsSuccessful) {
+        setLoading(false);
+      }
+
       setLoginIsSuccessful(loginIsSuccessful);
     })
     .catch(errorInfo => {

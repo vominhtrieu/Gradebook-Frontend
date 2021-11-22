@@ -6,6 +6,7 @@ import Homepage from "./class/Homepage";
 import Profile from "./profile/Profile";
 import NewClass from "./class/NewClass";
 import { MainContext } from "../contexts/main";
+import ChangeStudentId from "./profile/single-field/ChangeStudentId";
 import ChangeName from "./profile/single-field/ChangeName";
 import ChangePassword from "./profile/single-field/ChangePassword";
 
@@ -76,6 +77,9 @@ export default function Main() {
             </Route>
             <Route exact path="/profile">
               <Profile />
+            </Route>
+            <Route exact path="/profile/studentId">
+              <ChangeStudentId />
             </Route>
             <Route exact path="/profile/name">
               <ChangeName />
