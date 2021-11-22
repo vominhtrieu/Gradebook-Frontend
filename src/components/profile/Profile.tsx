@@ -51,6 +51,8 @@ export default function Profile() {
           title={user.name}
           description={
             <p>
+              <b>Student Id: </b> {user.studentId ? user.studentId : "None"}
+              <br />
               <b>Email:</b> {user.email}
               <br />
               <b>Joined date:</b> {joinedDate.toLocaleDateString("vi-VN")}
@@ -62,6 +64,9 @@ export default function Profile() {
             marginBottom: "5px",
           }}
         />
+        <ProfileButton title="student id" href="/profile/studentId" block>
+          Click here to change your student id
+        </ProfileButton>
         <ProfileButton title="name" href="/profile/name" block>
           Click here to change your name
         </ProfileButton>
