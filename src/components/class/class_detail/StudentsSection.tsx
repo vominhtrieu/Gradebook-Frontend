@@ -3,7 +3,7 @@ import {UserAddOutlined} from "@ant-design/icons";
 import UserItem from "../UserItem";
 import React from "react";
 
-export default function StudentsSection() {
+export default function StudentsSection({students}: any) {
     return (
         <>
             <Space direction="vertical" style={{position: "relative", width: "100%"}}>

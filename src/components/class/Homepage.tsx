@@ -12,7 +12,7 @@ export default function Homepage() {
         if (classrooms === null) {
             mainContext.setReloadNeeded(true);
         }
-    }, [classrooms, mainContext])
+    }, [classrooms, mainContext]);
 
     useEffect(() => {
         if (!mainContext.reloadNeeded) {
@@ -32,7 +32,7 @@ export default function Homepage() {
         <Row>
             {classrooms.map ? classrooms.map((classroom: any, i: number) => (
                 <Col key={i} lg={{span: 6}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}}>
-                    <Class classID={classroom.id} name={classroom.name} teacher={classroom.user}
+                    <Class classID={classroom.id} name={classroom.name} teacher={classroom.teachers[0]}
                            cover={classroom.image} />
                 </Col>
             )) : null}
