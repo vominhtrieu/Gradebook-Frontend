@@ -3,7 +3,6 @@ import { postData } from "./api";
 
 const signUpHandler = async (values: any) => {
   try {
-    console.log(values);
     const data = await postData("/signup", values);
     if (data.id > 0) {
       message.success(`Your account has been created, time to sign in!`);
