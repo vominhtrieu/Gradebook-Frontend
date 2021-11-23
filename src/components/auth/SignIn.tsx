@@ -27,7 +27,7 @@ function SignIn() {
     if (loginIsSuccessful) {
       history.push("/");
     }
-  }, [loginIsSuccessful]);
+  }, [loginIsSuccessful, history]);
 
   const callSignIn = () => {
     signIn(setLoading, setLoginIsSuccessful, form);

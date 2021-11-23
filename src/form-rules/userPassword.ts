@@ -4,13 +4,17 @@ const userPasswordValidator = async (
   rule: any,
   value: any
 ): Promise<string> => {
+  if (!value) {
+    throw Error("Please input your password!");
+  }
+
   const minLength = 8;
   const maxLength = 16;
-  const pattern = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  const pattern = /[^a-zA-Z0-9]/;
   const valueStr = value as string;
 
   if (pattern.test(valueStr)) {
-    throw Error("Password must not contain special characters!");
+    throw Error("Password must not contain special characters and space!");
   }
 
   if (valueStr.length < minLength) {

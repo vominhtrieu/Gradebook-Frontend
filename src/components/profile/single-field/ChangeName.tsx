@@ -17,15 +17,6 @@ export default function ChangeName() {
   const mainContext = useContext(MainContext);
   const history = useHistory();
 
-  const fetchData = () => {
-    getData("/users/profile/name")
-      .then((user: any) => {
-        setUser(user);
-        mainContext.setReloadNeeded(false);
-      })
-      .catch(() => message.error("Something went wrong!"));
-  };
-
   const updateName = () => {
     form
       .validateFields()
@@ -52,9 +43,19 @@ export default function ChangeName() {
   };
 
   useEffect(() => {
+    const fetchData = () => {
+      getData("/users/profile/name")
+        .then((user: any) => {
+          setUser(user);
+          mainContext.setReloadNeeded(false);
+        })
+        .catch(() => message.error("Something went wrong!"));
+    };
+
     if (!mainContext.reloadNeeded) {
       return;
     }
+
     fetchData();
   }, [mainContext]);
 
