@@ -11,19 +11,20 @@ export default function Profile() {
   const [user, setUser]: any = useState(null);
   const mainContext = useContext(MainContext);
 
-  const fetchData = () => {
-    getData("/users/profile")
-      .then((user: any) => {
-        setUser(user);
-        mainContext.setReloadNeeded(false);
-      })
-      .catch(() => message.error("Something went wrong!"));
-  };
-
   useEffect(() => {
+    const fetchData = () => {
+      getData("/users/profile")
+        .then((user: any) => {
+          setUser(user);
+          mainContext.setReloadNeeded(false);
+        })
+        .catch(() => message.error("Something went wrong!"));
+    };
+
     if (!mainContext.reloadNeeded) {
       return;
     }
+
     fetchData();
   }, [mainContext]);
 

@@ -1,9 +1,13 @@
 import { Rule } from "rc-field-form/lib/interface";
 
 const userNameValidator = async (rule: any, value: any): Promise<string> => {
+  if (!value) {
+    throw Error("Please input your name!");
+  }
+
   const minLength = 6;
   const maxLength = 60;
-  const pattern = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  const pattern = /[^a-zA-Z0-9 ]/;
   const valueStr = (value as string).trim();
 
   if (pattern.test(valueStr)) {

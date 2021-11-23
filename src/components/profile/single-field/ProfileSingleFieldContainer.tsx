@@ -1,4 +1,4 @@
-import { Card, Space } from "antd";
+import { Card } from "antd";
 import React from "react";
 
 interface ProfileSingleFieldContainerProps {
