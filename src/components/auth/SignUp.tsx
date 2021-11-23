@@ -1,5 +1,10 @@
 import { Form, Input, Button, Card, message, Spin } from "antd";
-import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  IdcardOutlined,
+  MailOutlined,
+  LockOutlined,
+} from "@ant-design/icons";
 import "./Auth.css";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
@@ -7,6 +12,7 @@ import userNameRules from "../../form-rules/userName";
 import userPasswordRules from "../../form-rules/userPassword";
 import userEmailRules from "../../form-rules/userEmail";
 import signUpHandler from "../../handlers/signUp";
+import userStudentIdRules from "../../form-rules/userStudentId";
 
 function SignUp() {
   const [loading, setLoading] = useState(false);
@@ -45,6 +51,12 @@ function SignUp() {
   return (
     <Card title="Sign Up" className="auth-form">
       <Form form={form} layout="vertical">
+        <Form.Item name="studentId" rules={userStudentIdRules}>
+          <Input
+            prefix={<IdcardOutlined className="site-form-item-icon" />}
+            placeholder="Student ID"
+          />
+        </Form.Item>
         <Form.Item name="name" rules={userNameRules}>
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
