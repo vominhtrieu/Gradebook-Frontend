@@ -7,7 +7,7 @@ const userNameValidator = async (rule: any, value: any): Promise<string> => {
 
   const minLength = 6;
   const maxLength = 60;
-  const pattern = /[^a-zA-Z0-9 ]/;
+  const pattern = /[`@#~!$%^&*?\\,.<>;':"/[\]|{}()=_+-]/;
   const valueStr = (value as string).trim();
 
   if (pattern.test(valueStr)) {

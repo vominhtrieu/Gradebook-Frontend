@@ -70,7 +70,11 @@ export default function ChangeStudentId() {
       <Form layout="vertical" form={form}>
         <ProfileSingleFieldInputBox name="current student id">
           <ProfileSingleFieldInput
-            placeholder={user?.studentId ? user?.studentId : "None"}
+            placeholder={
+              user?.studentId
+                ? user?.studentId
+                : "Set your student id to view your grade"
+            }
             disabled
           />
         </ProfileSingleFieldInputBox>

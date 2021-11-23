@@ -25,7 +25,14 @@ function SignIn() {
 
   useEffect(() => {
     if (loginIsSuccessful) {
-      history.push("/");
+      const studentId = localStorage.getItem("studentId");
+      localStorage.removeItem("studentId");
+
+      if (studentId === "null") {
+        history.push("/profile/studentId");
+      } else {
+        history.push("/");
+      }
     }
   }, [loginIsSuccessful, history]);
 
