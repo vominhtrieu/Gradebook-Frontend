@@ -15,7 +15,6 @@ export default function Profile() {
     const fetchData = () => {
       getData("/users/profile")
         .then((user: any) => {
-          console.log(user);
           setUser(user);
           mainContext.setReloadNeeded(false);
         })
@@ -53,7 +52,10 @@ export default function Profile() {
           title={user.name}
           description={
             <p>
-              <b>Student Id: </b> {user.studentId ? user.studentId : "None"}
+              <b>Student Id: </b>{" "}
+              {user.studentId
+                ? user.studentId
+                : "Set your student id to view your grade"}
               <br />
               <b>Email:</b> {user.email}
               <br />
