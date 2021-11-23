@@ -4,6 +4,10 @@ const userStudentIdValidator = async (
   rule: any,
   value: any
 ): Promise<string> => {
+  if (!value) {
+    throw Error("Please input your student id!");
+  }
+
   const length = 8;
   const pattern = /^\d+$/;
   const valueStr = (value as string).trim();

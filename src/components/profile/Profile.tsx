@@ -15,6 +15,7 @@ export default function Profile() {
     const fetchData = () => {
       getData("/users/profile")
         .then((user: any) => {
+          console.log(user);
           setUser(user);
           mainContext.setReloadNeeded(false);
         })
