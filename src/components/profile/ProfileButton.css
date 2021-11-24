@@ -53,7 +53,7 @@
   opacity: 0.5;
 }
 
-.ant-space.profile-btn_inner-wrapper .ant-space-item:last-child {
+.ant-space.profile-btn_inner-wrapper .ant-space-item:nth-child(3) {
   flex-basis: auto;
   margin-left: auto;
   margin-right: 5px;

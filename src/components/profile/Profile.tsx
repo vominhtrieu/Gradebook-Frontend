@@ -18,7 +18,7 @@ export default function Profile() {
       getData("/users/profile")
         .then((user: any) => {
           setUser(user);
-          getData("/classrooms")
+          getData("/classrooms/role/teacher")
             .then((classrooms: any) => {
               setClassrooms(classrooms);
               mainContext.setReloadNeeded(false);
@@ -87,7 +87,7 @@ export default function Profile() {
               <ProfileButton
                 title="Classroom"
                 href=""
-                value={user.classroomCount}
+                value={classrooms?.length ? classrooms.length : 0}
               />
             </p>
           }
