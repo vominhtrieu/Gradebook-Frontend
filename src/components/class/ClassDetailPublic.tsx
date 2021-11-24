@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Space, Typography, message, Modal, List, Card } from "antd";
-import UserItem from "./UserItem";
+import { Button, Typography, message, Modal, List, Card } from "antd";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { postData } from "../../handlers/api";
 import { API_HOST } from "../../configs/api";
