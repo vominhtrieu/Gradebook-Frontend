@@ -63,6 +63,7 @@ export default function ClassDetailJoined({match, history}: RouteComponentProps<
                             </TabPane>
                             <TabPane tab="Students" key="students" style={TabPaneStyle}>
                                 <UserListSection users={classroom.students} isTeacher={classroom.isTeacher}
+                                                 classroomId={classroom.id}
                                                  studentInvitationCode={classroom.studentInvitationCode}/>
                             </TabPane>
                         </Tabs>
