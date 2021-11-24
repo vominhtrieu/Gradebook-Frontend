@@ -6,99 +6,131 @@ import Class from "../class/Class";
 import { MainContext } from "../../contexts/main";
 import ProfileAvatar from "./ProfileAvatar";
 import ProfileButton from "./ProfileButton";
+import "./Profile.css";
 
 export default function Profile() {
-    const [user, setUser]: any = useState(null);
-    const [classrooms, setClassrooms]: any = useState(null);
-    const mainContext = useContext(MainContext);
+  const [user, setUser]: any = useState(null);
+  const [classrooms, setClassrooms]: any = useState(null);
+  const mainContext = useContext(MainContext);
 
-    useEffect(() => {
-        const fetchData = () => {
-            getData("/users/profile")
-                .then((user: any) => {
-                    setUser(user);
-                    getData("/classrooms")
-                        .then((classrooms: any) => {
-                            setClassrooms(user);
-                            mainContext.setReloadNeeded(false);
-                        })
-                        .catch(() => message.error("Something went wrong!"));
-                })
-                .catch(() => message.error("Something went wrong!"));
-        };
+  useEffect(() => {
+    const fetchData = () => {
+      getData("/users/profile")
+        .then((user: any) => {
+          setUser(user);
+          getData("/classrooms")
+            .then((classrooms: any) => {
+              setClassrooms(user);
+              mainContext.setReloadNeeded(false);
+            })
+            .catch(() => message.error("Something went wrong!"));
+        })
+        .catch(() => message.error("Something went wrong!"));
+    };
 
-        if (!mainContext.reloadNeeded) {
-            return;
-        }
+    if (!mainContext.reloadNeeded) {
+      return;
+    }
 
-        fetchData();
-    }, [mainContext]);
+    fetchData();
+  }, [mainContext]);
 
-    useEffect(() => {
-        if (!user) {
-            mainContext.setReloadNeeded(true);
-        }
-    }, [user, mainContext]);
+  useEffect(() => {
+    if (!user) {
+      mainContext.setReloadNeeded(true);
+    }
+  }, [user, mainContext]);
 
-    const joinedDate = new Date(user?.joinedDate);
-    // console.log(user);
-    return user ? (
-        <>
-            <Card
-                style={{width: "100%", borderRadius: "8px", marginBottom: "20px"}}
-                title={"Your information"}
-                bodyStyle={{
-                    maxWidth: "840px",
-                    margin: "0 auto",
-                    padding: "24px 0 ",
-                }}
-            >
-                <Meta
-                    avatar={<ProfileAvatar user={user} />}
-                    description={
-                        <p>
-                            <ProfileButton title="Name" href="/profile/name" value={user.name} />
-                            <ProfileButton title="Email" href="" value={user.email} />
-                            <ProfileButton title="Student ID" href="/profile/studentId" value={user.studentId
-                                ? user.studentId
-                                : "Set your Student ID to view your grade"} />
-                            <ProfileButton title="Password" href="/profile/password" value={"********"} />
-                            <ProfileButton title="Joined date" href="" value={joinedDate.toLocaleDateString("vi-VN")} />
-                            <ProfileButton title="Classroom" href="" value={user.classroomCount} />
-
-                        </p>
-                    }
-                    style={{
-                        marginBottom: "5px",
-                    }}
+  const joinedDate = new Date(user?.joinedDate);
+  // console.log(user);
+  return user ? (
+    <>
+      <Card
+        style={{ width: "100%", borderRadius: "8px", marginBottom: "20px" }}
+        title={"Your information"}
+        bodyStyle={{
+          maxWidth: "840px",
+          margin: "0 auto",
+          padding: "24px 0 ",
+        }}
+      >
+        <Meta
+          avatar={<ProfileAvatar user={user} />}
+          className="profile-card-meta"
+          description={
+            <p>
+              <ProfileButton
+                title="Name"
+                href="/profile/name"
+                value={user.name}
+              />
+              <ProfileButton title="Email" href="" value={user.email} />
+              <ProfileButton
+                title="Student ID"
+                href="/profile/studentId"
+                value={
+                  user.studentId
+                    ? user.studentId
+                    : "Set your Student ID to view your grade"
+                }
+              />
+              <ProfileButton
+                title="Password"
+                href="/profile/password"
+                value={"********"}
+              />
+              <ProfileButton
+                title="Joined date"
+                href=""
+                value={joinedDate.toLocaleDateString("vi-VN")}
+              />
+              <ProfileButton
+                title="Classroom"
+                href=""
+                value={user.classroomCount}
+              />
+            </p>
+          }
+        />
+      </Card>
+      <Card
+        style={{ width: "100%", borderRadius: "8px" }}
+        title={"Your courses"}
+      >
+        <Row>
+          {classrooms && classrooms.length > 0 ? (
+            classrooms.map((classroom: any, i: number) => (
+              <Col
+                key={i}
+                lg={{ span: 6 }}
+                md={{ span: 8 }}
+                sm={{ span: 12 }}
+                xs={{ span: 24 }}
+              >
+                <Class
+                  classID={classroom.id}
+                  name={classroom.name}
+                  teacher={user}
+                  cover={classroom.image}
                 />
-            </Card>
-            <Card
-                style={{width: "100%", borderRadius: "8px"}}
-                title={"Your courses"}
-            >
-                <Row>
-                    {
-                        classrooms && classrooms.length > 0 ? classrooms.map((classroom: any, i: number) => (
-                            <Col key={i} lg={{span: 6}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}}>
-                                <Class classID={classroom.id} name={classroom.name} teacher={user}
-                                       cover={classroom.image} />
-                            </Col>
-                        )) : <p>You haven't created any courses</p>
-                    }
-                </Row>
-            </Card>
-        </>
-    ) : (
-        <Space
-            style={{
-                width: "100%",
-                marginTop: 20,
-                display: "flex",
-                justifyContent: "center",
-            }}
-        >
-            <Spin />
-        </Space>
-    );
+              </Col>
+            ))
+          ) : (
+            <p>You haven't created any courses</p>
+          )}
+        </Row>
+      </Card>
+    </>
+  ) : (
+    <Space
+      style={{
+        width: "100%",
+        marginTop: 20,
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Spin />
+    </Space>
+  );
 }

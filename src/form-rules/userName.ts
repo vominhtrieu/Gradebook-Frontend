@@ -7,11 +7,11 @@ const userNameValidator = async (rule: any, value: any): Promise<string> => {
 
   const minLength = 6;
   const maxLength = 60;
-  const pattern = /[`@#~!$%^&*?\\,.<>;':"/[\]|{}()=_+-]/;
+  const pattern = /[\d]|[`@#~!$%^&*?\\,.<>;':"/[\]|{}()=_+-]/;
   const valueStr = (value as string).trim();
 
   if (pattern.test(valueStr)) {
-    throw Error("Name must not contain special characters!");
+    throw Error("Name must not contain special characters or digits!");
   }
 
   if (valueStr.length < minLength) {

@@ -1,66 +1,75 @@
 .ant-btn.profile-btn {
-    text-align: start;
-    border-top-color: transparent;
-    border-bottom-color: #dadce0;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-radius: 0;
-    line-height: 50px;
-    height: 50px;
+  text-align: start;
+  border-top-color: transparent;
+  border-bottom-color: #dadce0;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-radius: 0;
+  min-height: 50px;
 }
 
 .ant-btn.profile-btn:hover,
 .ant-btn.profile-btn:focus {
-    color: inherit;
-    border-top-color: transparent;
-    border-bottom-color: #dadce0;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    background-color: #fafafa;
+  color: inherit;
+  border-top-color: transparent;
+  border-bottom-color: #dadce0;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  background-color: #fafafa;
 }
 
 .ant-space.profile-btn_inner-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .ant-space.profile-btn_inner-wrapper .ant-space-item {
-    flex-basis: 156px;
-    margin-right: 24px;
+  flex-basis: 156px;
+  margin-right: 24px;
 }
 
 .ant-space.profile-btn_inner-wrapper .ant-space-item:nth-child(2) {
-    flex-basis: 328px;
+  flex-basis: 328px;
 }
 
 .ant-space.profile-btn_inner-wrapper .ant-space-item:last-child {
-    flex-basis: auto;
-    margin-left: auto;
-    margin-right: 5px;
+  flex-basis: auto;
+  margin-left: auto;
+  margin-right: 5px;
 }
 
 .ant-typography.profile-btn_title {
-    display: inline-block;
-    margin-bottom: 0;
-    font-size: 11px;
-    font-weight: bold;
-    color: #5f6368;
-    text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 11px;
+  font-weight: bold;
+  color: #5f6368;
+  text-transform: uppercase;
 }
 
 .ant-typography.profile-btn_value {
-    display: block;
-    font-size: 14px;
-    color: #e4e4e4;
+  display: block;
+  font-size: 14px;
+  color: #e4e4e4;
 }
 
 .ant-typography.profile-btn_description {
-    display: block;
-    font-size: 14px;
-    color: #5f6368;
+  display: block;
+  font-size: 14px;
+  color: #5f6368;
 }
 
 .ant-typography.profile-btn_description-password span:last-child {
-    margin-right: 0;
+  margin-right: 0;
+}
+
+@media only screen and (max-width: 425px) {
+  .ant-space.profile-btn_inner-wrapper .ant-space-item {
+    flex-basis: auto;
+  }
+
+  .ant-space.profile-btn_inner-wrapper .ant-space-item:nth-child(2) {
+    flex-basis: auto;
+  }
 }
