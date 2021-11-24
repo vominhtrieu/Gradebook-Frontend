@@ -50,7 +50,7 @@ export default function Main() {
                         <Route exact path="/profile">
                             <Profile />
                         </Route>
-                        <Route path="/class/:id/:tab?" component={ClassDetailJoined}>
+                        <Route path="/classrooms/:id/:tab?" component={ClassDetailJoined}>
                         </Route>
                         <Route path="*">
                             <p>404 Page Not Found</p>

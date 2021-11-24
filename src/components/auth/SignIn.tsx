@@ -1,9 +1,9 @@
-import { Form, Input, Button, Card, Spin, message } from "antd";
-import { MailOutlined, LockOutlined } from "@ant-design/icons";
+import {Form, Input, Button, Card, Spin, message} from "antd";
+import {MailOutlined, LockOutlined} from "@ant-design/icons";
 import "./Auth.css";
-import { Link, useHistory } from "react-router-dom";
-import { postData } from "../../handlers/api";
-import { useEffect, useState } from "react";
+import {Link, useHistory} from "react-router-dom";
+import {postData} from "../../handlers/api";
+import {useEffect, useState} from "react";
 
 function SignIn() {
     const [loading, setLoading] = useState(false);
@@ -36,7 +36,7 @@ function SignIn() {
         <Card title="Sign In" className="auth-form">
             <Form form={form} layout="vertical">
                 <Form.Item name="email" rules={[{required: true, message: "Please input your email!"}]}>
-                    <Input type="email" prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
+                    <Input type="email" prefix={<MailOutlined className="site-form-item-icon"/>} placeholder="Email"/>
                 </Form.Item>
                 <Form.Item name="password" rules={[
                     {required: true, message: "Please input your password!"},
@@ -44,13 +44,13 @@ function SignIn() {
                 ]}>
                     <Input
                         type="password"
-                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        prefix={<LockOutlined className="site-form-item-icon"/>}
                         placeholder="Password"
                     />
                 </Form.Item>
                 <Form.Item>
                     <Button onClick={callSignIn} disabled={loading} type="primary">
-                        {loading ? <Spin style={{paddingRight: 5}} /> : null}Sign In
+                        {loading ? <Spin style={{paddingRight: 5}}/> : null}Sign In
                     </Button>
                     <span style={{padding: "0 5px"}}>or</span>
                     <Link to="/signup">Create a new account</Link>
