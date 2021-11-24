@@ -79,7 +79,7 @@ export default function Main() {
                         <Route exact path="/profile">
                             <Profile />
                         </Route>
-                        <Route path="/class/:id/:tab?" component={ClassDetailJoined}>
+                        <Route path="/classrooms/:id/:tab?" component={ClassDetailJoined}>
                         </Route>
                         <Route exact path="/profile/studentId">
                             <ChangeStudentId />

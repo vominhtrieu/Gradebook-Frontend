@@ -20,7 +20,7 @@ export default function Profile() {
           setUser(user);
           getData("/classrooms")
             .then((classrooms: any) => {
-              setClassrooms(user);
+              setClassrooms(classrooms);
               mainContext.setReloadNeeded(false);
             })
             .catch(() => message.error("Something went wrong!"));
