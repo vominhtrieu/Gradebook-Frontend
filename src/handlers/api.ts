@@ -8,7 +8,7 @@ export const getData = (url: string): Promise<any> => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   }).then((res: Response) => {
-    if (res.status === 401) {
+    if (res.status >= 400) {
       localStorage.removeItem("token");
     }
     return res.json();
@@ -26,7 +26,7 @@ export const postData = (url: string, data: any): Promise<any> => {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   }).then((res: Response) => {
-    if (res.status === 401) {
+    if (res.status >= 400) {
       localStorage.removeItem("token");
     }
     return res.json();
