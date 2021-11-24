@@ -23,11 +23,13 @@ export default function ProfileButton({
           {title}
         </Typography.Title>
         <div>
-          <Typography.Text style={{ display: "block", marginBottom: "3px" }}>
+          <Typography.Text className="profile-btn_value">
             {value}
           </Typography.Text>
           {href.length > 0 ? (
-            <Typography.Text italic>Click here to change</Typography.Text>
+            <Typography.Text italic className="profile-btn_description">
+              Click here to change
+            </Typography.Text>
           ) : null}
         </div>
 

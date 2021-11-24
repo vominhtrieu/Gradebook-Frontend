@@ -30,7 +30,27 @@
 }
 
 .ant-space.profile-btn_inner-wrapper .ant-space-item:nth-child(2) {
-  flex-basis: 328px;
+  flex-basis: 468px;
+}
+
+.ant-space.profile-btn_inner-wrapper
+  .ant-space-item:nth-child(2)
+  .ant-typography.profile-btn_value {
+  display: block;
+  width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+.ant-space.profile-btn_inner-wrapper
+  .ant-space-item:nth-child(2)
+  .ant-typography.profile-btn_description {
+  display: block;
+  font-size: 14px;
+  color: #5f6368;
+  opacity: 0.5;
 }
 
 .ant-space.profile-btn_inner-wrapper .ant-space-item:last-child {
@@ -46,18 +66,6 @@
   font-weight: bold;
   color: #5f6368;
   text-transform: uppercase;
-}
-
-.ant-typography.profile-btn_value {
-  display: block;
-  font-size: 14px;
-  color: #e4e4e4;
-}
-
-.ant-typography.profile-btn_description {
-  display: block;
-  font-size: 14px;
-  color: #5f6368;
 }
 
 .ant-typography.profile-btn_description-password span:last-child {
