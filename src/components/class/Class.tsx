@@ -3,8 +3,9 @@ import { Avatar, Card } from "antd";
 import Meta from "antd/es/card/Meta";
 import { UserOutlined } from "@ant-design/icons";
 import { API_HOST } from "../../configs/api";
+import {Link} from "react-router-dom";
 
-export default function Class({name, teacher, cover}: any) {
+export default function Class({classID, name, teacher, cover}: any) {
     let image = <div style={{
         objectFit: "fill", height: 180, background: "#2F86A6", borderRadius: "2px 2px 0 0",
         border: "1px solid #F0F0F0", boxSizing: "border-box"
@@ -25,7 +26,7 @@ export default function Class({name, teacher, cover}: any) {
                  cover={image}>
         <Meta avatar={teacher.avatar ? <Avatar size="large" src={`${API_HOST}${teacher.avatar}`} /> :
             <Avatar size="large" icon={<UserOutlined />} />}
-              title={name}
+              title={<Link to={`/class/${classID}`} style={{color: "#000000"}}>{name}</Link>}
               description={teacher.name} />
     </Card>
 }
