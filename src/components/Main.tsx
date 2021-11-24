@@ -96,7 +96,7 @@ export default function Main() {
                     </Switch>
                 </Content>
                 <Footer style={{textAlign: "center"}}>
-                    Vo Minh Trieu ©2021. Image from Freepik.
+                    Gradebook ©2021. Image from Freepik.
                 </Footer>
             </Layout>
         </MainContext.Provider>

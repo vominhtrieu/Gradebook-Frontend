@@ -9,6 +9,7 @@ import ProfileButton from "./ProfileButton";
 
 export default function Profile() {
     const [user, setUser]: any = useState(null);
+    const [classrooms, setClassrooms]: any = useState(null);
     const mainContext = useContext(MainContext);
 
     useEffect(() => {
@@ -16,7 +17,12 @@ export default function Profile() {
             getData("/users/profile")
                 .then((user: any) => {
                     setUser(user);
-                    mainContext.setReloadNeeded(false);
+                    getData("/classrooms")
+                        .then((classrooms: any) => {
+                            setClassrooms(user);
+                            mainContext.setReloadNeeded(false);
+                        })
+                        .catch(() => message.error("Something went wrong!"));
                 })
                 .catch(() => message.error("Something went wrong!"));
         };
@@ -35,7 +41,7 @@ export default function Profile() {
     }, [user, mainContext]);
 
     const joinedDate = new Date(user?.joinedDate);
-
+    // console.log(user);
     return user ? (
         <>
             <Card
@@ -49,34 +55,23 @@ export default function Profile() {
             >
                 <Meta
                     avatar={<ProfileAvatar user={user} />}
-                    title={user.name}
                     description={
                         <p>
-                            <b>Student Id: </b>{" "}
-                            {user.studentId
+                            <ProfileButton title="Name" href="/profile/name" value={user.name} />
+                            <ProfileButton title="Email" href="" value={user.email} />
+                            <ProfileButton title="Student ID" href="/profile/studentId" value={user.studentId
                                 ? user.studentId
-                                : "Set your student id to view your grade"}
-                            <br />
-                            <b>Email:</b> {user.email}
-                            <br />
-                            <b>Joined date:</b> {joinedDate.toLocaleDateString("vi-VN")}
-                            <br />
-                            <b>Classrooms:</b> {user.classroomCount}
+                                : "Set your Student ID to view your grade"} />
+                            <ProfileButton title="Password" href="/profile/password" value={"********"} />
+                            <ProfileButton title="Joined date" href="" value={joinedDate.toLocaleDateString("vi-VN")} />
+                            <ProfileButton title="Classroom" href="" value={user.classroomCount} />
+
                         </p>
                     }
                     style={{
                         marginBottom: "5px",
                     }}
                 />
-                <ProfileButton title="student id" href="/profile/studentId" block>
-                    Click here to change your student id
-                </ProfileButton>
-                <ProfileButton title="name" href="/profile/name" block>
-                    Click here to change your name
-                </ProfileButton>
-                <ProfileButton title="password" href="/profile/password" block>
-                    Click here to change your password
-                </ProfileButton>
             </Card>
             <Card
                 style={{width: "100%", borderRadius: "8px"}}
@@ -84,7 +79,7 @@ export default function Profile() {
             >
                 <Row>
                     {
-                        user.classroomCount > 0 ? user.classrooms.map((classroom: any, i: number) => (
+                        classrooms && classrooms.length > 0 ? classrooms.map((classroom: any, i: number) => (
                             <Col key={i} lg={{span: 6}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}}>
                                 <Class classID={classroom.id} name={classroom.name} teacher={user}
                                        cover={classroom.image} />
