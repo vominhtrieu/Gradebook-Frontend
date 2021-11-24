@@ -1,14 +1,12 @@
-import { Form, message, Spin } from "antd";
-import { useContext, useEffect, useState } from "react";
+import { Button, Form, Input, message, Spin } from "antd";
+import FormItem from "antd/lib/form/FormItem";
+import { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { MainContext } from "../../../contexts/main";
 import userPasswordRules from "../../../form-rules/userPassword";
 import { getData, postData } from "../../../handlers/api";
-import ProfileSingleFieldButton from "./ProfileSingleFieldButton";
 import ProfileSingleFieldButtonWrapper from "./ProfileSingleFieldButtonWrapper";
 import ProfileSingleFieldContainer from "./ProfileSingleFieldContainer";
-import ProfileSingleFieldInput from "./ProfileSingleFieldInput";
-import ProfileSingleFieldInputBox from "./ProfileSingleFieldInputBox";
 
 export default function ChangePassword() {
     const [loading, setLoading] = useState(false);
@@ -24,6 +22,7 @@ export default function ChangePassword() {
             })
             .catch(() => message.error("Something went wrong!"));
     }, [])
+
     const updatePassword = () => {
         form
             .validateFields()
@@ -72,45 +71,45 @@ export default function ChangePassword() {
     return (
         <ProfileSingleFieldContainer title="change password">
             <Form layout="vertical" form={form}>
-                {passwordPresent ? <ProfileSingleFieldInputBox
-                    name="old password"
-                    rules={userPasswordRules}
-                >
-                    <ProfileSingleFieldInput placeholder="Old Password" type="password" />
-                </ProfileSingleFieldInputBox> : null}
-                <ProfileSingleFieldInputBox
+                {passwordPresent ?
+                    <FormItem
+                        name="old password"
+                        rules={userPasswordRules}
+                    >
+                        <Input.Password placeholder="Old Password" />
+                    </FormItem> : null}
+                <FormItem
                     name="new password"
                     rules={userPasswordRules}
                 >
-                    <ProfileSingleFieldInput placeholder="New Password" type="password" />
-                </ProfileSingleFieldInputBox>
-                <ProfileSingleFieldInputBox
+                    <Input.Password placeholder="New Password" type="password" />
+                </FormItem>
+                <FormItem
                     name="confirm new password"
                     rules={[
                         {required: true, message: "Please confirm your new password!"},
                         {validator: checkConfirmPassword},
                     ]}
                 >
-                    <ProfileSingleFieldInput
+                    <Input.Password
                         placeholder="Confirm New Password"
-                        type="password"
                     />
-                </ProfileSingleFieldInputBox>
+                </FormItem>
                 <ProfileSingleFieldButtonWrapper>
-                    <ProfileSingleFieldButton
+                    <Button
                         size="large"
                         onClick={() => history.push("/profile")}
                     >
                         Cancel
-                    </ProfileSingleFieldButton>
-                    <ProfileSingleFieldButton
+                    </Button>
+                    <Button
                         size="large"
                         type="primary"
                         onClick={updatePassword}
                         disabled={loading}
                     >
                         {loading ? <Spin style={{paddingRight: 5}} /> : null} Save
-                    </ProfileSingleFieldButton>
+                    </Button>
                 </ProfileSingleFieldButtonWrapper>
             </Form>
         </ProfileSingleFieldContainer>
