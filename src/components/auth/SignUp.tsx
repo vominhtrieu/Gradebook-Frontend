@@ -51,12 +51,6 @@ function SignUp() {
   return (
     <Card title="Sign Up" className="auth-form">
       <Form form={form} layout="vertical">
-        <Form.Item name="studentId" rules={userStudentIdRules}>
-          <Input
-            prefix={<IdcardOutlined className="site-form-item-icon" />}
-            placeholder="Student ID"
-          />
-        </Form.Item>
         <Form.Item name="name" rules={userNameRules}>
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
@@ -68,6 +62,12 @@ function SignUp() {
             type="email"
             prefix={<MailOutlined className="site-form-item-icon" />}
             placeholder="Email"
+          />
+        </Form.Item>
+        <Form.Item name="studentId" rules={userStudentIdRules}>
+          <Input
+              prefix={<IdcardOutlined className="site-form-item-icon" />}
+              placeholder="Student ID"
           />
         </Form.Item>
         <Form.Item name="password" rules={userPasswordRules}>

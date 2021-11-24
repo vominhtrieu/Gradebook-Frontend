@@ -1,12 +1,12 @@
-import React, {useContext, useEffect, useState} from "react";
-import {message, Tabs} from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { Card, message, Tabs } from "antd";
 import IntroductionSection from "./class_detail/IntroductionSection";
 import UserListSection from "./class_detail/UserListSection";
-import {RouteComponentProps} from "react-router-dom";
-import {MainContext} from "../../contexts/main";
-import {getData} from "../../handlers/api";
+import { RouteComponentProps } from "react-router-dom";
+import { MainContext } from "../../contexts/main";
+import { getData } from "../../handlers/api";
 import ClassDetailPublic from "./ClassDetailPublic";
-import {API_HOST} from "../../configs/api";
+import { API_HOST } from "../../configs/api";
 
 const {TabPane} = Tabs;
 
@@ -38,56 +38,37 @@ export default function ClassDetailJoined({match, history}: RouteComponentProps<
         history.push(`/classrooms/${match.params.id}/${key}`);
     }
 
-    let image = <div style={{
-        objectFit: "fill", width: "100%", height: "50%", background: "#2F86A6", borderRadius: "2px 2px 0 0",
-        border: "1px solid #F0F0F0", boxSizing: "border-box", position: "absolute", left: 0, top: "64px"
-    }}/>
-    if (classroom.image && classroom.image.length > 0) {
-        image = <img height={"auto"}
-                     style={{
-                         width: "100%",
-                         objectFit: "cover",
-                         borderRadius: "2px 2px 0 0",
-                         border: "1px solid #F0F0F0",
-                         boxSizing: "border-box",
-                         position: "absolute",
-                         left: 0,
-                         top: "64px"
-                     }}
-                     alt={`Cannot load cover`}
-                     src={`${API_HOST}${classroom.image}`}/>
-    }
-
     return (
         <>
-            {!classroom.enrolled ? <ClassDetailPublic classroom={classroom}/> :
-                <>
-                    {image}
+            {!classroom.enrolled ? <ClassDetailPublic classroom={classroom} /> :
+                <Card cover={classroom.image ?
+                    <img style={{width: "100%", height: "300px", objectFit: "cover"}} alt="Background"
+                         src={API_HOST + classroom.image} /> :
+                    <div style={{width: "100%", height: "300px", objectFit: "cover", background: "#2F86A6"}} />}>
                     <div style={{
                         position: "relative",
-                        marginTop: "100px",
                         backgroundColor: "white",
-                        minHeight: "500px"
+                        minHeight: "200px"
                     }}>
                         <Tabs tabPosition="left" activeKey={(match.params.tab ? match.params.tab : "introduction")}
                               style={{height: "100%"}}
                               onChange={handleTabChange}>
                             <TabPane tab="Introduction" key="introduction" style={TabPaneStyle}>
                                 <IntroductionSection name={classroom.name} description={classroom.description}
-                                                     totalStudent={classroom.students ? classroom.students.length : 0}/>
+                                                     totalStudent={classroom.students ? classroom.students.length : 0} />
                             </TabPane>
                             <TabPane tab="Teachers" key="teachers" style={TabPaneStyle}>
                                 <UserListSection users={classroom.teachers} isTeacher={classroom.isTeacher}
                                                  classroomId={classroom.id}
-                                                 teacherInvitationCode={classroom.teacherInvitationCode}/>
+                                                 teacherInvitationCode={classroom.teacherInvitationCode} />
                             </TabPane>
                             <TabPane tab="Students" key="students" style={TabPaneStyle}>
                                 <UserListSection users={classroom.students} isTeacher={classroom.isTeacher}
-                                                 studentInvitationCode={classroom.studentInvitationCode}/>
+                                                 studentInvitationCode={classroom.studentInvitationCode} />
                             </TabPane>
                         </Tabs>
                     </div>
-                </>}
+                </Card>}
         </>
     )
 }

@@ -1,10 +1,16 @@
-import {Button, Space} from "antd";
-import {UserAddOutlined} from "@ant-design/icons";
-import UserItem from "../UserItem";
+import { Button, List } from "antd";
+import { UserAddOutlined } from "@ant-design/icons";
 import React from "react";
 import InviteModal from "../invitation/InviteModal";
+import ProfileAvatar from "../../profile/ProfileAvatar";
 
-export default function UserListSection({users, isTeacher, classroomId, teacherInvitationCode, studentInvitationCode}: any) {
+export default function UserListSection({
+                                            users,
+                                            isTeacher,
+                                            classroomId,
+                                            teacherInvitationCode,
+                                            studentInvitationCode
+                                        }: any) {
     const [inviteVisible, setInviteVisible]: any = React.useState(false);
 
     const handleInviteClick = () => {
@@ -17,18 +23,27 @@ export default function UserListSection({users, isTeacher, classroomId, teacherI
 
     return (
         <>
-            {isTeacher && <InviteModal visible={inviteVisible} onClose={handleInviteClose}
-                                       classroomId={classroomId}
-                                       teacherInvitationCode={teacherInvitationCode}
-                                       studentInvitationCode={studentInvitationCode}/>}
-            <Space direction="vertical" style={{position: "relative", width: "100%", marginTop: "16px"}}>
-                {isTeacher && <Button type="primary" icon={<UserAddOutlined/>}
-                                      style={{position: "absolute", top: 0, right: 0}}
-                                      onClick={handleInviteClick}>Invite</Button>}
-                {Array.isArray(users) && users.length ? users.map((user: any, i: number) => (
-                    <UserItem key={i} user={user}/>
-                )) : <p>Nobody join yet</p>}
-            </Space>
+            {
+                isTeacher ?
+                    <>
+                        <InviteModal visible={inviteVisible} onClose={handleInviteClose}
+                                     classroomId={classroomId}
+                                     teacherInvitationCode={teacherInvitationCode}
+                                     studentInvitationCode={studentInvitationCode} />
+                        <Button type="primary" icon={<UserAddOutlined />}
+                                onClick={handleInviteClick}>Invite new user</Button>
+                    </> : null
+            }
+            <List itemLayout="horizontal"
+                  dataSource={users}
+                  renderItem={(item: any) =>
+                      (<List.Item>
+                          <List.Item.Meta style={{display: "flex", alignItems: "center"}}
+                                          avatar={<ProfileAvatar user={item} size={60} />}
+                                          title={item.name} />
+                      </List.Item>)
+                  }
+            />
         </>
     )
 }

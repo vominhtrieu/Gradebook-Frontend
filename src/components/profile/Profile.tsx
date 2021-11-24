@@ -55,7 +55,7 @@ export default function Profile() {
         }}
       >
         <Meta
-          avatar={<ProfileAvatar user={user} />}
+          avatar={<ProfileAvatar user={user} size={120} editable />}
           className="profile-card-meta"
           description={
             <p>

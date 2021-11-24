@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import {AutoComplete, Button, Input, message, Modal, Tooltip} from "antd";
-import {CopyOutlined} from "@ant-design/icons";
+import React, { useState } from "react";
+import { AutoComplete, Button, Input, message, Modal, Space, Tooltip } from "antd";
+import { CopyOutlined } from "@ant-design/icons";
 import ClipboardJS from "clipboard";
-import {postData} from "../../../handlers/api";
+import { postData } from "../../../handlers/api";
 
 new ClipboardJS(".btn");
 
@@ -58,13 +58,17 @@ export default function InviteModal({
 
     return (
         <Modal visible={visible} onCancel={onClose} onOk={handleSendInvite} okText="Send" title="Invite User">
-            <div style={{display: "flex", alignItems: "center", flexWrap: "wrap"}}>
-                <Input style={{width: "80%"}} defaultValue={inviteLink}/>
-                <Tooltip title="Copy Link">
-                    <Button className="btn" data-clipboard-text={inviteLink} icon={<CopyOutlined/>}/>
-                </Tooltip>
-                <p style={{marginTop: "20px"}}>Enter email to receive invitation:</p>
-                <AutoComplete value={input} style={{flexBasis: "80%"}} onSelect={onSelect}
+            <Space direction="vertical" style={{width: "100%"}}>
+                <div style={{display: "flex", width: "100%"}}>
+                    <Input defaultValue={inviteLink} style={{marginRight: 5}} />
+                    <Tooltip title="Copy Link">
+                        <Button className="btn" data-clipboard-text={inviteLink} icon={<CopyOutlined />} />
+                    </Tooltip>
+                </div>
+                <Space>
+                    <p style={{marginTop: "20px"}}>Enter email to receive invitation:</p>
+                </Space>
+                <AutoComplete style={{width: "100%"}} value={input} onSelect={onSelect}
                               onChange={handleInputChange} onSearch={handleSearch}>
                     {userOptions.map((user: any, i: number) => (
                         <Option key={user.id} value={user.email}>
@@ -72,7 +76,7 @@ export default function InviteModal({
                         </Option>
                     ))}
                 </AutoComplete>
-            </div>
+            </Space>
         </Modal>
     )
 }
