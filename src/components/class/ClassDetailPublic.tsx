@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {Button, Space, Typography, message, Modal} from "antd";
+import React, { useEffect, useState } from "react";
+import { Button, Space, Typography, message, Modal, List, Card } from "antd";
 import UserItem from "./UserItem";
-import {useHistory, useLocation, useParams} from "react-router-dom";
-import {postData} from "../../handlers/api";
-import {API_HOST} from "../../configs/api";
+import { useHistory, useLocation, useParams } from "react-router-dom";
+import { postData } from "../../handlers/api";
+import { API_HOST } from "../../configs/api";
+import ProfileAvatar from "../profile/ProfileAvatar";
 
 const {Title, Text} = Typography;
 
@@ -25,10 +26,6 @@ export default function ClassDetailPublic({classroom}: any) {
             setHaveInvitation(true);
         }
     }, [location.search]);
-
-    const handleEnrollClick = () => {
-        message.error("You can't enroll yourself yet!");
-    }
 
     const handleInviteCancel = () => {
         setInviteVisible(false);
@@ -53,62 +50,50 @@ export default function ClassDetailPublic({classroom}: any) {
     }
 
     const inviteFooter = [
-        <Button key="cancel" type="primary" danger onClick={handleInviteCancel}>Cancel</Button>,
-        <Button key="reject" onClick={handleInviteReject}>Nah</Button>,
+        <Button key="cancel" onClick={handleInviteCancel}>Cancel</Button>,
+        <Button key="reject" type="primary" danger onClick={handleInviteReject}>Reject</Button>,
         <Button key="accept" type="primary" onClick={handleInviteAccept}>Accept</Button>
     ];
 
-    let image = <div style={{
-        objectFit: "fill", width: "100%", height: "50%", background: "#2F86A6", borderRadius: "2px 2px 0 0",
-        border: "1px solid #F0F0F0", boxSizing: "border-box", position: "absolute", left: 0, top: "64px"
-    }}/>
-    if (classroom.image && classroom.image.length > 0) {
-        image = <img height={"auto"}
-                     style={{
-                         width: "100%",
-                         objectFit: "cover",
-                         borderRadius: "2px 2px 0 0",
-                         border: "1px solid #F0F0F0",
-                         boxSizing: "border-box",
-                         position: "absolute",
-                         left: 0,
-                         top: "64px"
-                     }}
-                     alt={`Cannot load cover`}
-                     src={`${API_HOST}${classroom.image}`}/>
-    }
-
     return (
-        <>
+        <Card cover={classroom.image ?
+            <img style={{width: "100%", height: "300px", objectFit: "cover"}} alt="Background"
+                 src={API_HOST + classroom.image} /> :
+            <div style={{width: "100%", height: "300px", objectFit: "cover", background: "#2F86A6"}} />}>
             <Modal visible={inviteVisible} onCancel={handleInviteCancel} footer={inviteFooter}>
                 <p>You have an invitation to this class</p>
             </Modal>
-            {image}
             <div style={{
                 display: "flex",
                 backgroundColor: "white",
                 position: "relative",
-                marginTop: "100px",
                 minHeight: "500px"
             }}>
                 <div style={{flexBasis: "70%", padding: "1em 3em"}}>
                     <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                         <Title level={2}>{classroom.name}</Title>
-                        <Button type="primary" onClick={handleEnrollClick}>Enroll</Button>
                     </div>
                     <Text>{classroom.description}</Text>
                 </div>
-                <div style={{flexBasis: "30%", padding: "10px", borderLeft: "1px solid rgb(0, 0, 0, 0.25)"}}>
-                    <Space direction="vertical">
+                <div style={{flexBasis: "30%", padding: "10px", borderLeft: "1px solid rgb(0, 0, 0, 0.05)"}}>
+                    <div>
                         {haveInvitation &&
-                        <Button onClick={handleSeeInviteClick} style={{width: "100%"}}>See invitation</Button>}
+                        <Button type="primary" style={{width: "100%", marginBottom: 5}} onClick={handleSeeInviteClick}>See
+                            invitation</Button>}
                         <Title level={3}>Teachers</Title>
-                        {Array.isArray(classroom.teachers) && classroom.teachers.length && classroom.teachers.map((teacher: any, i: number) => (
-                            <UserItem user={teacher} key={i}/>
-                        ))}
-                    </Space>
+                        <List itemLayout="horizontal"
+                              dataSource={classroom.teachers}
+                              renderItem={(item: any) =>
+                                  (<List.Item>
+                                      <List.Item.Meta style={{display: "flex", alignItems: "center"}}
+                                                      avatar={<ProfileAvatar user={item} size={60} />}
+                                                      title={item.name} />
+                                  </List.Item>)
+                              }
+                        />
+                    </div>
                 </div>
             </div>
-        </>
+        </Card>
     );
 }
