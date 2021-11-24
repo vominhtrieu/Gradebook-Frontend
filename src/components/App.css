@@ -44,13 +44,18 @@
     border-radius: 5px;
 }
 
-.ant-form-item .ant-input-password {
+.ant-form-item a {
+    font-weight: normal;
+    text-transform: none;
+}
+
+.ant-form-item .ant-input-affix-wrapper {
     height: 45px;
     margin-bottom: 3px;
     border-radius: 5px;
 }
 
-.ant-form-item .ant-input-password input {
+.ant-form-item .ant-input-affix-wrapper input {
     height: 35px;
 }
 
