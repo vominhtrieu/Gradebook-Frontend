@@ -2,7 +2,6 @@ import React from "react";
 import { Avatar, Card } from "antd";
 import Meta from "antd/es/card/Meta";
 import { UserOutlined } from "@ant-design/icons";
-import { API_HOST } from "../../configs/api";
 import {Link} from "react-router-dom";
 
 export default function Class({classID, name, teacher, cover}: any) {
@@ -19,12 +18,12 @@ export default function Class({classID, name, teacher, cover}: any) {
                          boxSizing: "border-box"
                      }}
                      alt={`Cannot load cover`}
-                     src={`${API_HOST}${cover}`} />
+                     src={`${process.env.REACT_APP_API_HOST}${cover}`} />
     }
     return <Card style={{margin: 10}}
                  bordered={true}
                  cover={image}>
-        <Meta avatar={teacher.avatar ? <Avatar size="large" src={`${API_HOST}${teacher.avatar}`} /> :
+        <Meta avatar={teacher.avatar ? <Avatar size="large" src={`${process.env.REACT_APP_API_HOST}${teacher.avatar}`} /> :
             <Avatar size="large" icon={<UserOutlined />} />}
               title={<Link to={`/classrooms/${classID}`} style={{color: "#000000"}}>{name}</Link>}
               description={teacher.name} />

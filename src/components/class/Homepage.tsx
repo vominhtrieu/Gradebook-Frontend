@@ -3,7 +3,6 @@ import Class from "./Class";
 import React, { useContext, useEffect, useState } from "react";
 import { getData } from "../../handlers/api";
 import { MainContext } from "../../contexts/main";
-import Title from "antd/es/typography/Title";
 
 export default function Homepage() {
     const [createdClassrooms, setCreatedClassrooms]: any = useState(null);
