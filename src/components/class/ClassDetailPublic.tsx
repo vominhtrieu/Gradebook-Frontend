@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Button, Typography, message, Modal, List, Card } from "antd";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { postData } from "../../handlers/api";
-import { API_HOST } from "../../configs/api";
 import ProfileAvatar from "../profile/ProfileAvatar";
 
-const {Title, Text} = Typography;
+const {Title, Text, Paragraph} = Typography;
 
 type URLParams = {
     id: string,
@@ -57,7 +56,7 @@ export default function ClassDetailPublic({classroom}: any) {
     return (
         <Card cover={classroom.image ?
             <img style={{width: "100%", height: "300px", objectFit: "cover"}} alt="Background"
-                 src={API_HOST + classroom.image} /> :
+                 src={process.env.REACT_APP_API_HOST + classroom.image} /> :
             <div style={{width: "100%", height: "300px", objectFit: "cover", background: "#2F86A6"}} />}>
             <Modal visible={inviteVisible} onCancel={handleInviteCancel} footer={inviteFooter}>
                 <p>You have an invitation to this class</p>
@@ -72,7 +71,7 @@ export default function ClassDetailPublic({classroom}: any) {
                     <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                         <Title level={2}>{classroom.name}</Title>
                     </div>
-                    <Text>{classroom.description}</Text>
+                    <Paragraph><Text strong={true}>Description: </Text>{classroom.description}</Paragraph>
                 </div>
                 <div style={{flexBasis: "30%", padding: "10px", borderLeft: "1px solid rgb(0, 0, 0, 0.05)"}}>
                     <div>

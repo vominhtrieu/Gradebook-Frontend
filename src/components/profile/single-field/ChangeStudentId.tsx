@@ -1,14 +1,12 @@
-import { Form, message, Spin } from "antd";
+import {Button, Form, Input, message, Spin} from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { MainContext } from "../../../contexts/main";
 import userStudentIdRules from "../../../form-rules/userStudentId";
+import FormItem from "antd/lib/form/FormItem";
 import { getData, postData } from "../../../handlers/api";
-import ProfileSingleFieldButton from "./ProfileSingleFieldButton";
 import ProfileSingleFieldButtonWrapper from "./ProfileSingleFieldButtonWrapper";
 import ProfileSingleFieldContainer from "./ProfileSingleFieldContainer";
-import ProfileSingleFieldInput from "./ProfileSingleFieldInput";
-import ProfileSingleFieldInputBox from "./ProfileSingleFieldInputBox";
 
 export default function ChangeStudentId() {
   const [user, setUser]: any = useState(null);
@@ -68,8 +66,8 @@ export default function ChangeStudentId() {
   return (
     <ProfileSingleFieldContainer title="change student id">
       <Form layout="vertical" form={form}>
-        <ProfileSingleFieldInputBox name="current student id">
-          <ProfileSingleFieldInput
+        <FormItem name="current student id">
+          <Input
             placeholder={
               user?.studentId
                 ? user?.studentId
@@ -77,28 +75,28 @@ export default function ChangeStudentId() {
             }
             disabled
           />
-        </ProfileSingleFieldInputBox>
-        <ProfileSingleFieldInputBox
+        </FormItem>
+        <FormItem
           name="new student id"
           rules={userStudentIdRules}
         >
-          <ProfileSingleFieldInput placeholder="New Student Id" />
-        </ProfileSingleFieldInputBox>
+          <Input placeholder="New Student Id" />
+        </FormItem>
         <ProfileSingleFieldButtonWrapper>
-          <ProfileSingleFieldButton
+          <Button
             size="large"
             onClick={() => history.push("/profile")}
           >
             Cancel
-          </ProfileSingleFieldButton>
-          <ProfileSingleFieldButton
+          </Button>
+          <Button
             size="large"
             type="primary"
             onClick={updateStudentId}
             disabled={loading}
           >
             {loading ? <Spin style={{ paddingRight: 5 }} /> : null} Save
-          </ProfileSingleFieldButton>
+          </Button>
         </ProfileSingleFieldButtonWrapper>
       </Form>
     </ProfileSingleFieldContainer>

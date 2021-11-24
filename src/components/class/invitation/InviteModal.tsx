@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { AutoComplete, Button, Input, message, Modal, Space, Tooltip } from "antd";
-import { CopyOutlined } from "@ant-design/icons";
+import React, {useState} from "react";
+import {AutoComplete, Button, Input, message, Modal, Space, Tooltip} from "antd";
+import {CopyOutlined} from "@ant-design/icons";
 import ClipboardJS from "clipboard";
-import { postData } from "../../../handlers/api";
+import {postData} from "../../../handlers/api";
 
 new ClipboardJS(".btn");
 
@@ -54,15 +54,15 @@ export default function InviteModal({
         }
     }
 
-    const inviteLink = `http://localhost:3000/classrooms/1?${teacherInvitationCode ? "teacherInvitationCode" : "studentInvitationCode"}=${teacherInvitationCode ? teacherInvitationCode : studentInvitationCode}`;
+    const inviteLink = `${process.env.REACT_APP_CLIENT_URL}/classrooms/1?${teacherInvitationCode ? "teacherInvitationCode" : "studentInvitationCode"}=${teacherInvitationCode ? teacherInvitationCode : studentInvitationCode}`;
 
     return (
         <Modal visible={visible} onCancel={onClose} onOk={handleSendInvite} okText="Send" title="Invite User">
             <Space direction="vertical" style={{width: "100%"}}>
                 <div style={{display: "flex", width: "100%"}}>
-                    <Input defaultValue={inviteLink} style={{marginRight: 5}} />
+                    <Input defaultValue={inviteLink} style={{marginRight: 5}}/>
                     <Tooltip title="Copy Link">
-                        <Button className="btn" data-clipboard-text={inviteLink} icon={<CopyOutlined />} />
+                        <Button className="btn" data-clipboard-text={inviteLink} icon={<CopyOutlined/>}/>
                     </Tooltip>
                 </div>
                 <Space>

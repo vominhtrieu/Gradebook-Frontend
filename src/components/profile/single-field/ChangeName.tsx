@@ -1,14 +1,12 @@
-import { Form, message, Spin } from "antd";
+import {Button, Form, Input, message, Spin} from "antd";
+import FormItem from "antd/lib/form/FormItem";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { MainContext } from "../../../contexts/main";
 import userNameRules from "../../../form-rules/userName";
 import { getData, postData } from "../../../handlers/api";
-import ProfileSingleFieldButton from "./ProfileSingleFieldButton";
 import ProfileSingleFieldButtonWrapper from "./ProfileSingleFieldButtonWrapper";
 import ProfileSingleFieldContainer from "./ProfileSingleFieldContainer";
-import ProfileSingleFieldInput from "./ProfileSingleFieldInput";
-import ProfileSingleFieldInputBox from "./ProfileSingleFieldInputBox";
 
 export default function ChangeName() {
   const [user, setUser]: any = useState(null);
@@ -68,27 +66,27 @@ export default function ChangeName() {
   return (
     <ProfileSingleFieldContainer title="change name">
       <Form layout="vertical" form={form}>
-        <ProfileSingleFieldInputBox name="current name">
-          <ProfileSingleFieldInput placeholder={user?.name} disabled />
-        </ProfileSingleFieldInputBox>
-        <ProfileSingleFieldInputBox name="new name" rules={userNameRules}>
-          <ProfileSingleFieldInput placeholder="New Name" />
-        </ProfileSingleFieldInputBox>
+        <FormItem name="current name">
+          <Input placeholder={user?.name} disabled />
+        </FormItem>
+        <FormItem name="new name" rules={userNameRules}>
+          <Input placeholder="New Name" />
+        </FormItem>
         <ProfileSingleFieldButtonWrapper>
-          <ProfileSingleFieldButton
+          <Button
             size="large"
             onClick={() => history.push("/profile")}
           >
             Cancel
-          </ProfileSingleFieldButton>
-          <ProfileSingleFieldButton
+          </Button>
+          <Button
             size="large"
             type="primary"
             onClick={updateName}
             disabled={loading}
           >
             {loading ? <Spin style={{ paddingRight: 5 }} /> : null} Save
-          </ProfileSingleFieldButton>
+          </Button>
         </ProfileSingleFieldButtonWrapper>
       </Form>
     </ProfileSingleFieldContainer>
