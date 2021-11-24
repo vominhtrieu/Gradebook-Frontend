@@ -1,5 +1,4 @@
 import { Avatar, Button, message, Space, Spin, Upload } from "antd";
-import { API_HOST } from "../../configs/api";
 import { UserOutlined, CameraOutlined } from "@ant-design/icons";
 import ImgCrop from "antd-img-crop";
 import { useContext, useState } from "react";
@@ -28,7 +27,7 @@ export default function ProfileAvatar({user, size, editable}: any) {
     return (
         <Space style={{position: "relative"}}>
             {user && user.avatar ? (
-                <Avatar size={size > 0 ? size : 80} src={`${API_HOST}${user.avatar}`} />
+                <Avatar size={size > 0 ? size : 80} src={`${process.env.REACT_APP_API_HOST}${user.avatar}`} />
             ) : (
                 <Avatar size={size > 0 ? size : 80} icon={<UserOutlined />} />
             )}
@@ -38,7 +37,7 @@ export default function ProfileAvatar({user, size, editable}: any) {
                         name="avatar"
                         listType="picture"
                         showUploadList={false}
-                        action={`${API_HOST}/users/avatar`}
+                        action={`${process.env.REACT_APP_API_HOST}/users/avatar`}
                         onChange={handleAvatarChange}
                         headers={{Authorization: `Bearer ${localStorage.getItem("token")}`}}
                         accept=".png,.jpg,.jpeg"
