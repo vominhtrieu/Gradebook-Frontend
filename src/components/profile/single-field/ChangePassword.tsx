@@ -1,18 +1,27 @@
-import {Button, Form, Input, message, Spin} from "antd";
+import { Button, Form, Input, message, Spin } from "antd";
 import FormItem from "antd/lib/form/FormItem";
-import {useContext, useState} from "react";
-import {useHistory} from "react-router";
-import {MainContext} from "../../../contexts/main";
+import { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import { MainContext } from "../../../contexts/main";
 import userPasswordRules from "../../../form-rules/userPassword";
-import {postData} from "../../../handlers/api";
+import { getData, postData } from "../../../handlers/api";
 import ProfileSingleFieldButtonWrapper from "./ProfileSingleFieldButtonWrapper";
 import ProfileSingleFieldContainer from "./ProfileSingleFieldContainer";
 
 export default function ChangePassword() {
     const [loading, setLoading] = useState(false);
+    const [passwordPresent, setPasswordPresent] = useState(false);
     const [form] = Form.useForm();
     const mainContext = useContext(MainContext);
     const history = useHistory();
+
+    useEffect(() => {
+        getData("/users/profile")
+            .then((user: any) => {
+                setPasswordPresent(user.passwordPresent);
+            })
+            .catch(() => message.error("Something went wrong!"));
+    }, [])
 
     const updatePassword = () => {
         form
@@ -62,17 +71,18 @@ export default function ChangePassword() {
     return (
         <ProfileSingleFieldContainer title="change password">
             <Form layout="vertical" form={form}>
-                <FormItem
-                    name="old password"
-                    rules={userPasswordRules}
-                >
-                    <Input.Password placeholder="Old Password"/>
-                </FormItem>
+                {passwordPresent ?
+                    <FormItem
+                        name="old password"
+                        rules={userPasswordRules}
+                    >
+                        <Input.Password placeholder="Old Password" />
+                    </FormItem> : null}
                 <FormItem
                     name="new password"
                     rules={userPasswordRules}
                 >
-                    <Input.Password placeholder="New Password" type="password"/>
+                    <Input.Password placeholder="New Password" type="password" />
                 </FormItem>
                 <FormItem
                     name="confirm new password"
@@ -98,7 +108,7 @@ export default function ChangePassword() {
                         onClick={updatePassword}
                         disabled={loading}
                     >
-                        {loading ? <Spin style={{paddingRight: 5}}/> : null} Save
+                        {loading ? <Spin style={{paddingRight: 5}} /> : null} Save
                     </Button>
                 </ProfileSingleFieldButtonWrapper>
             </Form>
