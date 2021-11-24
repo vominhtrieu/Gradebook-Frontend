@@ -5,37 +5,94 @@ import { getData } from "../../handlers/api";
 import { MainContext } from "../../contexts/main";
 
 export default function Homepage() {
-    const [classrooms, setClassrooms]: any = useState(null);
-    const mainContext = useContext(MainContext);
+  const [createdClassrooms, setCreatedClassrooms]: any = useState(null);
+  const [joinedClassrooms, setJoinedClassrooms]: any = useState(null);
+  const mainContext = useContext(MainContext);
 
-    useEffect(() => {
-        if (classrooms === null) {
-            mainContext.setReloadNeeded(true);
-        }
-    }, [classrooms, mainContext]);
-
-    useEffect(() => {
-        if (!mainContext.reloadNeeded) {
-            return;
-        }
-        getData("/classrooms").then((classrooms) => {
-            setClassrooms(classrooms);
-            mainContext.setReloadNeeded(false);
-        }).catch(() => message.error("Something went wrong! Maybe, you should login first!"));
-    }, [mainContext]);
-
-    if (classrooms === null) {
-        return <Space style={{display: "flex", justifyContent: "center", marginTop: 20}}><Spin /></Space>
+  useEffect(() => {
+    if (createdClassrooms === null) {
+      mainContext.setReloadNeeded(true);
     }
-    return (<>
-        <h3 style={{marginLeft: 10, textAlign: "center"}}>ALL COURSES </h3>
-        <Row>
-            {classrooms.map ? classrooms.map((classroom: any, i: number) => (
-                <Col key={i} lg={{span: 6}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}}>
-                    <Class classID={classroom.id} name={classroom.name} teacher={classroom.teachers[0]}
-                           cover={classroom.image} />
-                </Col>
-            )) : null}
-        </Row>
-    </>);
+  }, [createdClassrooms, mainContext]);
+
+  useEffect(() => {
+    if (!mainContext.reloadNeeded) {
+      return;
+    }
+    getData("/classrooms/role/teacher")
+      .then(classrooms => {
+        setCreatedClassrooms(classrooms);
+        getData("/classrooms/role/student")
+          .then(classrooms => {
+            setJoinedClassrooms(classrooms);
+            mainContext.setReloadNeeded(false);
+          })
+          .catch(() =>
+            message.error(
+              "Something went wrong! Maybe, you should login first!"
+            )
+          );
+      })
+      .catch(() =>
+        message.error("Something went wrong! Maybe, you should login first!")
+      );
+  }, [mainContext]);
+
+  if (createdClassrooms === null) {
+    return (
+      <Space
+        style={{ display: "flex", justifyContent: "center", marginTop: 20 }}
+      >
+        <Spin />
+      </Space>
+    );
+  }
+  return (
+    <>
+      <h3 style={{ marginTop: 20, textAlign: "center" }}>YOUR COURSES</h3>
+      <Row>
+        {createdClassrooms
+          ? createdClassrooms.map((classroom: any, i: number) => (
+              <Col
+                key={i}
+                lg={{ span: 6 }}
+                md={{ span: 8 }}
+                sm={{ span: 12 }}
+                xs={{ span: 24 }}
+              >
+                <Class
+                  classID={classroom.id}
+                  name={classroom.name}
+                  teacher={classroom.teachers[0]}
+                  cover={classroom.image}
+                />
+              </Col>
+            ))
+          : null}
+      </Row>
+      <h3 style={{ marginTop: 20, textAlign: "center" }}>
+        YOUR JOINED COURSES
+      </h3>
+      <Row>
+        {joinedClassrooms
+          ? joinedClassrooms.map((classroom: any, i: number) => (
+              <Col
+                key={i}
+                lg={{ span: 6 }}
+                md={{ span: 8 }}
+                sm={{ span: 12 }}
+                xs={{ span: 24 }}
+              >
+                <Class
+                  classID={classroom.id}
+                  name={classroom.name}
+                  teacher={classroom.teachers[0]}
+                  cover={classroom.image}
+                />
+              </Col>
+            ))
+          : null}
+      </Row>
+    </>
+  );
 }
