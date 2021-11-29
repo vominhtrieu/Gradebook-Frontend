@@ -6,6 +6,7 @@ import {RouteComponentProps} from "react-router-dom";
 import {MainContext} from "../../contexts/main";
 import {getData} from "../../handlers/api";
 import ClassDetailPublic from "./ClassDetailPublic";
+import GradeStructureSection from "./class_detail/GradeStructureSection";
 
 const {TabPane} = Tabs;
 
@@ -66,6 +67,10 @@ export default function ClassDetailJoined({match, history}: RouteComponentProps<
                                                  classroomId={classroom.id}
                                                  studentInvitationCode={classroom.studentInvitationCode}/>
                             </TabPane>
+                            {classroom.isTeacher &&
+                            <TabPane tab="Grade Structure" key="grade_structures" style={TabPaneStyle}>
+                                <GradeStructureSection/>
+                            </TabPane>}
                         </Tabs>
                     </div>
                 </Card>}
