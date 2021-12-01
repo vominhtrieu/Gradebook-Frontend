@@ -1,7 +1,5 @@
-import { API_HOST } from "../configs/api";
-
 export const getData = (url: string): Promise<any> => {
-  return fetch(`${API_HOST}${url}`, {
+  return fetch(`${process.env.REACT_APP_API_HOST}${url}`, {
     method: "GET",
     mode: "cors",
     headers: {
@@ -18,7 +16,7 @@ export const getData = (url: string): Promise<any> => {
 };
 
 export const postData = (url: string, data: any): Promise<any> => {
-  return fetch(`${API_HOST}${url}`, {
+  return fetch(`${process.env.REACT_APP_API_HOST}${url}`, {
     method: "POST",
     mode: "cors",
     body: JSON.stringify(data),
@@ -36,7 +34,7 @@ export const postData = (url: string, data: any): Promise<any> => {
 };
 
 export const deleteData = (url: string, data: any): Promise<any> => {
-  return fetch(`${API_HOST}${url}`, {
+  return fetch(`${process.env.REACT_APP_API_HOST}${url}`, {
     method: "DELETE",
     mode: "cors",
     body: JSON.stringify(data),
@@ -54,7 +52,7 @@ export const deleteData = (url: string, data: any): Promise<any> => {
 };
 
 export const putData = (url: string, data: any): Promise<any> => {
-  return fetch(`${API_HOST}${url}`, {
+  return fetch(`${process.env.REACT_APP_API_HOST}${url}`, {
     method: "PUT",
     mode: "cors",
     body: JSON.stringify(data),
