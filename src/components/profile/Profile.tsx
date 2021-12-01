@@ -42,7 +42,6 @@ export default function Profile() {
   }, [user, mainContext]);
 
   const joinedDate = new Date(user?.joinedDate);
-  // console.log(user);
   return user ? (
     <>
       <Card

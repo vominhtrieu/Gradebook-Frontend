@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Card, Divider, Input, Space, Tooltip, Typography } from "antd";
 import { EditOutlined, DeleteOutlined, SaveOutlined } from "@ant-design/icons";
 import { Draggable } from "react-beautiful-dnd";
+import {
+  deleteGradeStructureHandler,
+  updateGradeStructureHandler,
+} from "../../../handlers/gradeStructure";
+import { useParams } from "react-router";
 
 interface GradeStructureItemProps {
   id: string;
   index: number;
   title: string;
   detail: string;
+  onEdit: (idx: number, newTitle: string, newDetail: string) => void;
   onDelete: (idx: number) => void;
 }
 
@@ -16,26 +22,42 @@ export default function GradeStructureItem({
   index,
   title,
   detail,
+  onEdit,
   onDelete,
 }: GradeStructureItemProps) {
-  const [disable, setDisable] = React.useState(false);
+  const [itemTitle, setItemTitle] = React.useState(title);
+  const [itemDetail, setItemDetail] = React.useState(detail);
+  const [disable, setDisable] = React.useState(true);
+  const urlParams = useParams<any>();
 
-  React.useEffect(() => {
-    if (title !== "" || detail !== "") {
-      setDisable(true);
-    }
-  }, [title, detail]);
+  useEffect(() => {
+    setItemTitle(title);
+  }, [title]);
+
+  useEffect(() => {
+    setItemDetail(detail);
+  }, [detail]);
 
   const handleEdit = () => {
+    if (!disable) return;
     setDisable(false);
   };
 
   const handleSave = () => {
+    if (disable) return;
+    updateGradeStructureHandler(
+      id,
+      index,
+      itemTitle,
+      itemDetail,
+      urlParams.id,
+      onEdit
+    );
     setDisable(true);
   };
 
   const handleDelete = () => {
-    onDelete(index);
+    deleteGradeStructureHandler(id, urlParams.id, index, onDelete);
   };
 
   const styles = {
@@ -74,36 +96,42 @@ export default function GradeStructureItem({
                   <Typography.Text>Grade title: </Typography.Text>
                   <Input
                     style={styles.inputStyle}
-                    value={title}
+                    value={itemTitle}
                     disabled={disable}
+                    onChange={e => setItemTitle(e.target.value)}
                   />
                 </Space>
                 <Space align="center" style={styles.spaceInputStyle}>
                   <Typography.Text>Grade detail: </Typography.Text>
                   <Input
                     style={styles.inputStyle}
-                    value={detail}
+                    value={itemDetail}
                     disabled={disable}
+                    onChange={e => setItemDetail(e.target.value)}
                   />
                 </Space>
               </Space>
               <Space direction="vertical" size={10}>
-                <Tooltip title="Edit" placement="right">
-                  <Button
-                    type="text"
-                    icon={<EditOutlined style={styles.iconStyle} />}
-                    size="large"
-                    onClick={handleEdit}
-                  />
-                </Tooltip>
-                <Tooltip title="Save" placement="right">
-                  <Button
-                    type="text"
-                    icon={<SaveOutlined style={styles.iconStyle} />}
-                    size="large"
-                    onClick={handleSave}
-                  />
-                </Tooltip>
+                {disable ? (
+                  <Tooltip title="Edit" placement="right">
+                    <Button
+                      type="text"
+                      icon={<EditOutlined style={styles.iconStyle} />}
+                      size="large"
+                      onClick={handleEdit}
+                    />
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Save" placement="right">
+                    <Button
+                      type="text"
+                      icon={<SaveOutlined style={styles.iconStyle} />}
+                      size="large"
+                      onClick={handleSave}
+                    />
+                  </Tooltip>
+                )}
+
                 <Tooltip title="Delete" placement="right">
                   <Button
                     type="text"

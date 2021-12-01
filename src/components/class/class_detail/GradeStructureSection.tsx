@@ -1,46 +1,63 @@
-import { Button, Empty, message, Popconfirm, Space, Tooltip } from "antd";
-import {
-  PlusSquareOutlined,
-  ClearOutlined,
-  SaveOutlined,
-} from "@ant-design/icons";
+import { Empty, message, Space } from "antd";
 import GradeStructureItem from "./GradeStructureItem";
 import GradeStructureList from "./GradeStructureList";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-
-const items: any = [
-  {
-    title: "Mid term",
-    detail: "40",
-  },
-  {
-    title: "Final term",
-    detail: "50",
-  },
-  {
-    title: "Test",
-    detail: "60",
-  },
-];
+import { MainContext } from "../../../contexts/main";
+import { getData } from "../../../handlers/api";
+import { useParams } from "react-router";
+import GradeStructureInputItem from "./GradeStructureInputItem";
 
 export default function GradeStructureSection() {
-  const [gradeStructure, setGradeStructure]: any = useState(items);
+  const [gradeStructure, setGradeStructure]: any = useState(null);
+  const { id } = useParams<any>();
+  const mainContext = useContext(MainContext);
 
-  const handleNewItem = () => {
-    setGradeStructure([...gradeStructure, { title: "", detail: "" }]);
+  useEffect(() => {
+    const fetchData = () => {
+      getData(`/classrooms/${id}/grade-structures`)
+        .then((gradeStructure: any) => {
+          setGradeStructure(gradeStructure);
+          mainContext.setReloadNeeded(false);
+        })
+        .catch(() => message.error("Something went wrong!"));
+    };
+
+    if (!mainContext.reloadNeeded) {
+      return;
+    }
+
+    fetchData();
+  }, [mainContext, id]);
+
+  useEffect(() => {
+    if (!gradeStructure) {
+      mainContext.setReloadNeeded(true);
+    }
+  }, [gradeStructure, mainContext]);
+
+  const handleAddItem = (newItem: any) => {
+    setGradeStructure([...gradeStructure, newItem]);
+  };
+
+  const handleEditItem = (
+    index: number,
+    newTitle: string,
+    newDetail: string
+  ) => {
+    const tempItems = [...gradeStructure];
+    tempItems[index] = {
+      id: tempItems[index].id,
+      name: newTitle,
+      grade: newDetail,
+    };
+    setGradeStructure(tempItems);
   };
 
   const handleDeleteItem = (index: number) => {
     const tempItems = [...gradeStructure];
-    if (index > -1) {
-      tempItems.splice(index, 1);
-      setGradeStructure(tempItems);
-    }
-  };
-
-  const handleSaveItems = () => {
-    message.info("Save result to database");
+    tempItems.splice(index, 1);
+    setGradeStructure(tempItems);
   };
 
   const handleOnDragEnd = (result: any) => {
@@ -65,59 +82,36 @@ export default function GradeStructureSection() {
   };
 
   return (
-    <>
-      <Space
-        direction="vertical"
-        size="large"
-        align="center"
-        style={styles.containerStyle}
-      >
-        {gradeStructure?.length ? (
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <GradeStructureList>
-              {gradeStructure.map((item: any, index: number) => (
-                <GradeStructureItem
-                  key={index}
-                  title={item.title}
-                  detail={item.detail}
-                  id={index.toString()}
-                  index={index}
-                  onDelete={handleDeleteItem}
-                />
-              ))}
-            </GradeStructureList>
-          </DragDropContext>
-        ) : (
-          <Empty />
-        )}
-
-        <Space size={25} align="center" style={styles.toolBarStyle}>
-          <Tooltip title="New">
-            <Button
-              type="text"
-              icon={<PlusSquareOutlined style={styles.toolBarIconStyle} />}
-              onClick={handleNewItem}
-            />
-          </Tooltip>
-          <Tooltip title="Save Structure">
-            <Button
-              type="text"
-              icon={<SaveOutlined style={styles.toolBarIconStyle} />}
-              size="large"
-              onClick={handleSaveItems}
-            />
-          </Tooltip>
-          <Tooltip title="Clear structure">
-            <Popconfirm title="This will delete all grades above. Make sure you want to do this.">
-              <Button
-                type="text"
-                danger
-                icon={<ClearOutlined style={styles.toolBarIconStyle} />}
+    <Space
+      direction="vertical"
+      size="large"
+      align="center"
+      style={styles.containerStyle}
+    >
+      {gradeStructure?.length ? (
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <GradeStructureList>
+            {gradeStructure.map((item: any, index: number) => (
+              <GradeStructureItem
+                key={index}
+                title={item.name}
+                detail={item.grade}
+                id={item?.id?.toString()}
+                index={index}
+                onEdit={handleEditItem}
+                onDelete={handleDeleteItem}
               />
-            </Popconfirm>
-          </Tooltip>
-        </Space>
-      </Space>
-    </>
+            ))}
+          </GradeStructureList>
+        </DragDropContext>
+      ) : (
+        <Empty />
+      )}
+
+      <GradeStructureInputItem
+        index={gradeStructure?.length}
+        onAdd={handleAddItem}
+      />
+    </Space>
   );
 }
