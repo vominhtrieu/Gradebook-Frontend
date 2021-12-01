@@ -7,6 +7,7 @@ import { MainContext } from "../../../contexts/main";
 import { getData } from "../../../handlers/api";
 import { useParams } from "react-router";
 import GradeStructureInputItem from "./GradeStructureInputItem";
+import { updateGradeStructureOrderHandler } from "../../../handlers/gradeStructure";
 
 export default function GradeStructureSection() {
   const [gradeStructure, setGradeStructure]: any = useState(null);
@@ -60,12 +61,22 @@ export default function GradeStructureSection() {
     setGradeStructure(tempItems);
   };
 
-  const handleOnDragEnd = (result: any) => {
+  const handleOnDragEnd = async (result: any) => {
     if (!result.destination) return;
-    const newGradeStructure = Array.from(gradeStructure);
-    const [reorderedItem] = newGradeStructure.splice(result.source.index, 1);
-    newGradeStructure.splice(result.destination.index, 0, reorderedItem);
-    setGradeStructure(newGradeStructure);
+    if (
+      await updateGradeStructureOrderHandler(
+        id,
+        gradeStructure[result.source.index].id,
+        result.source.index,
+        gradeStructure[result.destination.index].id,
+        result.destination.index
+      )
+    ) {
+      const newGradeStructure = Array.from(gradeStructure);
+      const [reorderedItem] = newGradeStructure.splice(result.source.index, 1);
+      newGradeStructure.splice(result.destination.index, 0, reorderedItem);
+      setGradeStructure(newGradeStructure);
+    }
   };
 
   const styles = {
