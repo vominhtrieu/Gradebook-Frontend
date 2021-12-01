@@ -25,8 +25,8 @@ export default function GradeStructureItem({
   onEdit,
   onDelete,
 }: GradeStructureItemProps) {
-  const [itemTitle, setItemTitle] = React.useState(title);
-  const [itemDetail, setItemDetail] = React.useState(detail);
+  const [itemTitle, setItemTitle] = React.useState("");
+  const [itemDetail, setItemDetail] = React.useState("");
   const [disable, setDisable] = React.useState(true);
   const urlParams = useParams<any>();
 

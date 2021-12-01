@@ -25,7 +25,6 @@ export const createGradeStructureHandler = async (
   try {
     const values = {
       name: title,
-      classroomId: classroomId,
       order: index,
       grade: detail,
     };
@@ -50,7 +49,6 @@ export const deleteGradeStructureHandler = async (
   try {
     const values = {
       id,
-      classroomId,
     };
     const result = await deleteData(
       `/classrooms/${classroomId}/grade-structures`,
@@ -106,11 +104,33 @@ export const updateGradeStructureHandler = async (
   }
 };
 
-export const updateGradeStructureOrderHandler = (
+export const updateGradeStructureOrderHandler = async (
   classroomId: any,
-  gradeStructure: any
+  sourceId: any,
+  sourceIndex: any,
+  destinationId: any,
+  destinationIndex: any
 ) => {
-  putData(`/classrooms/${classroomId}/grade-structures/order`, {
-    gradeStructures: gradeStructure,
-  });
+  try {
+    const values = {
+      sourceId,
+      sourceIndex,
+      destinationId,
+      destinationIndex,
+    };
+    const result = await putData(
+      `/classrooms/${classroomId}/grade-structures/order`,
+      values
+    );
+
+    if (result === "Success") {
+      return true;
+    } else {
+      message.error("Reorder grade structure items failed!");
+      return false;
+    }
+  } catch (e) {
+    message.error("Something went wrong!");
+    return false;
+  }
 };
