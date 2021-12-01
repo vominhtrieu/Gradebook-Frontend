@@ -1,11 +1,13 @@
 .grade-structure-list {
   list-style-type: none;
   padding: 0;
-  margin-bottom: 0;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .grade-structure-list li {
-  margin-bottom: 1.5rem;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .grade-structure-list li:last-child {
