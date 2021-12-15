@@ -2,7 +2,7 @@ import { Form, Input, Button, Card, Spin, Divider } from "antd";
 import { MailOutlined, LockOutlined, GoogleOutlined } from "@ant-design/icons";
 import "./Auth.css";
 import { Link, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import userEmailRules from "../../form-rules/userEmail";
 import userPasswordRules from "../../form-rules/userPassword";
 import GoogleLogin from "react-google-login";
@@ -11,22 +11,25 @@ import {
     googleSignInFailureHandler,
     signIn,
 } from "../../handlers/signIn";
+import {RoutingContext} from "../../contexts/routing";
 
 function SignIn() {
     const [loading, setLoading] = useState<boolean>(false);
     const [loginIsSuccessful, setLoginIsSuccessful] = useState<boolean>(false);
     const [form] = Form.useForm();
     const history = useHistory();
+    const routingContext = useContext(RoutingContext);
 
     useEffect(() => {
         localStorage.removeItem("token");
     }, []);
 
     useEffect(() => {
+        console.log(routingContext);
         if (loginIsSuccessful) {
-            history.push("/");
+            history.push(routingContext.requestedURL);
         }
-    }, [loginIsSuccessful, history]);
+    }, [loginIsSuccessful, history, routingContext.requestedURL]);
 
     const callSignIn = () => {
         signIn(setLoading, setLoginIsSuccessful, form);
