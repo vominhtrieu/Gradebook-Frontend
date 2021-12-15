@@ -54,7 +54,7 @@ export default function InviteModal({
         }
     }
 
-    const inviteLink = `${process.env.REACT_APP_CLIENT_URL}/classrooms/1?${teacherInvitationCode ? "teacherInvitationCode" : "studentInvitationCode"}=${teacherInvitationCode ? teacherInvitationCode : studentInvitationCode}`;
+    const inviteLink = `${process.env.REACT_APP_CLIENT_URL}/classrooms/${classroomId}?${teacherInvitationCode ? "teacherInvitationCode" : "studentInvitationCode"}=${teacherInvitationCode ? teacherInvitationCode : studentInvitationCode}`;
 
     return (
         <Modal visible={visible} onCancel={onClose} onOk={handleSendInvite} okText="Send" title="Invite User">
