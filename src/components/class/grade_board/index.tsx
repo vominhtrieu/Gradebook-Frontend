@@ -23,6 +23,30 @@ export default function GradeBoard() {
               detail: "4",
             }}
           />
+          <GradeBoardColumnHeader
+            gradeStructure={{
+              title: "Lorem ipsum dolor abcdefgh",
+              detail: "4",
+            }}
+          />
+          <GradeBoardColumnHeader
+            gradeStructure={{
+              title: "Lorem ipsum dolor abcdefgh",
+              detail: "4",
+            }}
+          />
+          <GradeBoardColumnHeader
+            gradeStructure={{
+              title: "Lorem ipsum dolor abcdefgh",
+              detail: "4",
+            }}
+          />
+          <GradeBoardColumnHeader
+            gradeStructure={{
+              title: "Lorem ipsum dolor abcdefgh",
+              detail: "4",
+            }}
+          />
 
           <th className="grade-board_dummy-column-header">
             <div></div>
