@@ -1,0 +1,233 @@
+th,
+td {
+  border: 1px solid #e0e0e0;
+  border-collapse: collapse;
+}
+
+.grade-board_table {
+  table-layout: fixed;
+  overflow: hidden;
+}
+
+.grade-board_dummy-column-header {
+  width: 100%;
+  border-right: none;
+  border-top: none;
+}
+
+.grade-board_dummy-cell {
+  border-right: none;
+}
+
+.grade-board_column-header {
+  min-height: 129px;
+  border-top: none;
+}
+
+.grade-board_column-header:first-child {
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0 0 11px;
+  margin-bottom: 5px;
+}
+
+.grade-board_column-header:first-child div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.grade-board_column-header:first-child div.button_container {
+  justify-content: flex-end;
+  padding: 0 24px 0 29px;
+}
+
+.grade-board_column-header:not(:first-child),
+.grade-board_grade-cell {
+  padding: 10px 16px;
+}
+
+.grade-board_column-header .column-header-wrapper {
+  width: 96px;
+}
+
+.grade-board_column-header .column-header-wrapper p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: left;
+  color: grey;
+  margin-bottom: 0;
+}
+
+.grade-board_column-header .grade-structure {
+  position: relative;
+}
+
+.grade-board_column-header .grade-structure button {
+  position: absolute;
+  right: -8px;
+  top: 0;
+}
+
+.grade-board_column-header .grade-structure .title,
+.grade-board_column-header .grade-structure .detail {
+  margin-bottom: 5px;
+}
+
+.grade-board_column-header .column-header-wrapper .divider {
+  width: 100%;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.grade-board_column-header .grade-structure .title {
+  min-height: 40px;
+  max-height: 40px;
+  max-width: 70px;
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  color: #007b83;
+}
+
+.grade-board_column-header .finalization-wrapper {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.grade-board_row {
+  height: 64px;
+  min-height: 64px;
+}
+
+tbody .grade-board_row:first-child {
+  background-color: #f8f9fa;
+}
+
+.grade-board_row-header {
+  border-left: none;
+  padding: 0 8px 0 24px;
+}
+
+.grade-board_row-header .row-header-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.grade-board_row-header .row-header-wrapper .avatar {
+  margin-right: 16px;
+}
+
+.grade-board_row-header .row-header-wrapper .name {
+  width: 190px;
+  max-width: 190px;
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  color: inherit;
+  text-align: left;
+}
+
+.grade-board_row-header .row-header-wrapper a.name:hover,
+.grade-board_row-header .row-header-wrapper a.name:focus {
+  color: #129eaf;
+  text-decoration: underline;
+}
+
+.grade-board_grade-cell:hover .button-wrapper {
+  opacity: 1;
+  visibility: visible;
+}
+
+.grade-board_grade-cell.focus {
+  border-color: black;
+}
+
+.grade-board_grade-cell .grade-cell_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.grade-board_grade-cell .metadata-wrapper {
+  display: none;
+}
+
+.grade-board_grade-cell:hover .metadata-wrapper {
+  display: block;
+}
+
+.grade-board_grade-cell .metadata-wrapper.containing {
+  display: block;
+  align-self: flex-start;
+}
+
+.grade-board_grade-cell .metadata-wrapper.containing .current-grade {
+  color: #1e8e3e;
+}
+
+.grade-board_grade-cell .metadata-wrapper .current-grade {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.grade-board_grade-cell .metadata-wrapper .current-state {
+  margin-bottom: 0;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.grade-board_grade-cell .input-wrapper {
+  display: flex;
+  position: relative;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.grade-board_grade-cell .input-wrapper input {
+  width: 100%;
+  font-weight: 500;
+  text-align: right;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.grade-board_grade-cell .input-wrapper input:focus ~ .underline {
+  display: block;
+}
+
+.grade-board_grade-cell .input-wrapper p {
+  margin-bottom: 0;
+  color: grey;
+}
+
+.grade-board_grade-cell .input-wrapper .underline {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  bottom: -2px;
+  border-bottom: 2px solid #007b83;
+}
+
+.grade-board_grade-cell .button-wrapper {
+  opacity: 0;
+  visibility: hidden;
+  margin-left: 11px;
+}
+
+.grade-board_grade-cell .grade-cell_wrapper.focus .button-wrapper {
+  opacity: 1;
+  visibility: visible;
+}
