@@ -1,6 +1,7 @@
-import { SolutionOutlined } from "@ant-design/icons";
-import { Button, Tooltip } from "antd";
+import { MoreOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Tooltip } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
+import GradeBoardMoreMenu from "./GradeBoardMoreMenu";
 
 type GradeStructureType = {
   title: string;
@@ -22,11 +23,16 @@ export default function GradeBoardColumnHeader({
             <p className="title">{gradeStructure.title}</p>
           </Tooltip>
           <p className="detail">out of {gradeStructure.detail}</p>
-          <Button
+          <Dropdown
             className="hidden-element"
-            shape="circle"
-            icon={<SolutionOutlined />}
-          />
+            overlay={GradeBoardMoreMenu}
+            trigger={["click"]}
+            placement="bottomRight"
+          >
+            <Button shape="circle">
+              <MoreOutlined />
+            </Button>
+          </Dropdown>
         </div>
         <div className="divider"></div>
         <div className="finalization-wrapper">

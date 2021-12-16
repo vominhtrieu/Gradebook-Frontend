@@ -52,22 +52,6 @@ td {
   width: 96px;
 }
 
-.grade-board_column-header .column-header-wrapper .hidden-element {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.grade-board_column-header .column-header-wrapper:hover .hidden-element {
-  opacity: 1;
-  visibility: visible;
-}
-
-.grade-board_column-header .column-header-wrapper .hidden-element:hover,
-.grade-board_column-header .column-header-wrapper .hidden-element:focus {
-  opacity: 1;
-  visibility: visible;
-}
-
 .grade-board_column-header .column-header-wrapper p {
   font-size: 12px;
   font-weight: 400;
@@ -159,7 +143,11 @@ tbody .grade-board_row:first-child {
   text-decoration: underline;
 }
 
-.grade-board_grade-cell:hover .button-wrapper {
+.grade-board_grade-cell {
+  height: 64px;
+}
+
+.grade-board_grade-cell:hover .finalization-checkbox {
   opacity: 1;
   visibility: visible;
 }
@@ -169,6 +157,8 @@ tbody .grade-board_row:first-child {
 }
 
 .grade-board_grade-cell .grade-cell_wrapper {
+  position: relative;
+  height: 100%;
   display: flex;
   align-items: center;
 }
@@ -202,6 +192,7 @@ tbody .grade-board_row:first-child {
 }
 
 .grade-board_grade-cell .input-wrapper {
+  width: 54px;
   display: flex;
   position: relative;
   font-size: 14px;
@@ -209,8 +200,8 @@ tbody .grade-board_row:first-child {
 }
 
 .grade-board_grade-cell .input-wrapper input {
-  height: auto;
   width: 100%;
+  height: auto;
   font-weight: 500;
   text-align: right;
   border: none;
@@ -233,17 +224,20 @@ tbody .grade-board_row:first-child {
   width: 100%;
   height: 2px;
   left: 0;
-  bottom: -2px;
+  bottom: -1px;
   border-bottom: 2px solid #007b83;
 }
 
-.grade-board_grade-cell .button-wrapper {
+.grade-board_grade-cell .finalization-checkbox {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
   opacity: 0;
   visibility: hidden;
-  margin-left: 11px;
 }
 
-.grade-board_grade-cell .grade-cell_wrapper.focus .button-wrapper {
+.grade-board_grade-cell .grade-cell_wrapper.focus .finalization-checkbox {
   opacity: 1;
   visibility: visible;
 }

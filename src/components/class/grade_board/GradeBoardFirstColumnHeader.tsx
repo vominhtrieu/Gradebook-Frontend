@@ -23,7 +23,7 @@ export default function GradeBoardFirstColumnHeader() {
       </div>
       <div className="button_container">
         <Dropdown overlay={GradeBoardDownloadMenu} trigger={["click"]}>
-          <Button>
+          <Button type="text">
             <DownloadOutlined /> Download <CaretDownOutlined />
           </Button>
         </Dropdown>
