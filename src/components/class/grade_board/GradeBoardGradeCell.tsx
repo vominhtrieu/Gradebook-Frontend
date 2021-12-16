@@ -1,5 +1,4 @@
-import { SolutionOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import Checkbox from "antd/lib/checkbox/Checkbox";
 import React, { useRef, useState } from "react";
 
 export default function GradeBoardGradeCell({
@@ -65,9 +64,8 @@ export default function GradeBoardGradeCell({
                 )}
               </div>
             )}
-            <div className="button-wrapper">
-              <Button shape="circle" icon={<SolutionOutlined />} />
-            </div>
+
+            <Checkbox className="finalization-checkbox" />
           </>
         )}
       </div>
