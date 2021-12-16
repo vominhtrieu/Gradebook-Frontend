@@ -22,7 +22,11 @@ export default function GradeBoardColumnHeader({
             <p className="title">{gradeStructure.title}</p>
           </Tooltip>
           <p className="detail">out of {gradeStructure.detail}</p>
-          <Button shape="circle" icon={<SolutionOutlined />} />
+          <Button
+            className="hidden-element"
+            shape="circle"
+            icon={<SolutionOutlined />}
+          />
         </div>
         <div className="divider"></div>
         <div className="finalization-wrapper">

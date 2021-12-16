@@ -52,6 +52,22 @@ td {
   width: 96px;
 }
 
+.grade-board_column-header .column-header-wrapper .hidden-element {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.grade-board_column-header .column-header-wrapper:hover .hidden-element {
+  opacity: 1;
+  visibility: visible;
+}
+
+.grade-board_column-header .column-header-wrapper .hidden-element:hover,
+.grade-board_column-header .column-header-wrapper .hidden-element:focus {
+  opacity: 1;
+  visibility: visible;
+}
+
 .grade-board_column-header .column-header-wrapper p {
   font-size: 12px;
   font-weight: 400;
@@ -188,12 +204,12 @@ tbody .grade-board_row:first-child {
 .grade-board_grade-cell .input-wrapper {
   display: flex;
   position: relative;
-  height: 100%;
   font-size: 14px;
   font-weight: 500;
 }
 
 .grade-board_grade-cell .input-wrapper input {
+  height: auto;
   width: 100%;
   font-weight: 500;
   text-align: right;
