@@ -1,6 +1,6 @@
 import { MoreOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Tooltip } from "antd";
-import Checkbox from "antd/lib/checkbox/Checkbox";
+import GradeNotificationModal from "./grade-notification-modal";
 import GradeBoardMoreMenu from "./GradeBoardMoreMenu";
 
 type GradeStructureType = {
@@ -37,7 +37,7 @@ export default function GradeBoardColumnHeader({
         <div className="divider"></div>
         <div className="finalization-wrapper">
           <p>out of 100</p>
-          <Checkbox />
+          <GradeNotificationModal />
         </div>
       </div>
     </th>
