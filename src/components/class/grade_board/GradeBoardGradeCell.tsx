@@ -1,5 +1,5 @@
-import Checkbox from "antd/lib/checkbox/Checkbox";
 import React, { useRef, useState } from "react";
+import GradeNotificationModal from "./grade-notification-modal";
 
 export default function GradeBoardGradeCell({
   ...props
@@ -65,7 +65,7 @@ export default function GradeBoardGradeCell({
               </div>
             )}
 
-            <Checkbox className="finalization-checkbox" />
+            <GradeNotificationModal />
           </>
         )}
       </div>

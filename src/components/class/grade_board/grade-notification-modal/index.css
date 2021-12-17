@@ -1,0 +1,160 @@
+.grade-notification-modal-wrap {
+  overflow: hidden;
+}
+
+.ant-modal.grade-notification-modal {
+  max-width: 464px;
+  padding-bottom: 0;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-close {
+  display: none;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-header {
+  padding: 18px 24px 14px;
+  border-bottom: none;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-body {
+  max-height: calc(100vh - 54px - 56px - calc(0.05 * 100vh));
+  overflow-y: overlay;
+  padding: 3px 24px;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-body p {
+  margin-bottom: 0.5rem;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-body .ant-list-item {
+  min-height: 56px;
+  padding: 0;
+  border-bottom: none;
+}
+
+.ant-modal.grade-notification-modal
+  .ant-modal-body
+  .ant-list-item
+  .ant-list-item-meta {
+  height: 100%;
+  align-items: center;
+}
+
+.ant-modal.grade-notification-modal
+  .ant-modal-body
+  .ant-list-item
+  .ant-list-item-meta
+  .ant-list-item-meta-avatar {
+  margin-right: 8px;
+}
+
+.ant-modal.grade-notification-modal
+  .ant-modal-body
+  .ant-list-item
+  .ant-list-item-meta
+  .ant-list-item-meta-title {
+  word-wrap: break-word;
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+.ant-modal.grade-notification-modal
+  .ant-modal-body
+  .ant-list-item
+  .grade-information {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ant-modal.grade-notification-modal
+  .ant-modal-body
+  .ant-list-item
+  .grade-information-wrapper {
+  text-align: right;
+}
+
+.ant-modal.grade-notification-modal
+  .ant-modal-body
+  .ant-list-item
+  .grade-information-wrapper
+  span {
+  font-size: 13px;
+  color: grey;
+  margin-bottom: 0;
+}
+
+.ant-modal.grade-notification-modal
+  .ant-modal-body
+  .ant-list-item
+  .grade-information-wrapper
+  .grade {
+  color: initial;
+  font-weight: 600;
+}
+
+.ant-modal.grade-notification-modal
+  .ant-modal-body
+  .ant-list-item
+  .grade-information-wrapper.previously-grade-wrapper
+  span {
+  color: grey;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-body .ant-input {
+  resize: none;
+  padding: 6px 15px;
+  margin-top: 8px;
+  font-size: 13px;
+  border-radius: 20px;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-body .ant-input:focus {
+  box-shadow: none;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-footer {
+  padding: 14px 8px 10px 16px;
+  border-top: none;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-footer .ant-btn {
+  padding: 4px 8px;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  font-weight: 600;
+  color: grey;
+}
+
+.ant-modal.grade-notification-modal .ant-modal-footer .ant-btn:hover,
+.ant-modal.grade-notification-modal .ant-modal-footer .ant-btn:focus {
+  background-color: rgba(128, 128, 128, 0.04);
+}
+
+.ant-modal.grade-notification-modal .ant-modal-footer .ant-btn.ant-btn-primary {
+  color: #1890ff;
+}
+
+.ant-modal.grade-notification-modal
+  .ant-modal-footer
+  .ant-btn.ant-btn-primary:hover,
+.ant-modal.grade-notification-modal
+  .ant-modal-footer
+  .ant-btn.ant-btn-primary:focus {
+  background-color: rgba(24, 144, 255, 0.04);
+}
+
+@media only screen and (max-width: 444px) {
+  .ant-modal.grade-notification-modal {
+    width: auto !important;
+  }
+}
