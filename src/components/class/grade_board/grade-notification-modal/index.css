@@ -7,6 +7,11 @@
   padding-bottom: 0;
 }
 
+.ant-modal.grade-notification-modal .ant-modal-content {
+  overflow: auto;
+  border-radius: 8px;
+}
+
 .ant-modal.grade-notification-modal .ant-modal-close {
   display: none;
 }
