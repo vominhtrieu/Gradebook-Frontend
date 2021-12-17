@@ -1,58 +1,23 @@
-th,
-td {
-  border: 1px solid #e0e0e0;
-  border-collapse: collapse;
-}
-
-.grade-board_table {
-  table-layout: fixed;
-  overflow: hidden;
-}
-
-.grade-board_dummy-column-header {
-  width: 100%;
-  border-right: none;
-  border-top: none;
-}
-
-.grade-board_dummy-cell {
-  border-right: none;
-}
-
-.grade-board_column-header {
-  min-height: 129px;
-  border-top: none;
-}
-
-.grade-board_column-header:first-child {
-  border: none;
+.grade-board_button-container {
   display: flex;
-  justify-content: space-between;
-  padding: 12px 0 0 11px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-.grade-board_column-header:first-child div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.grade-board_button-container > * {
+  margin-right: 10px;
 }
 
-.grade-board_column-header:first-child div.button_container {
-  justify-content: flex-end;
-  padding: 0 24px 0 29px;
-}
-
-.grade-board_column-header:not(:first-child),
-.grade-board_grade-cell {
+.ant-table-thead > tr > th {
+  height: 129px;
   padding: 10px 16px;
+  background-color: white;
 }
 
-.grade-board_column-header .column-header-wrapper {
+.ant-table-thead .grade-board_grade-column-header {
   width: 96px;
 }
 
-.grade-board_column-header .column-header-wrapper p {
+.ant-table-thead .grade-board_grade-column-header p {
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
@@ -61,27 +26,17 @@ td {
   margin-bottom: 0;
 }
 
-.grade-board_column-header .grade-structure {
+.ant-table-thead .grade-board_grade-column-header .grade-structure {
   position: relative;
 }
 
-.grade-board_column-header .grade-structure button {
+.ant-table-thead .grade-board_grade-column-header .grade-structure button {
   position: absolute;
   right: -8px;
   top: 0;
 }
 
-.grade-board_column-header .grade-structure .title,
-.grade-board_column-header .grade-structure .detail {
-  margin-bottom: 5px;
-}
-
-.grade-board_column-header .column-header-wrapper .divider {
-  width: 100%;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.grade-board_column-header .grade-structure .title {
+.ant-table-thead .grade-board_grade-column-header .grade-structure .title {
   min-height: 40px;
   max-height: 40px;
   max-width: 70px;
@@ -95,37 +50,59 @@ td {
   color: #007b83;
 }
 
-.grade-board_column-header .finalization-wrapper {
+.ant-table-thead .grade-board_grade-column-header .grade-structure .title,
+.ant-table-thead .grade-board_grade-column-header .grade-structure .detail {
+  margin-bottom: 5px;
+}
+
+.ant-table-thead .grade-board_grade-column-header .finalization-wrapper {
   margin-top: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.grade-board_row {
-  height: 64px;
-  min-height: 64px;
+.ant-table-thead .grade-board_grade-column-header.overall {
+  height: 100%;
+  padding-bottom: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-tbody .grade-board_row:first-child {
+.ant-table-thead .grade-board_grade-column-header.overall p {
+  font-size: 13px;
+}
+
+.ant-table-tbody > tr > td {
+  padding: 0;
+  height: 64px;
+}
+
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  background: none;
+}
+
+.ant-table-tbody > tr.ant-table-row:first-child td {
   background-color: #f8f9fa;
 }
 
-.grade-board_row-header {
-  border-left: none;
-  padding: 0 8px 0 24px;
+.ant-table-tbody > tr.ant-table-row:first-child:hover > td {
+  background-color: #f8f9fa;
 }
 
-.grade-board_row-header .row-header-wrapper {
+.ant-table-tbody .grade-board_student-cell {
+  padding: 0 8px 0 16px;
   display: flex;
   align-items: center;
 }
 
-.grade-board_row-header .row-header-wrapper .avatar {
+.ant-table-tbody .grade-board_student-cell .avatar {
   margin-right: 16px;
 }
 
-.grade-board_row-header .row-header-wrapper .name {
+.ant-table-tbody .grade-board_student-cell .name {
+  display: block;
   width: 190px;
   max-width: 190px;
   margin-bottom: 0;
@@ -137,61 +114,54 @@ tbody .grade-board_row:first-child {
   text-align: left;
 }
 
-.grade-board_row-header .row-header-wrapper a.name:hover,
-.grade-board_row-header .row-header-wrapper a.name:focus {
+.ant-table-tbody .grade-board_student-cell a.name:hover,
+.ant-table-tbody .grade-board_student-cell a.name:focus {
   color: #129eaf;
   text-decoration: underline;
 }
 
-.grade-board_grade-cell {
-  height: 64px;
-}
-
-.grade-board_grade-cell:hover .finalization-checkbox {
-  opacity: 1;
-  visibility: visible;
-}
-
-.grade-board_grade-cell.focus {
-  border-color: black;
-}
-
-.grade-board_grade-cell .grade-cell_wrapper {
+.ant-table-tbody .grade-board_grade-cell {
   position: relative;
   height: 100%;
+  padding: 10px 16px;
   display: flex;
   align-items: center;
 }
 
-.grade-board_grade-cell .metadata-wrapper {
+.ant-table-tbody .grade-board_grade-cell .metadata-wrapper {
   display: none;
 }
 
-.grade-board_grade-cell:hover .metadata-wrapper {
+.ant-table-tbody .grade-board_grade-cell:hover .metadata-wrapper {
   display: block;
 }
 
-.grade-board_grade-cell .metadata-wrapper.containing {
+.ant-table-tbody .grade-board_grade-cell .metadata-wrapper.containing {
   display: block;
   align-self: flex-start;
 }
 
-.grade-board_grade-cell .metadata-wrapper.containing .current-grade {
+.ant-table-tbody .grade-board_grade-cell .metadata-wrapper p {
+  margin-bottom: 0;
+}
+
+.ant-table-tbody
+  .grade-board_grade-cell
+  .metadata-wrapper.containing
+  .current-grade {
   color: #1e8e3e;
 }
 
-.grade-board_grade-cell .metadata-wrapper .current-grade {
-  margin-bottom: 0;
+.ant-table-tbody .grade-board_grade-cell .metadata-wrapper .current-grade {
   font-weight: 500;
 }
 
-.grade-board_grade-cell .metadata-wrapper .current-state {
-  margin-bottom: 0;
+.ant-table-tbody .grade-board_grade-cell .metadata-wrapper .current-state {
   font-size: 12px;
   font-style: italic;
 }
 
-.grade-board_grade-cell .input-wrapper {
+.ant-table-tbody .grade-board_grade-cell .input-wrapper {
   width: 54px;
   display: flex;
   position: relative;
@@ -199,9 +169,9 @@ tbody .grade-board_row:first-child {
   font-weight: 500;
 }
 
-.grade-board_grade-cell .input-wrapper input {
-  width: 100%;
+.ant-table-tbody .grade-board_grade-cell .input-wrapper input {
   height: auto;
+  width: 100%;
   font-weight: 500;
   text-align: right;
   border: none;
@@ -209,35 +179,59 @@ tbody .grade-board_row:first-child {
   background-color: transparent;
 }
 
-.grade-board_grade-cell .input-wrapper input:focus ~ .underline {
+.ant-table-tbody
+  .grade-board_grade-cell
+  .input-wrapper
+  input:focus
+  ~ .underline {
   display: block;
 }
 
-.grade-board_grade-cell .input-wrapper p {
+.ant-table-tbody .grade-board_grade-cell .input-wrapper p {
   margin-bottom: 0;
   color: grey;
 }
 
-.grade-board_grade-cell .input-wrapper .underline {
+.ant-table-tbody .grade-board_grade-cell .input-wrapper .underline {
   display: none;
   position: absolute;
   width: 100%;
   height: 2px;
   left: 0;
-  bottom: -1px;
+  bottom: -2px;
   border-bottom: 2px solid #007b83;
 }
 
-.grade-board_grade-cell .finalization-checkbox {
+.ant-table-tbody .grade-board_grade-cell .finalization-checkbox {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 16px;
   transform: translateY(-50%);
   opacity: 0;
   visibility: hidden;
 }
 
-.grade-board_grade-cell .grade-cell_wrapper.focus .finalization-checkbox {
+.ant-table-tbody .grade-board_grade-cell:hover .finalization-checkbox {
   opacity: 1;
   visibility: visible;
+}
+
+.ant-table-tbody .grade-board_grade-cell.focus .finalization-checkbox {
+  opacity: 1;
+  visibility: visible;
+}
+
+.ant-table-tbody .grade-board_grade-cell.overall {
+  justify-content: center;
+}
+
+.ant-table-tbody .grade-board_grade-cell.overall .metadata-wrapper.containing {
+  align-self: center;
+}
+
+.ant-table-tbody
+  .grade-board_grade-cell.overall
+  .metadata-wrapper.containing
+  .overall-grade {
+  color: grey;
 }

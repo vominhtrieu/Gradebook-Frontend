@@ -1,89 +1,82 @@
-import GradeBoardFirstColumnHeader from "./GradeBoardFirstColumnHeader";
+import { Table } from "antd";
 import GradeBoardGradeCell from "./GradeBoardGradeCell";
-import GradeBoardColumnHeader from "./GradeBoardColumnHeader";
-import GradeBoardRow from "./GradeBoardRow";
-import GradeBoardRowHeader from "./GradeBoardRowHeader";
+import GradeBoardStudentCell from "./GradeBoardStudentCell";
+import GradeBoardGradeColumnHeader from "./GradeBoardGradeColumnHeader";
 import "./index.css";
+import GradeBoardAverageRowHeader from "./GradeBoardAverageRowHeader";
+import GradeBoardOverallColumnHeader from "./GradeBoardOverallColumnHeader";
+import GradeBoardOverallGradeCell from "./GradeBoardOverallGradeCell";
+import GradeBoardButtonContainer from "./GradeBoardButtonContainer";
 
-export default function GradeBoard() {
+const columns: any = [
+  {
+    title: "",
+    width: 270,
+    dataIndex: "name",
+    fixed: "left",
+    key: "name",
+    render: (text: any, record: any, index: any) => {
+      if (index === 0) {
+        return <GradeBoardAverageRowHeader />;
+      } else {
+        return (
+          <GradeBoardStudentCell
+            studentId="1234"
+            studentName="TranabcdefghBac HoabcdngDabcdt"
+          />
+        );
+      }
+    },
+  },
+  {
+    title: () => {
+      return <GradeBoardOverallColumnHeader />;
+    },
+    width: 129,
+    key: "overall",
+    render: () => {
+      return <GradeBoardOverallGradeCell overallGrade={"50%"} />;
+    },
+  },
+  {
+    title: () => {
+      return (
+        <GradeBoardGradeColumnHeader
+          title="Lorem ipsum dolor abcdefgh"
+          detail="4"
+        />
+      );
+    },
+    width: 129,
+    dataIndex: "age",
+    key: "age",
+    render: (text: any, record: any, index: any) => {
+      if (index === 0) {
+        return <GradeBoardGradeCell readOnly />;
+      } else {
+        return <GradeBoardGradeCell />;
+      }
+    },
+  },
+
+  { title: "", key: "8" },
+];
+
+const data: any = [];
+for (let i = 0; i < 12; i++) {
+  data.push({
+    key: i,
+    name: `Edrward ${i}`,
+    age: 32,
+    address: `London Park no. ${i}`,
+  });
+}
+
+export default function GradeBoard2() {
   return (
-    <table className="grade-board_table">
-      <thead>
-        <GradeBoardRow>
-          <GradeBoardFirstColumnHeader />
-          <GradeBoardColumnHeader
-            gradeStructure={{
-              title: "BT Test",
-              detail: "4",
-            }}
-          />
-          <GradeBoardColumnHeader
-            gradeStructure={{
-              title: "Lorem ipsum dolor abcdefgh",
-              detail: "4",
-            }}
-          />
-          <GradeBoardColumnHeader
-            gradeStructure={{
-              title: "Lorem ipsum dolor abcdefgh",
-              detail: "4",
-            }}
-          />
-          <GradeBoardColumnHeader
-            gradeStructure={{
-              title: "Lorem ipsum dolor abcdefgh",
-              detail: "4",
-            }}
-          />
-          <GradeBoardColumnHeader
-            gradeStructure={{
-              title: "Lorem ipsum dolor abcdefgh",
-              detail: "4",
-            }}
-          />
-          <GradeBoardColumnHeader
-            gradeStructure={{
-              title: "Lorem ipsum dolor abcdefgh",
-              detail: "4",
-            }}
-          />
-
-          <th className="grade-board_dummy-column-header">
-            <div></div>
-          </th>
-        </GradeBoardRow>
-      </thead>
-      <tbody>
-        <GradeBoardRow>
-          <GradeBoardRowHeader />
-          <GradeBoardGradeCell readOnly />
-          <GradeBoardGradeCell readOnly />
-          <td className="grade-board_dummy-cell"></td>
-        </GradeBoardRow>
-
-        <GradeBoardRow>
-          <GradeBoardRowHeader
-            studentInformation={{
-              name: "Test",
-              studentId: "1",
-            }}
-          />
-          <GradeBoardGradeCell />
-          <GradeBoardGradeCell />
-          <td className="grade-board_dummy-cell"></td>
-        </GradeBoardRow>
-        <GradeBoardRow>
-          <GradeBoardRowHeader
-            studentInformation={{
-              name: "Test",
-              studentId: "1",
-            }}
-          />
-          <GradeBoardGradeCell />
-          <GradeBoardGradeCell />
-          <td className="grade-board_dummy-cell"></td>
-        </GradeBoardRow>
-      </tbody>
-    </table>
+    <>
+      <GradeBoardButtonContainer />
+      <Table columns={columns} dataSource={data} tableLayout="fixed" bordered />
+    </>
   );
 }
