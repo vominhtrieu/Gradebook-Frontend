@@ -3,11 +3,11 @@ import GradeStructureItem from "./GradeStructureItem";
 import GradeStructureList from "./GradeStructureList";
 import { useContext, useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import { MainContext } from "../../../contexts/main";
-import { getData } from "../../../handlers/api";
+import { MainContext } from "../../../../contexts/main";
+import { getData } from "../../../../handlers/api";
 import { useParams } from "react-router";
 import GradeStructureInputItem from "./GradeStructureInputItem";
-import { updateGradeStructureOrderHandler } from "../../../handlers/gradeStructure";
+import { updateGradeStructureOrderHandler } from "../../../../handlers/gradeStructure";
 
 export default function GradeStructureSection() {
     const [gradeStructure, setGradeStructure]: any = useState(null);

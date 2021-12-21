@@ -5,7 +5,7 @@ import { Draggable } from "react-beautiful-dnd";
 import {
     deleteGradeStructureHandler,
     updateGradeStructureHandler,
-} from "../../../handlers/gradeStructure";
+} from "../../../../handlers/gradeStructure";
 import { useParams } from "react-router";
 
 interface GradeStructureItemProps {
