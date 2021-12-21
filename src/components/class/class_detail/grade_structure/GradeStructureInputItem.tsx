@@ -71,6 +71,7 @@ export default function GradeStructureInputItem({
                         <InputNumber
                             style={styles.inputStyle}
                             inputMode="decimal"
+                            value={itemGrade}
                             placeholder="New item's grade"
                             onChange={(value: any) => setItemGrade("" + value)}
                         />
