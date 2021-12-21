@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { Button, Typography, message, Modal, List, Card } from "antd";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { postData } from "../../handlers/api";
 import ProfileAvatar from "../profile/ProfileAvatar";
+import {MainContext} from "../../contexts/main";
 
 const {Title, Text, Paragraph} = Typography;
 
@@ -17,6 +18,7 @@ export default function ClassDetailPublic({classroom}: any) {
     const history = useHistory();
     const [inviteVisible, setInviteVisible]: any = useState(false);
     const [haveInvitation, setHaveInvitation]: any = useState(false);
+    const mainContext = useContext(MainContext);
 
     useEffect(() => {
         const queryString = new URLSearchParams(location.search);
@@ -30,13 +32,18 @@ export default function ClassDetailPublic({classroom}: any) {
     }
 
     const handleInviteAccept = () => {
-        const queryString = new URLSearchParams(location.search);
-        postData(`/classrooms/${id}/enroll`, {
-            teacherInvitationCode: queryString.get("teacherInvitationCode"),
-            studentInvitationCode: queryString.get("studentInvitationCode")
-        }).then((data) => {
-            history.push(`/classrooms/${id}`);
-        }).catch(() => message.error("Something went wrong!"));
+        if (mainContext.userStudentId !== "" && mainContext.userStudentId !== null) {
+            const queryString = new URLSearchParams(location.search);
+            postData(`/classrooms/${id}/enroll`, {
+                teacherInvitationCode: queryString.get("teacherInvitationCode"),
+                studentInvitationCode: queryString.get("studentInvitationCode")
+            }).then((data) => {
+                history.push(`/classrooms/${id}`);
+            }).catch(() => message.error("Something went wrong!"));
+        } else {
+            return message.info("Set your student ID to be able to join class!");
+        }
+
     }
 
     const handleInviteReject = () => {
