@@ -11,11 +11,13 @@ import ChangeName from "./profile/single-field/ChangeName";
 import ChangePassword from "./profile/single-field/ChangePassword";
 import ClassDetailJoined from "./class/ClassDetailJoined";
 import { RoutingContext } from "../contexts/routing";
+import {getData} from "../handlers/api";
 
 export default function Main() {
   const location = useLocation();
   const [newClassVisible, setNewClassVisible] = useState(false);
   const [reloadNeeded, setReloadNeeded] = useState(true);
+  const [userStudentId, setUserStudentId] = useState("");
 
   const routingContext = useContext(RoutingContext);
 
@@ -24,13 +26,15 @@ export default function Main() {
   useEffect(() => {
     if (token === null || token.length === 0) {
       routingContext.setRequestedURL(location.pathname + location.search);
-      console.log(location.pathname + location.search);
     }
+    getData("/users/profile").then((user: any) => {
+      setUserStudentId(user.studentId);
+    })
   }, [location.pathname, location.search, routingContext, token]);
 
   return (
     <MainContext.Provider
-      value={{ reloadNeeded: reloadNeeded, setReloadNeeded: setReloadNeeded }}
+      value={{ reloadNeeded: reloadNeeded, setReloadNeeded: setReloadNeeded, userStudentId: userStudentId }}
     >
       {token === null || token.length === 0 ? <Redirect to="/signin" /> : null}
       <NewClass visible={newClassVisible} setVisible={setNewClassVisible} />
