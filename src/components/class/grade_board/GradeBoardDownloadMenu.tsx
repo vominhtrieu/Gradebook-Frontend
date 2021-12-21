@@ -1,26 +1,42 @@
-import { Menu } from "antd";
+import {Menu} from "antd";
+import { exportStudentList} from "../../../handlers/exportDataHandler";
 
-export default function GradeBoardDownloadMenu() {
-  return (
-    <Menu>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          Default template for student list
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          Default template for grades for an assignment
-        </a>
-      </Menu.Item>
-    </Menu>
-  );
+interface GradeBoardDownloadMenuProps {
+    students: object[]
+}
+
+export default function GradeBoardDownloadMenu({ students }: GradeBoardDownloadMenuProps) {
+
+    const onDownloadStudentList = () => {
+        const data: object[] = [];
+        students.forEach((student: any) => {
+            data.push({
+                studentId: student.studentId,
+                fullName: student.name
+            })
+        })
+        exportStudentList(data);
+    }
+    return (
+        <Menu>
+            <Menu.Item onClick={onDownloadStudentList}>
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href=""
+                >
+                    Default template for student list
+                </a>
+            </Menu.Item>
+            <Menu.Item>
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href=""
+                >
+                    Default template for grades for an assignment
+                </a>
+            </Menu.Item>
+        </Menu>
+    );
 }

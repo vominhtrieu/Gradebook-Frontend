@@ -1,8 +1,8 @@
 import { Button, List } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import React from "react";
-import InviteModal from "../invitation/InviteModal";
-import ProfileAvatar from "../../profile/ProfileAvatar";
+import InviteModal from "../../invitation/InviteModal";
+import ProfileAvatar from "../../../profile/ProfileAvatar";
 
 export default function UserListSection({
                                             users,

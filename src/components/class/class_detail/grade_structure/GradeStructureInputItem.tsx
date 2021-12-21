@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Card, Divider, Input, InputNumber, Tooltip, Typography } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { useParams } from "react-router";
-import { createGradeStructureHandler } from "../../../handlers/gradeStructure";
+import { createGradeStructureHandler } from "../../../../handlers/gradeStructure";
 
 interface GradeStructureInputItemProps {
     index: string;

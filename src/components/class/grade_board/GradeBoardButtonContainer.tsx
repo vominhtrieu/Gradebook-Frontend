@@ -8,10 +8,17 @@ import {
 } from "@ant-design/icons";
 import GradeBoardDownloadMenu from "./GradeBoardDownloadMenu";
 
-export default function GradeBoardButtonContainer() {
+interface GradeBoardButtonContainerProps {
+    students: object[]
+}
+
+export default function GradeBoardButtonContainer({students} :GradeBoardButtonContainerProps) {
+    const menu = (
+        <GradeBoardDownloadMenu students={students} />
+    )
   return (
     <div className="grade-board_button-container">
-      <Dropdown overlay={GradeBoardDownloadMenu} trigger={["click"]}>
+      <Dropdown overlay={menu} trigger={["click"]}>
         <Button type="text">
           <DownloadOutlined /> Download <CaretDownOutlined />
         </Button>
