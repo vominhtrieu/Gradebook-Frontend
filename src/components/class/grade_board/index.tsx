@@ -44,16 +44,6 @@ const columns: any = [
   },
 ];
 
-const data: any = [];
-for (let i = 0; i < 12; i++) {
-  data.push({
-    key: i,
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
-  });
-}
-
 interface GradeBoardProps {
   classId: number;
   students: object[]
