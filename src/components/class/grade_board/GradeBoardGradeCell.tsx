@@ -1,21 +1,24 @@
 import Checkbox from "antd/lib/checkbox/Checkbox";
-import React, {useEffect, useRef, useState} from "react";
-import {putData} from "../../../handlers/api";
-import {message} from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { putData } from "../../../handlers/api";
+import { message } from "antd";
 
 interface InputProps extends React.HTMLProps<HTMLInputElement> {
-  classId?: number,
-  gradeStructureId?: number
-  studentId?: string
+  classId?: number;
+  gradeStructureId?: number;
+  studentId?: string;
 }
 
 export default function GradeBoardGradeCell({
-  classId, gradeStructureId, studentId, ...props
+  classId,
+  gradeStructureId,
+  studentId,
+  ...props
 }: InputProps) {
   const maximumGrade = 100;
   const inputRef = useRef<HTMLInputElement>(null);
   const [grade, setGrade] = useState<string>(
-      props.value ? props.value.toString() : ""
+    props.value ? props.value.toString() : ""
   );
   const [focusInput, setFocusInput] = useState<boolean>(false);
   const [metaDataWrapperState, setMetadataWrapperState] = useState<string>(
@@ -40,13 +43,15 @@ export default function GradeBoardGradeCell({
     putData(`/classrooms/${classId}/grades`, {
       studentId: studentId,
       gradeStructureId: gradeStructureId,
-      grade: grade
-    }).then((msg) => {
-      setIsSaving(false);
-    }).catch(() => {
-      setIsSaving(false);
-      return message.error("Can't save grade");
+      grade: grade,
     })
+      .then(msg => {
+        setIsSaving(false);
+      })
+      .catch(() => {
+        setIsSaving(false);
+        return message.error("Can't save grade");
+      });
   };
 
   return (
@@ -68,7 +73,7 @@ export default function GradeBoardGradeCell({
                 autoFocus={focusInput}
               />
               <p>/{maximumGrade}</p>
-              <div className="underline"/>
+              <div className="underline" />
             </div>
           ) : (
             <div
@@ -87,8 +92,6 @@ export default function GradeBoardGradeCell({
               )}
             </div>
           )}
-
-          <Checkbox className="finalization-checkbox" />
         </>
       )}
     </div>
