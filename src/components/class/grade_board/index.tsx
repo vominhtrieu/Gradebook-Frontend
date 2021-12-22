@@ -9,7 +9,6 @@ import GradeBoardOverallGradeCell from "./GradeBoardOverallGradeCell";
 import GradeBoardButtonContainer from "./GradeBoardButtonContainer";
 import {useEffect, useState} from "react";
 import {getData} from "../../../handlers/api";
-import {log} from "util";
 
 interface GradeBoardProps {
     classId: number;
@@ -70,6 +69,11 @@ const data: DataSourceProps[] = [
         grades: []
     }
 ]
+
+interface GradeBoardProps {
+  classId: number;
+  students: object[]
+}
 
 export default function GradeBoard({classId, students}: GradeBoardProps) {
     const [gradeColumns, setGradeColumns] = useState(columns);

@@ -47,9 +47,10 @@ export default function Homepage() {
             </Space>
         );
     }
+    console.log(createdClassrooms);
     return (
         <>
-            {createdClassrooms && createdClassrooms.length > 0
+            {createdClassrooms && createdClassrooms.map
                 ? (
                     <>
                         <h3 style={{marginTop: 20, textAlign: "center"}}>Your courses</h3>

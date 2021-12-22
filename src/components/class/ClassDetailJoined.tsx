@@ -8,6 +8,7 @@ import {getData} from "../../handlers/api";
 import ClassDetailPublic from "./ClassDetailPublic";
 import GradeStructureSection from "./class_detail/grade_structure/GradeStructureSection";
 import GradeBoard from "./grade_board";
+import GradeViewingSection from "./class_detail/grade_viewing";
 
 const {TabPane} = Tabs;
 
@@ -73,8 +74,7 @@ export default function ClassDetailJoined({
                                 }}
                             />
                         )
-                    }
-                >
+                    }>
                     <div
                         style={{
                             position: "relative",
@@ -122,10 +122,17 @@ export default function ClassDetailJoined({
                                 key="grade_structures"
                                 style={TabPaneStyle}
                             >
-                                {activeTab === "grade_structures" && <GradeStructureSection />}
+                                {activeTab === "grade_structures" && <GradeStructureSection/>}
                             </TabPane>
                             <TabPane tab="Grades" key="grades" style={TabPaneStyle}>
-                                {activeTab === "grades" && <GradeBoard classId={classroom.id} students={classroom.students}/>}
+                                {activeTab === "grades" && (classroom.isTeacher ? (
+                                    <GradeBoard
+                                        classId={classroom.id}
+                                        students={classroom.students}
+                                    />
+                                ) : (
+                                    <GradeViewingSection/>
+                                ))}
                             </TabPane>
                         </Tabs>
                     </div>
