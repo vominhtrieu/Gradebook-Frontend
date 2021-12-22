@@ -43,10 +43,10 @@ export default function GradeBoardButtonContainer({classId, students}: GradeBoar
                 </Button>
             </Dropdown>
             <Tooltip title="Upload student list" placement="bottomLeft">
-                <Upload accept=".csv, .xlsx"
+                <Upload accept=".xlsx"
                         showUploadList={false}
                         headers={{Authorization: `Bearer ${localStorage.getItem("token")}`}}
-                        action={`/classrooms/${classId}/students/import`}
+                        action={`${process.env.REACT_APP_API_HOST}/classrooms/${classId}/students/import`}
                         onChange={handleUploadChanged}>
                     <Button type="text">
                         <UploadOutlined/> Upload
