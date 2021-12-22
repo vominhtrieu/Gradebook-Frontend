@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {message, Table} from "antd";
 import GradeBoardGradeCell from "./GradeBoardGradeCell";
 import GradeBoardStudentCell from "./GradeBoardStudentCell";
@@ -8,92 +7,138 @@ import GradeBoardAverageRowHeader from "./GradeBoardAverageRowHeader";
 import GradeBoardOverallColumnHeader from "./GradeBoardOverallColumnHeader";
 import GradeBoardOverallGradeCell from "./GradeBoardOverallGradeCell";
 import GradeBoardButtonContainer from "./GradeBoardButtonContainer";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {getData} from "../../../handlers/api";
-import {MainContext} from "../../../contexts/main";
-
-const columns: any = [
-  {
-    title: "",
-    width: 270,
-    dataIndex: "name",
-    fixed: "left",
-    key: "name",
-    render: (text: any, record: any, index: any) => {
-      if (index === 0) {
-        return <GradeBoardAverageRowHeader />;
-      } else {
-        return (
-          <GradeBoardStudentCell
-            studentId="1234"
-            studentName="TranabcdefghBac HoabcdngDabcdt"
-          />
-        );
-      }
-    },
-  },
-  {
-    title: () => {
-      return <GradeBoardOverallColumnHeader />;
-    },
-    width: 129,
-    key: "overall",
-    render: () => {
-      return <GradeBoardOverallGradeCell overallGrade={"50%"} />;
-    },
-  },
-];
+import {log} from "util";
 
 interface GradeBoardProps {
-  classId: number;
-  students: object[]
+    classId: number;
+    students: object[]
 }
 
-export default function GradeBoard({classId, students} : GradeBoardProps) {
-  const [gradeColumns, setGradeColumns] = useState([]);
+interface DataSourceProps {
+    key: number,
+    name: {
+        studentId: string,
+        studentName: string
+    },
+    overall: number,
+    grades: number[]
+}
 
-  const mainContext = useContext(MainContext);
+const columns: any = [
+    {
+        title: "",
+        width: 180,
+        dataIndex: "name",
+        fixed: "left",
+        key: "name",
+        render: (text: any, record: any, index: any) => {
+            if (index === 0) {
+                return <GradeBoardAverageRowHeader/>;
+            } else {
+                return (
+                    <GradeBoardStudentCell
+                        studentId={text.studentId}
+                        studentName={text.studentName}
+                    />
+                );
+            }
+        },
+    },
+    {
+        title: () => {
+            return <GradeBoardOverallColumnHeader/>;
+        },
+        width: 80,
+        key: "overall",
+        dataIndex: "overall",
+        render: (text: any) => {
+            return <GradeBoardOverallGradeCell overallGrade={`${text}%`}/>;
+        },
+    },
+];
 
-  useEffect(() => {
-    const fetchData = () => {
-      getData(`/classrooms/${classId}/grade-structures`)
-          .then((gradeStructure: any) => {
-            gradeStructure.forEach((item: any) => {
-              columns.push({
-                title: () => {
-                  return (
-                      <GradeBoardGradeColumnHeader
-                          title={item.name}
-                          detail={item.grade}
-                      />
-                  );
+const data: DataSourceProps[] = [
+    {
+        key: 0,
+        name: {
+            studentId: "",
+            studentName: "Name"
+        },
+        overall: 50,
+        grades: []
+    }
+]
+
+export default function GradeBoard({classId, students}: GradeBoardProps) {
+    const [gradeColumns, setGradeColumns] = useState(columns);
+    const [dataSource, setDataSource] = useState(data);
+
+    useEffect(() => {
+        const tempColumns = [...columns];
+        const tempDataSource = [...dataSource];
+        students.forEach((student: any, index: number) => {
+            tempDataSource.push({
+                key: index + 1,
+                name: {
+                    studentId: student.studentId,
+                    studentName: student.name
                 },
-                width: 129,
-                dataIndex: "age",
-                key: "age",
-                render: (text: any, record: any, index: any) => {
-                  if (index === 0) {
-                    return <GradeBoardGradeCell readOnly />;
-                  } else {
-                    return <GradeBoardGradeCell />;
-                  }
-                },
+                overall: 50,
+                grades: []
             })
-            });
-            columns.push({ title: "", key: "8" });
-            mainContext.setReloadNeeded(false);
-          })
-          .catch(() => message.error("Something went wrong!"));
-    };
+        })
 
-    fetchData();
-    setGradeColumns(columns);
-  }, [])
+        const fetchData = () => {
+            getData(`/classrooms/${classId}/grade-structures`)
+                .then((gradeStructure: any) => {
+                    gradeStructure.forEach((gradeItem: any, gradeStructureIndex: number) => {
+                        getData(`/classrooms/${classId}/grade-board?gradeStructureId=${gradeItem.id}`).then((data) => {
+                            data.forEach((item: any) => {
+                                tempDataSource[gradeStructureIndex].grades.push(item.grade);
+                            })
+                        });
+                        tempColumns.push({
+                            title: () => {
+                                return (
+                                    <GradeBoardGradeColumnHeader title={gradeItem.name} detail={gradeItem.grade}
+                                                                 classId={classId}/>
+                                )
+                            },
+                            width: 80,
+                            dataIndex: "grades",
+                            key: "grade",
+                            render: (text: any, record: any, index: any) => {
+                                if (index === 0) {
+                                    return <GradeBoardGradeCell readOnly/>;
+                                } else {
+                                    return (
+                                        <GradeBoardGradeCell
+                                            studentId={record.name.studentId}
+                                            gradeStructureId={gradeItem.id}
+                                            classId={classId}
+                                            value={text[index - 1]}
+                                        />
+                                    );
+                                }
+                            },
+                        });
+                    });
+                    setTimeout(() => {
+                        setGradeColumns(tempColumns);
+                        setDataSource(tempDataSource);
+                    }, 500);
+                }).catch(() => message.error("Something went wrong!"));
+        };
 
-  return (
-    <>
-      <GradeBoardButtonContainer students={students} />
-      <Table columns={[...gradeColumns]} dataSource={data} tableLayout="fixed" bordered />
-    </>
-  );
+        fetchData();
+    }, []);
+
+    return (
+        <>
+            <GradeBoardButtonContainer classId={classId} students={students}/>
+            <Table columns={[...gradeColumns]} dataSource={[...dataSource]} tableLayout="fixed" bordered/>
+        </>
+    );
 }

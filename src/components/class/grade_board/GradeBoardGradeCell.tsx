@@ -1,31 +1,53 @@
 import Checkbox from "antd/lib/checkbox/Checkbox";
-import React, { useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
+import {putData} from "../../../handlers/api";
+import {message} from "antd";
+
+interface InputProps extends React.HTMLProps<HTMLInputElement> {
+  classId?: number,
+  gradeStructureId?: number
+  studentId?: string
+}
 
 export default function GradeBoardGradeCell({
-  ...props
-}: React.HTMLProps<HTMLInputElement>) {
+  classId, gradeStructureId, studentId, ...props
+}: InputProps) {
   const maximumGrade = 100;
   const inputRef = useRef<HTMLInputElement>(null);
   const [grade, setGrade] = useState<string>(
-    props.value ? props.value.toString() : ""
+      props.value ? props.value.toString() : ""
   );
   const [focusInput, setFocusInput] = useState<boolean>(false);
   const [metaDataWrapperState, setMetadataWrapperState] = useState<string>(
     props.value ? " containing" : ""
   );
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   const handleOnClickMetadataWrapper = () => {
     setFocusInput(true);
+    console.log(grade);
   };
 
   const handleOnBlurInput = () => {
     setFocusInput(false);
+    setIsSaving(true);
 
     if (grade !== "") {
       setMetadataWrapperState(" containing");
     } else {
       setMetadataWrapperState("");
     }
+
+    putData(`/classrooms/${classId}/grades`, {
+      studentId: studentId,
+      gradeStructureId: gradeStructureId,
+      grade: grade
+    }).then((msg) => {
+      setIsSaving(false);
+    }).catch(() => {
+      setIsSaving(false);
+      return message.error("Can't save grade");
+    })
   };
 
   return (
@@ -47,7 +69,7 @@ export default function GradeBoardGradeCell({
                 autoFocus={focusInput}
               />
               <p>/{maximumGrade}</p>
-              <div className="underline"></div>
+              <div className="underline"/>
             </div>
           ) : (
             <div
@@ -59,7 +81,7 @@ export default function GradeBoardGradeCell({
                   <p className="current-grade">
                     {grade}/{maximumGrade}
                   </p>
-                  <p className="current-state">Saving...</p>
+                  {isSaving && <p className="current-state">Saving...</p>}
                 </>
               ) : (
                 <p className="current-grade">____/{maximumGrade}</p>

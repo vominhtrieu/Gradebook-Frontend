@@ -6,13 +6,18 @@ import GradeBoardMoreMenu from "./GradeBoardMoreMenu";
 interface GradeColumnHeaderProps {
   title: string;
   detail: string;
+  classId: number
 }
 
 export default function GradeBoardGradeColumnHeader({
   title,
-  detail,
+  detail, classId
 }: GradeColumnHeaderProps) {
   const maximumGrade = 100;
+
+  const menu = (
+      <GradeBoardMoreMenu classId={classId}/>
+  )
 
   return (
     <div className="grade-board_grade-column-header">
@@ -22,7 +27,7 @@ export default function GradeBoardGradeColumnHeader({
         </Tooltip>
         <p className="detail">out of {detail}</p>
         <Dropdown
-          overlay={GradeBoardMoreMenu}
+          overlay={menu}
           trigger={["click"]}
           placement="bottomRight"
         >
