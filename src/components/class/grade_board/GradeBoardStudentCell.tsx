@@ -16,7 +16,7 @@ export default function GradeBoardStudentCell({
   return (
     <div className="grade-board_student-cell">
       <Avatar className="avatar" size={32} icon={<UserOutlined />} />
-      <a className="name">{studentName}</a>
+      <a className="name">{studentName} ({studentId})</a>
     </div>
   );
 }

@@ -25,7 +25,6 @@ export default function GradeBoardGradeCell({
 
   const handleOnClickMetadataWrapper = () => {
     setFocusInput(true);
-    console.log(grade);
   };
 
   const handleOnBlurInput = () => {

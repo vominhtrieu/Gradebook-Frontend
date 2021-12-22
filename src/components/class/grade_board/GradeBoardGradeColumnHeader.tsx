@@ -1,51 +1,33 @@
-import { MoreOutlined } from "@ant-design/icons";
-import { Button, Divider, Dropdown, Tooltip } from "antd";
+import { message, Tooltip } from "antd";
 import GradeNotificationModal from "./grade-notification-modal";
-import GradeBoardMoreMenu from "./GradeBoardMoreMenu";
+import UploadGrade from "./UploadGrade";
+import { postData, putData } from "../../../handlers/api";
 
-interface GradeColumnHeaderProps {
-  title: string;
-  detail: string;
-  classId: number
-}
 
-export default function GradeBoardGradeColumnHeader({
-  title,
-  detail, classId
-}: GradeColumnHeaderProps) {
-  const maximumGrade = 100;
+export default function GradeBoardGradeColumnHeader({gradeStructure, classId}: any) {
 
-  const menu = (
-      <GradeBoardMoreMenu classId={classId}/>
-  )
+    const markFinal = () => {
+        postData(`/classrooms/${classId}/mark-final`, {
+            gradeStructureId: gradeStructure.id,
+        }).then((msg) => {
+            return message.error("Marked column as final");
+        }).catch(() => {
+            return message.error("Can't save grade");
+        })
+    }
+    return (
+        <div>
+            <div style={{display: "flex", alignItems: "center"}}>
+                <Tooltip title={gradeStructure.name} style={{display: "flex"}}>
+                    <p className="title" style={{marginBottom: 0}}><b>{gradeStructure.name}</b> ({gradeStructure.grade})
+                    </p>
+                </Tooltip>
+                <UploadGrade classId={classId} />
+            </div>
 
-  return (
-    <div className="grade-board_grade-column-header">
-      <div className="grade-structure">
-        <Tooltip title={title}>
-          <p className="title">{title}</p>
-        </Tooltip>
-        <p className="detail">out of {detail}</p>
-        <Dropdown
-          overlay={menu}
-          trigger={["click"]}
-          placement="bottomRight"
-        >
-          <Button shape="circle">
-            <MoreOutlined />
-          </Button>
-        </Dropdown>
-      </div>
-      <Divider
-        style={{
-          margin: "0",
-          marginBottom: "0",
-        }}
-      />
-      <div className="finalization-wrapper">
-        <p>out of {maximumGrade}</p>
-        <GradeNotificationModal />
-      </div>
-    </div>
-  );
+            <div className="finalization-wrapper">
+                <GradeNotificationModal isFinal={gradeStructure.isFinal} markFinal={markFinal} />
+            </div>
+        </div>
+    );
 }
