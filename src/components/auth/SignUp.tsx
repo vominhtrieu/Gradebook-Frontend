@@ -64,7 +64,7 @@ function SignUp() {
             placeholder="Email"
           />
         </Form.Item>
-        <Form.Item name="studentId" rules={userStudentIdRules}>
+        <Form.Item name="studentId">
           <Input
               prefix={<IdcardOutlined className="site-form-item-icon" />}
               placeholder="Student ID"
