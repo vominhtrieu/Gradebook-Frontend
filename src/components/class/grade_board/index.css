@@ -126,6 +126,7 @@
   padding: 10px 16px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .ant-table-tbody .grade-board_grade-cell .metadata-wrapper {
@@ -138,7 +139,6 @@
 
 .ant-table-tbody .grade-board_grade-cell .metadata-wrapper.containing {
   display: block;
-  align-self: flex-start;
 }
 
 .ant-table-tbody .grade-board_grade-cell .metadata-wrapper p {
