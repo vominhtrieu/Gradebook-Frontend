@@ -21,6 +21,7 @@ export default function ClassDetailJoined({
                                               history,
                                           }: RouteComponentProps<Params>) {
     const [classroom, setClassroom]: any = useState({});
+    const [activeTab, setActiveTab] = useState("introduction");
     const mainContext = useContext(MainContext);
 
     useEffect(() => {
@@ -36,7 +37,12 @@ export default function ClassDetailJoined({
                 mainContext.setReloadNeeded(false);
             })
             .catch(() => message.error("Something went wrong!"));
-    }, [mainContext, match.params.id]);
+        const pathNameParts = history.location.pathname.split("/");
+        const key = pathNameParts[pathNameParts.length - 1];
+        if (pathNameParts.length > 3 && key !== "") {
+            setActiveTab(key);
+        }
+    }, [history.location.pathname, mainContext, match.params.id]);
 
     const TabPaneStyle = {padding: "0px 24px 16px 24px"};
 
@@ -87,39 +93,39 @@ export default function ClassDetailJoined({
                                 key="introduction"
                                 style={TabPaneStyle}
                             >
-                                <IntroductionSection
+                                {activeTab === "introduction" && <IntroductionSection
                                     name={classroom.name}
                                     description={classroom.description}
                                     totalStudent={
                                         classroom.students ? classroom.students.length : 0
                                     }
-                                />
+                                />}
                             </TabPane>
                             <TabPane tab="Teachers" key="teachers" style={TabPaneStyle}>
-                                <UserListSection
+                                {activeTab === "teachers" && <UserListSection
                                     users={classroom.teachers}
                                     isTeacher={classroom.isTeacher}
                                     classroomId={classroom.id}
                                     teacherInvitationCode={classroom.teacherInvitationCode}
-                                />
+                                />}
                             </TabPane>
                             <TabPane tab="Students" key="students" style={TabPaneStyle}>
-                                <UserListSection
+                                {activeTab === "students" && <UserListSection
                                     users={classroom.students}
                                     isTeacher={classroom.isTeacher}
                                     classroomId={classroom.id}
                                     studentInvitationCode={classroom.studentInvitationCode}
-                                />
+                                />}
                             </TabPane>
                             <TabPane
                                 tab="Grade Structure"
                                 key="grade_structures"
                                 style={TabPaneStyle}
                             >
-                                <GradeStructureSection/>
+                                {activeTab === "grade_structures" && <GradeStructureSection />}
                             </TabPane>
                             <TabPane tab="Grades" key="grades" style={TabPaneStyle}>
-                                <GradeBoard classId={classroom.id} students={classroom.students}/>
+                                {activeTab === "grades" && <GradeBoard classId={classroom.id} students={classroom.students}/>}
                             </TabPane>
                         </Tabs>
                     </div>

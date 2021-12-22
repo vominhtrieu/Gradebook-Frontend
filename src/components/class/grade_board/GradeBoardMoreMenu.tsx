@@ -1,13 +1,24 @@
-import {Menu, Upload} from "antd";
+import {Menu, message, Upload} from "antd";
+import {useContext} from "react";
+import {MainContext} from "../../../contexts/main";
 
-export default function GradeBoardMoreMenu() {
+interface GradeBoardMoreMenuProps {
+    classId: number
+}
 
-    const onChange = (info: any) => {
-        if (info.file.status === 'done') {
-            console.log(info.fileList);
+export default function GradeBoardMoreMenu({classId}: GradeBoardMoreMenuProps) {
+    const mainContext = useContext(MainContext);
+
+    const handleUploadChanged = (info: any) => {
+        if (info.file.status === "uploading") {
+            return message.loading("Importing grades...");
         }
-        if (info.file.status === 'error') {
-            console.log(info.file.name);
+        if (info.file.status === "done") {
+            mainContext.setReloadNeeded(true);
+            return message.success("Grade column has been updated");
+        }
+        if (info.file.status === "error") {
+            return message.error("Cannot import grades, please try again!");
         }
     }
 
@@ -21,8 +32,8 @@ export default function GradeBoardMoreMenu() {
             <Menu.Item>
                 <Upload accept=".csv,.xlsx" showUploadList={false}
                         headers={{Authorization: `Bearer ${localStorage.getItem("token")}`}}
-                        action={window.location.origin}
-                        onChange={onChange}>Upload</Upload>
+                        action={`/classrooms/${classId}/grades/import`}
+                        onChange={handleUploadChanged}>Upload</Upload>
             </Menu.Item>
         </Menu>
     );
