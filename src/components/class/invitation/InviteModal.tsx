@@ -60,7 +60,7 @@ export default function InviteModal({
         <Modal visible={visible} onCancel={onClose} onOk={handleSendInvite} okText="Send" title="Invite User">
             <Space direction="vertical" style={{width: "100%"}}>
                 <div style={{display: "flex", width: "100%"}}>
-                    <Input defaultValue={inviteLink} style={{marginRight: 5}}/>
+                    <Input defaultValue={inviteLink} style={{marginRight: 5, height: "32px", padding: 4}}/>
                     <Tooltip title="Copy Link">
                         <Button className="btn" data-clipboard-text={inviteLink} icon={<CopyOutlined/>}/>
                     </Tooltip>
