@@ -99,8 +99,8 @@ export default function GradeBoard({classId, students}: GradeBoardProps) {
                 .then((gradeStructure: any) => {
                     gradeStructure.forEach((gradeItem: any, gradeStructureIndex: number) => {
                         getData(`/classrooms/${classId}/grade-board?gradeStructureId=${gradeItem.id}`).then((data) => {
-                            data.forEach((item: any) => {
-                                tempDataSource[gradeStructureIndex].grades.push(item.grade);
+                            data.forEach((item: any, index: number) => {
+                                tempDataSource[index + 1].grades.push(item.grade);
                             })
                         });
                         tempColumns.push({
@@ -121,14 +121,15 @@ export default function GradeBoard({classId, students}: GradeBoardProps) {
                                             studentId={record.name.studentId}
                                             gradeStructureId={gradeItem.id}
                                             classId={classId}
-                                            value={text[index - 1]}
+                                            value={tempDataSource[index].grades[gradeStructureIndex]}
                                         />
                                     );
                                 }
                             },
                         });
-                    });
+                    })
                     setTimeout(() => {
+                        console.log(tempDataSource);
                         setGradeColumns(tempColumns);
                         setDataSource(tempDataSource);
                     }, 500);
