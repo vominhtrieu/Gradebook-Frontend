@@ -10,11 +10,6 @@ import GradeBoardButtonContainer from "./GradeBoardButtonContainer";
 import { useEffect, useState } from "react";
 import { getData } from "../../../handlers/api";
 
-interface GradeBoardProps {
-    classId: number;
-    students: object[]
-}
-
 interface DataSourceProps {
     key: number,
     name: {
@@ -70,34 +65,18 @@ const data: DataSourceProps[] = [
     }
 ]
 
-interface GradeBoardProps {
-    classId: number;
-    students: object[]
-}
-
-export default function GradeBoard({classId, students}: GradeBoardProps) {
+export default function GradeBoard({classId}:any) {
     const [gradeColumns, setGradeColumns] = useState(columns);
     const [dataSource, setDataSource] = useState(data);
+    const [students, setStudents] = useState([]);
 
     useEffect(() => {
         const tempColumns = [...columns];
         const tempDataSource = [...dataSource];
-        students.forEach((student: any, index: number) => {
-            tempDataSource.push({
-                key: index + 1,
-                name: {
-                    studentId: student.studentId,
-                    studentName: student.name
-                },
-                overall: 50,
-                grades: []
-            })
-        })
-        console.log(tempDataSource)
         const fetchData = () => {
             getData(`/classrooms/${classId}/grade-structures`)
                 .then((gradeStructure: any) => {
-                    gradeStructure.forEach((gradeItem: any, gradeStructureIndex: number) => {
+                    gradeStructure.reverse().forEach((gradeItem: any, gradeStructureIndex: number) => {
                         getData(`/classrooms/${classId}/grade-board?gradeStructureId=${gradeItem.id}`).then((data) => {
                             data.forEach((item: any, index: number) => {
                                 tempDataSource[index + 1].grades.push(item.grade);
@@ -136,7 +115,23 @@ export default function GradeBoard({classId, students}: GradeBoardProps) {
                 }).catch(() => message.error("Something went wrong!"));
         };
 
-        fetchData();
+        getData(`/classrooms/${classId}/grade-board-student`)
+            .then(students => {
+                setStudents(students);
+                students.forEach((student: any, index: number) => {
+                    tempDataSource.push({
+                        key: index + 1,
+                        name: {
+                            studentId: student.studentId,
+                            studentName: student.name
+                        },
+                        overall: 50,
+                        grades: []
+                    })
+                })
+                fetchData();
+            })
+            .catch(() => message.error("Something went wrong!"));
         // eslint-disable-next-line
     }, []);
 
@@ -144,6 +139,7 @@ export default function GradeBoard({classId, students}: GradeBoardProps) {
         <>
             <GradeBoardButtonContainer classId={classId} students={students} />
             <Table columns={[...gradeColumns]} pagination={false}
+                   scroll={{x: "max-content"}}
                    dataSource={[...dataSource]} bordered />
         </>
     );

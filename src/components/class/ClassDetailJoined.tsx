@@ -126,10 +126,7 @@ export default function ClassDetailJoined({
                             </TabPane>
                             <TabPane tab="Grades" key="grades" style={TabPaneStyle}>
                                 {activeTab === "grades" && (classroom.isTeacher ? (
-                                    <GradeBoard
-                                        classId={classroom.id}
-                                        students={classroom.students}
-                                    />
+                                    <GradeBoard classId={classroom.id} />
                                 ) : (
                                     <GradeViewingSection/>
                                 ))}
