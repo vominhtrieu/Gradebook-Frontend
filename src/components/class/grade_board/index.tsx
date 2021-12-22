@@ -1,4 +1,4 @@
-import {message, Table} from "antd";
+import { message, Table } from "antd";
 import GradeBoardGradeCell from "./GradeBoardGradeCell";
 import GradeBoardStudentCell from "./GradeBoardStudentCell";
 import GradeBoardGradeColumnHeader from "./GradeBoardGradeColumnHeader";
@@ -7,8 +7,8 @@ import GradeBoardAverageRowHeader from "./GradeBoardAverageRowHeader";
 import GradeBoardOverallColumnHeader from "./GradeBoardOverallColumnHeader";
 import GradeBoardOverallGradeCell from "./GradeBoardOverallGradeCell";
 import GradeBoardButtonContainer from "./GradeBoardButtonContainer";
-import {useEffect, useState} from "react";
-import {getData} from "../../../handlers/api";
+import { useEffect, useState } from "react";
+import { getData } from "../../../handlers/api";
 
 interface GradeBoardProps {
     classId: number;
@@ -34,7 +34,7 @@ const columns: any = [
         key: "name",
         render: (text: any, record: any, index: any) => {
             if (index === 0) {
-                return <GradeBoardAverageRowHeader/>;
+                return <GradeBoardAverageRowHeader />;
             } else {
                 return (
                     <GradeBoardStudentCell
@@ -47,13 +47,13 @@ const columns: any = [
     },
     {
         title: () => {
-            return <GradeBoardOverallColumnHeader/>;
+            return <GradeBoardOverallColumnHeader />;
         },
         width: 80,
         key: "overall",
         dataIndex: "overall",
         render: (text: any) => {
-            return <GradeBoardOverallGradeCell overallGrade={`${text}%`}/>;
+            return <GradeBoardOverallGradeCell overallGrade={`${text}%`} />;
         },
     },
 ];
@@ -71,8 +71,8 @@ const data: DataSourceProps[] = [
 ]
 
 interface GradeBoardProps {
-  classId: number;
-  students: object[]
+    classId: number;
+    students: object[]
 }
 
 export default function GradeBoard({classId, students}: GradeBoardProps) {
@@ -93,7 +93,7 @@ export default function GradeBoard({classId, students}: GradeBoardProps) {
                 grades: []
             })
         })
-
+        console.log(tempDataSource)
         const fetchData = () => {
             getData(`/classrooms/${classId}/grade-structures`)
                 .then((gradeStructure: any) => {
@@ -106,16 +106,15 @@ export default function GradeBoard({classId, students}: GradeBoardProps) {
                         tempColumns.push({
                             title: () => {
                                 return (
-                                    <GradeBoardGradeColumnHeader title={gradeItem.name} detail={gradeItem.grade}
-                                                                 classId={classId}/>
+                                    <GradeBoardGradeColumnHeader gradeStructure={gradeItem} classId={classId} />
                                 )
                             },
-                            width: 80,
+                            width: 120,
                             dataIndex: "grades",
                             key: "grade",
                             render: (text: any, record: any, index: any) => {
                                 if (index === 0) {
-                                    return <GradeBoardGradeCell readOnly/>;
+                                    return <GradeBoardGradeCell readOnly />;
                                 } else {
                                     return (
                                         <GradeBoardGradeCell
@@ -137,12 +136,14 @@ export default function GradeBoard({classId, students}: GradeBoardProps) {
         };
 
         fetchData();
+        // eslint-disable-next-line
     }, []);
 
     return (
         <>
-            <GradeBoardButtonContainer classId={classId} students={students}/>
-            <Table columns={[...gradeColumns]} dataSource={[...dataSource]} tableLayout="fixed" bordered/>
+            <GradeBoardButtonContainer classId={classId} students={students} />
+            <Table columns={[...gradeColumns]} pagination={false}
+                   dataSource={[...dataSource]} bordered />
         </>
     );
 }
