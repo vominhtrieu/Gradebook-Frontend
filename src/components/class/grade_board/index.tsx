@@ -78,9 +78,12 @@ export default function GradeBoard({classId}:any) {
                 .then((gradeStructure: any) => {
                     gradeStructure.reverse().forEach((gradeItem: any, gradeStructureIndex: number) => {
                         getData(`/classrooms/${classId}/grade-board?gradeStructureId=${gradeItem.id}`).then((data) => {
-                            data.forEach((item: any, index: number) => {
-                                tempDataSource[index + 1].grades.push(item.grade);
-                            })
+                            for (let i = 1; i < tempDataSource.length; i++) {
+                                if (data) {
+                                    const gradeItem = data.find((e: any) => e.studentId === tempDataSource[i].name.studentId);
+                                    tempDataSource[i].grades.push(gradeItem ? gradeItem.grade : 0)
+                                }
+                            }
                         });
                         tempColumns.push({
                             title: () => {
@@ -108,7 +111,6 @@ export default function GradeBoard({classId}:any) {
                         });
                     })
                     setTimeout(() => {
-                        console.log(tempDataSource);
                         setGradeColumns(tempColumns);
                         setDataSource(tempDataSource);
                     }, 500);

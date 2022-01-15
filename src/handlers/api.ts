@@ -79,6 +79,11 @@ export const putData = (url: string, data: any): Promise<any> => {
     } else if (res.status >= 400) {
       message.error("Something went wrong!!");
     }
+    if(!Object.keys(res.json()).length || res.ok){
+      return {
+        message: "Put data success"
+      }
+    }
     return res.json();
   });
 };
