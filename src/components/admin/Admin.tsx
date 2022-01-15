@@ -5,6 +5,7 @@ import MainSider from "./MainSider";
 import { Content } from "antd/es/layout/layout";
 import UserManagement from "./UserManagement";
 import ClassroomManagement from "./ClassroomManagement";
+import AdminManagement from "./AdminManagement";
 
 export default function Admin() {
     return (
@@ -20,9 +21,9 @@ export default function Admin() {
                     <Route path="/admin/classrooms">
                         <ClassroomManagement />
                     </Route>
-                    {/*<Route path="/admin/admins">*/}
-                    {/*    <AdminManagement />*/}
-                    {/*</Route>*/}
+                    <Route path="/admin/admins">
+                        <AdminManagement />
+                    </Route>
                 </Switch>
             </Content>
         </Layout>
