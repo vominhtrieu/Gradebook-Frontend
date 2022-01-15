@@ -67,6 +67,7 @@ export const googleSignInSuccessHandler = async (
     if (data.token.length > 0) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("studentId", data.studentId);
+
       message.success(`Hi ${data.name}, welcome!`);
 
       setLoginIsSuccessful(true);

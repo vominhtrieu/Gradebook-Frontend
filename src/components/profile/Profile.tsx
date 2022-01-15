@@ -97,7 +97,7 @@ export default function Profile() {
         title={"Your courses"}
       >
         <Row>
-          {classrooms && classrooms.length > 0 ? (
+          {classrooms && classrooms.map && classrooms.length > 0 ? (
             classrooms.map((classroom: any, i: number) => (
               <Col
                 key={i}

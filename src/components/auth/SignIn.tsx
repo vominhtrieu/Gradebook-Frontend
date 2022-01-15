@@ -25,7 +25,6 @@ function SignIn() {
     }, []);
 
     useEffect(() => {
-        console.log(routingContext);
         if (loginIsSuccessful) {
             history.push(routingContext.requestedURL);
         }
@@ -47,6 +46,7 @@ function SignIn() {
                         type="email"
                         prefix={<MailOutlined className="site-form-item-icon" />}
                         placeholder="Email"
+                        name="email"
                     />
                 </Form.Item>
                 <Form.Item name="password" rules={userPasswordRules}>
@@ -54,6 +54,7 @@ function SignIn() {
                         type="password"
                         prefix={<LockOutlined className="site-form-item-icon" />}
                         placeholder="Password"
+                        name="password"
                     />
                 </Form.Item>
                 <Form.Item>

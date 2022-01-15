@@ -77,7 +77,7 @@ export default function Homepage() {
                     </>)
                 : null}
 
-            {joinedClassrooms && joinedClassrooms.length > 0
+            {joinedClassrooms && joinedClassrooms.length.map
                 ?
                 <>
                     <h3 style={{marginTop: 20, textAlign: "center"}}>
