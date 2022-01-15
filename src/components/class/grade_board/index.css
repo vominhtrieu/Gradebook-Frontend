@@ -109,7 +109,9 @@
 }
 
 .ant-table-tbody .grade-board_grade-cell .metadata-wrapper {
-  display: none;
+  display: block;
+  /*hover doesn't work*/
+  /*display: none;*/
 }
 
 .ant-table-tbody .grade-board_grade-cell:hover .metadata-wrapper {
