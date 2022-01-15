@@ -14,6 +14,7 @@ import { RoutingContext } from "../contexts/routing";
 import { getData } from "../handlers/api";
 
 export default function Main() {
+    console.log("Token: ", localStorage.getItem("token"));
     const location = useLocation();
     const [newClassVisible, setNewClassVisible] = useState(false);
     const [reloadNeeded, setReloadNeeded] = useState(true);
@@ -22,7 +23,6 @@ export default function Main() {
     const routingContext = useContext(RoutingContext);
 
     const token = localStorage.getItem("token");
-
     useEffect(() => {
         if (token === null || token.length === 0) {
             routingContext.setRequestedURL(location.pathname + location.search);

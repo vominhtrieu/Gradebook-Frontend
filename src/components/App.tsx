@@ -1,10 +1,11 @@
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import "./App.css";
 import Main from "./Main";
-import {RoutingContext} from "../contexts/routing";
+import { RoutingContext } from "../contexts/routing";
 import React from "react";
+import Admin from "./admin/Admin";
 
 function App() {
     const [requestedURL, setRequestedURL] = React.useState("/");
@@ -14,13 +15,19 @@ function App() {
             <Router>
                 <Switch>
                     <Route path="/signin">
-                        <SignIn/>
+                        <SignIn />
                     </Route>
                     <Route path="/signup">
-                        <SignUp/>
+                        <SignUp />
+                    </Route>
+                    <Route path="/admin/">
+                        <Admin />
+                    </Route>
+                    <Route path="/admin/*">
+                        <Admin />
                     </Route>
                     <Route path="*">
-                        <Main/>
+                        <Main />
                     </Route>
                 </Switch>
             </Router>

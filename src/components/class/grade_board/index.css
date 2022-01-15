@@ -7,12 +7,6 @@
   margin-right: 10px;
 }
 
-.ant-table-thead > tr > th {
-  height: 129px;
-  padding: 10px 16px;
-  background-color: white;
-}
-
 .ant-table-thead .grade-board_grade-column-header {
   width: 96px;
 }
@@ -74,11 +68,6 @@
   font-size: 13px;
 }
 
-.ant-table-tbody > tr > td {
-  padding: 0;
-  height: 64px;
-}
-
 .ant-table-tbody > tr.ant-table-row:hover > td {
   background: none;
 }
@@ -120,15 +109,6 @@
   text-decoration: underline;
 }
 
-.ant-table-tbody .grade-board_grade-cell {
-  position: relative;
-  height: 100%;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .ant-table-tbody .grade-board_grade-cell .metadata-wrapper {
   display: none;
 }
@@ -145,9 +125,9 @@
   margin-bottom: 0;
 }
 
-.ant-table-tbody
-  .grade-board_grade-cell
-  .metadata-wrapper.containing
+.ant-table-tbody,
+  .grade-board_grade-cell,
+  .metadata-wrapper.containing,
   .current-grade {
   color: #1e8e3e;
 }
