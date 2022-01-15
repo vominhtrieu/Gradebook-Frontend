@@ -33,7 +33,6 @@ export default function GradeBoardGradeCell({
   const handleOnBlurInput = () => {
     setFocusInput(false);
     setIsSaving(true);
-
     if (grade !== "") {
       setMetadataWrapperState(" containing");
     } else {

@@ -7,11 +7,11 @@ import { postData, putData } from "../../../handlers/api";
 export default function GradeBoardGradeColumnHeader({gradeStructure, classId}: any) {
 
     const markFinal = () => {
-        postData(`/classrooms/${classId}/mark-final`, {
+        putData(`/classrooms/${classId}/mark-final`, {
             gradeStructureId: gradeStructure.id,
         }).then((msg) => {
             return message.error("Marked column as final");
-        }).catch(() => {
+        }).catch((e) => {
             return message.error("Can't save grade");
         })
     }
