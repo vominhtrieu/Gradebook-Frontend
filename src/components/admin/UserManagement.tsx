@@ -81,6 +81,7 @@ export default function UserManagement() {
     useEffect(() => {
         getData("/admin/users")
             .then((data: any) => {
+                console.log(data);
                 setLoading(false);
                 setUsers(data);
             })

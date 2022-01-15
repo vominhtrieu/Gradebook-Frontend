@@ -21,8 +21,8 @@ export default function MainSider() {
                 <Menu.Item key="2" icon={<ReadOutlined />} onClick={()=>history.push("/admin/classrooms")}>
                     Classes
                 </Menu.Item>
-                <Menu.Item key="3" icon={<UserOutlined />}>
-                    System Users
+                <Menu.Item key="3" icon={<UserOutlined />} onClick={()=>history.push("/admin/admins")}>
+                    Admins
                 </Menu.Item>
             </Menu>
         </Sider>
