@@ -12,9 +12,12 @@ export const exportStudentList = (data: object[]) => {
     exportExcelFile(headers, data, "StudentListTemplate");
 }
 
-// export const exportAssignmentGrade = (data: object[]) => {
-//     exportExcelFile("AssignmentGradeTemplate.xlsx", data, "AssignmentGradeTemplate");
-// }
+export const exportAssignmentGrade = (data: object[]) => {
+    const headers = [
+        ["Student ID", "Grade"]
+    ]
+    exportExcelFile(headers, data, "AssignmentGradeTemplate");
+}
 
 const exportExcelFile = (headers: string[][], data: object[], fileName: string) => {
     const worksheet = XLSX.utils.aoa_to_sheet(headers);
