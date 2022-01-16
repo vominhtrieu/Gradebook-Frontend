@@ -12,13 +12,15 @@ import ChangePassword from "./profile/single-field/ChangePassword";
 import ClassDetailJoined from "./class/ClassDetailJoined";
 import { RoutingContext } from "../contexts/routing";
 import { getData } from "../handlers/api";
+import io from "socket.io-client";
+import Notification from "./notifications/Notification";
 
 export default function Main() {
-    console.log("Token: ", localStorage.getItem("token"));
     const location = useLocation();
     const [newClassVisible, setNewClassVisible] = useState(false);
     const [reloadNeeded, setReloadNeeded] = useState(true);
     const [userStudentId, setUserStudentId] = useState("");
+    const [socket, setSocket] = useState(io(process.env.REACT_APP_API_HOST + ""));
 
     const routingContext = useContext(RoutingContext);
 
@@ -34,7 +36,13 @@ export default function Main() {
 
     return (
         <MainContext.Provider
-            value={{reloadNeeded: reloadNeeded, setReloadNeeded: setReloadNeeded, userStudentId: userStudentId}}
+            value={{
+                reloadNeeded: reloadNeeded,
+                setReloadNeeded: setReloadNeeded,
+                userStudentId: userStudentId,
+                socket: socket,
+                setSocket: setSocket
+            }}
         >
             {token === null || token.length === 0 ? <Redirect to="/signin" /> : null}
             <NewClass visible={newClassVisible} setVisible={setNewClassVisible} />
@@ -72,6 +80,9 @@ export default function Main() {
                             <Menu.Item key={"/profile"}>
                                 <Link to={"/profile"}>Profile</Link>
                             </Menu.Item>
+                            <Menu.Item key={"/notifications"}>
+                                <Link to={"/notifications"}>Notifications</Link>
+                            </Menu.Item>
                             <Menu.Item key={"/signin"}>
                                 <Link to={"/signin"}>Sign out</Link>
                             </Menu.Item>
@@ -92,6 +103,9 @@ export default function Main() {
                         </Route>
                         <Route exact path="/profile">
                             <Profile />
+                        </Route>
+                        <Route exact path="/notifications">
+                            <Notification />
                         </Route>
                         <Route
                             path="/classrooms/:id/:tab?"
