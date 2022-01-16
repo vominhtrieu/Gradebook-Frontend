@@ -1,21 +1,23 @@
 import Checkbox from "antd/lib/checkbox/Checkbox";
-import React, { useEffect, useRef, useState } from "react";
+import React, {ChangeEvent, useContext, useEffect, useRef, useState} from "react";
 import { putData } from "../../../handlers/api";
 import { message } from "antd";
+import {MainContext} from "../../../contexts/main";
 
 interface InputProps extends React.HTMLProps<HTMLInputElement> {
   classId?: number;
   gradeStructureId?: number;
   studentId?: string;
+  maximumGrade?: number;
 }
 
 export default function GradeBoardGradeCell({
   classId,
   gradeStructureId,
   studentId,
+  maximumGrade,
   ...props
 }: InputProps) {
-  const maximumGrade = 100;
   const inputRef = useRef<HTMLInputElement>(null);
   const [grade, setGrade] = useState<string>(
     props.value ? props.value.toString() : ""
@@ -25,6 +27,7 @@ export default function GradeBoardGradeCell({
     props.value ? " containing" : ""
   );
   const [isSaving, setIsSaving] = useState<boolean>(false);
+  const mainContext = useContext(MainContext);
 
   const handleOnClickMetadataWrapper = () => {
     setFocusInput(true);
@@ -45,6 +48,7 @@ export default function GradeBoardGradeCell({
       grade: grade,
     })
       .then(msg => {
+        mainContext.setReloadNeeded(true);
         setIsSaving(false);
       })
       .catch(() => {
@@ -52,6 +56,16 @@ export default function GradeBoardGradeCell({
         return message.error("Can't save grade");
       });
   };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // @ts-ignore
+    if (isNaN(Number(e.target.value)) || (parseFloat(grade) > maximumGrade || parseFloat(grade) < 0)) {
+      setIsSaving(false);
+      return message.error("Invalid grade");
+    } else {
+      setGrade(e.target.value);
+    }
+  }
 
   return (
     <div className={`grade-board_grade-cell${focusInput ? " focus" : ""}`}>
@@ -67,7 +81,7 @@ export default function GradeBoardGradeCell({
                 {...props}
                 ref={inputRef}
                 value={grade}
-                onChange={e => setGrade(e.target.value)}
+                onChange={e => handleInputChange(e)}
                 onBlur={handleOnBlurInput}
                 autoFocus={focusInput}
               />
