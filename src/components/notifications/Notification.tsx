@@ -1,18 +1,30 @@
 import { List } from 'antd';
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { getData } from "../../handlers/api";
 import { Link } from "react-router-dom";
+import { MainContext } from "../../contexts/main";
 
 export default function Notification() {
     const [notifications, setNotifications] = React.useState<any>([]);
     const [loading, setLoading] = React.useState(false);
+    const mainContext = useContext(MainContext);
 
     useEffect(() => {
-        getData("/notifications").then((notifications) => {
-            setNotifications((notifications));
-            setLoading(false);
+        const fetchData = () => {
+            getData("/notifications").then((notifications) => {
+                setNotifications((notifications));
+                setLoading(false);
+            })
+        }
+        fetchData();
+        mainContext.socket.on("newNotification", () => {
+            fetchData();
         })
-    }, []);
+
+        return ()=>{
+            mainContext.socket.removeListener("newNotification");
+        }
+    }, [mainContext.socket])
 
     return (
         <List
@@ -25,8 +37,16 @@ export default function Notification() {
                 <Link to={item.href}>
                     <List.Item>
                         <List.Item.Meta
-                            title={item.title}
-                            description={item.content}
+                            title={<b style={{
+                                color: item.read ? "#333333" : "black",
+                                fontWeight: item.read ? 500 : 600
+                            }}>{item.title}</b>}
+                            description={
+                                <span
+                                    style={{color: item.read ? "#333333" : "black", fontWeight: item.read ? 400 : 500}}>
+                                {item.content}
+                                </span>
+                            }
                         />
                     </List.Item>
                 </Link>

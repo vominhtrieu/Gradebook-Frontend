@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { Layout, Menu, Space } from "antd";
+import { Layout } from "antd";
 import { Header, Content, Footer } from "antd/lib/layout/layout";
-import { Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import Homepage from "./class/Homepage";
 import Profile from "./profile/Profile";
-import NewClass from "./class/NewClass";
 import { MainContext } from "../contexts/main";
 import ChangeStudentId from "./profile/single-field/ChangeStudentId";
 import ChangeName from "./profile/single-field/ChangeName";
@@ -12,15 +11,25 @@ import ChangePassword from "./profile/single-field/ChangePassword";
 import ClassDetailJoined from "./class/ClassDetailJoined";
 import { RoutingContext } from "../contexts/routing";
 import { getData } from "../handlers/api";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import Notification from "./notifications/Notification";
+import NavigationBar from "./common/NavigationBar";
 
 export default function Main() {
     const location = useLocation();
-    const [newClassVisible, setNewClassVisible] = useState(false);
     const [reloadNeeded, setReloadNeeded] = useState(true);
-    const [userStudentId, setUserStudentId] = useState("");
-    const [socket, setSocket] = useState(io(process.env.REACT_APP_API_HOST + ""));
+    const [user, setUser] = useState({
+        id: 0,
+        name: "",
+        email: "",
+        studentId: "",
+        role: 1,
+    });
+    const [socket, setSocket] = useState<Socket>(io(process.env.REACT_APP_API_HOST + "", {
+        auth: {
+            token: localStorage.getItem("token")
+        }
+    }));
 
     const routingContext = useContext(RoutingContext);
 
@@ -30,22 +39,23 @@ export default function Main() {
             routingContext.setRequestedURL(location.pathname + location.search);
         }
         getData("/users/profile").then((user: any) => {
-            setUserStudentId(user.studentId);
+            setUser(user);
         })
     }, [location.pathname, location.search, routingContext, token]);
+    console.log(user);
 
     return (
         <MainContext.Provider
             value={{
+                user: user,
+                setUser: setUser,
                 reloadNeeded: reloadNeeded,
                 setReloadNeeded: setReloadNeeded,
-                userStudentId: userStudentId,
                 socket: socket,
                 setSocket: setSocket
             }}
         >
             {token === null || token.length === 0 ? <Redirect to="/signin" /> : null}
-            <NewClass visible={newClassVisible} setVisible={setNewClassVisible} />
             <Layout>
                 <Header
                     style={{
@@ -55,39 +65,7 @@ export default function Main() {
                         background: "white",
                     }}
                 >
-                    <Space
-                        style={{
-                            maxWidth: 1200,
-                            margin: "auto",
-                            display: "flex",
-                            justifyContent: "right",
-                        }}
-                    >
-                        <Menu
-                            style={{padding: "0 10px", width: "auto"}}
-                            mode="horizontal"
-                            defaultSelectedKeys={[location.pathname]}
-                        >
-                            <Menu.Item
-                                key={"/new-classroom"}
-                                onClick={() => setNewClassVisible(true)}
-                            >
-                                Create
-                            </Menu.Item>
-                            <Menu.Item key={"/"}>
-                                <Link to={"/"}>Home</Link>
-                            </Menu.Item>
-                            <Menu.Item key={"/profile"}>
-                                <Link to={"/profile"}>Profile</Link>
-                            </Menu.Item>
-                            <Menu.Item key={"/notifications"}>
-                                <Link to={"/notifications"}>Notifications</Link>
-                            </Menu.Item>
-                            <Menu.Item key={"/signin"}>
-                                <Link to={"/signin"}>Sign out</Link>
-                            </Menu.Item>
-                        </Menu>
-                    </Space>
+                    <NavigationBar />
                 </Header>
                 <Content
                     style={{
@@ -99,7 +77,7 @@ export default function Main() {
                 >
                     <Switch>
                         <Route exact path="/">
-                            <Homepage />
+                            {user.role === 2 ? <Redirect to={"/admin"} /> : <Homepage />}
                         </Route>
                         <Route exact path="/profile">
                             <Profile />

@@ -89,7 +89,7 @@ export default function UserManagement() {
 
     const refresh = () => {
         setLoading(true);
-        getData("/admin/users?q=" + searchString)
+        getData("/admin/users?role=1&q=" + searchString)
             .then((data: any) => {
                 setLastSearchString(searchString);
                 setLoading(false);
@@ -103,7 +103,7 @@ export default function UserManagement() {
             return;
         }
         setLoading(true);
-        getData("/admin/users?q=" + searchString)
+        getData("/admin/users?role=1&q=" + searchString)
             .then((data: any) => {
                 setLastSearchString(searchString);
                 setLoading(false);
