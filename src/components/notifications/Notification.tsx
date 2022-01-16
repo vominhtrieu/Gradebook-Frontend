@@ -1,35 +1,35 @@
-import { List, Avatar } from 'antd';
-import Container from "@ant-design/pro-table/es/container";
-
-const data = [
-    {
-        title: 'Ant Design Title 1',
-    },
-    {
-        title: 'Ant Design Title 2',
-    },
-    {
-        title: 'Ant Design Title 3',
-    },
-    {
-        title: 'Ant Design Title 4',
-    },
-];
+import { List } from 'antd';
+import React, { useEffect } from "react";
+import { getData } from "../../handlers/api";
+import { Link } from "react-router-dom";
 
 export default function Notification() {
+    const [notifications, setNotifications] = React.useState<any>([]);
+    const [loading, setLoading] = React.useState(false);
+
+    useEffect(() => {
+        getData("/notifications").then((notifications) => {
+            setNotifications((notifications));
+            setLoading(false);
+        })
+    }, []);
+
     return (
         <List
             itemLayout="horizontal"
             bordered
+            loading={loading}
             style={{marginTop: 10, background: "white"}}
-            dataSource={data}
-            renderItem={item => (
-                <List.Item>
-                    <List.Item.Meta
-                        title={<a href="https://ant.design">{item.title}</a>}
-                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                    />
-                </List.Item>
+            dataSource={notifications}
+            renderItem={(item: any) => (
+                <Link to={item.href}>
+                    <List.Item>
+                        <List.Item.Meta
+                            title={item.title}
+                            description={item.content}
+                        />
+                    </List.Item>
+                </Link>
             )}
         />)
 }
