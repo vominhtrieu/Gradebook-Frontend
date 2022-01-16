@@ -29,7 +29,7 @@ export default function GradeReviewConversationHeader() {
         </p>
       </div>
       <MakeFinalDecisionModal
-        reviewedId={0}
+        gradeDetailId={0}
         handleMakeFinalDecisionSuccessfully={
           handleMakeFinalDecisionSuccessfully
         }

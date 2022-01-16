@@ -9,14 +9,14 @@ interface MakeFinalDecisionModalProps extends GradeReviewModalProps {
   handleMakeFinalDecisionSuccessfully: () => void;
   studentCurrentGrade: number;
   studentExpectationGrade: number;
-  reviewedId: number;
+  gradeDetailId: any;
 }
 
 export default function MakeFinalDecisionModal({
   handleMakeFinalDecisionSuccessfully,
   studentCurrentGrade,
   studentExpectationGrade,
-  reviewedId,
+  gradeDetailId,
   isModalVisible,
   handleCancel,
 }: MakeFinalDecisionModalProps) {
@@ -29,12 +29,11 @@ export default function MakeFinalDecisionModal({
       .then(async values => {
         const makingFinalDecisionSuccessful = await makeFinalDecisionHandler(
           id,
-          reviewedId,
+          gradeDetailId,
           values
         );
 
         if (makingFinalDecisionSuccessful) {
-          form.resetFields();
           handleMakeFinalDecisionSuccessfully();
         }
       })

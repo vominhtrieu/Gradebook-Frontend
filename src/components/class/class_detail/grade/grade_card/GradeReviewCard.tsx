@@ -6,10 +6,13 @@ import moment from "moment";
 import { useState } from "react";
 import ReviewDetailsModal from "../grade_review_modal/ReviewDetailsModal";
 
+const cardColors = ["#808080", "#ffdb58", "#1890ff", "#87d068"];
+
 interface GradeReviewCardProps {
   index: number;
-  handleFinalizedReview: (index: number) => void;
-  reviewId: number;
+  handleFinalizeReview: (index: number) => void;
+  reviewState: number;
+  gradeDetailId: any;
   studentId: string;
   gradeStructureName: string;
   gradeStructureGrade: number;
@@ -21,8 +24,9 @@ interface GradeReviewCardProps {
 
 export default function GradeReviewCard({
   index,
-  handleFinalizedReview,
-  reviewId,
+  handleFinalizeReview,
+  reviewState,
+  gradeDetailId,
   studentId,
   gradeStructureName,
   gradeStructureGrade,
@@ -51,7 +55,7 @@ export default function GradeReviewCard({
         <Meta
           avatar={
             <Avatar
-              style={{ backgroundColor: "#1890ff" }}
+              style={{ backgroundColor: cardColors[reviewState] }}
               size={32}
               icon={<ExceptionOutlined />}
             />
@@ -67,7 +71,7 @@ export default function GradeReviewCard({
               <div className="description-wrapper">
                 <p>Structure: {gradeStructureGrade}</p>
                 <p className="description-date">
-                  {moment(updatedDate).format("ll")}
+                  {moment(updatedDate).startOf("hour").fromNow()}
                 </p>
               </div>
             </>
@@ -76,8 +80,8 @@ export default function GradeReviewCard({
       </Card>
       <ReviewDetailsModal
         index={index}
-        handleFinalizedReview={handleFinalizedReview}
-        reviewId={reviewId}
+        handleFinalizeReview={handleFinalizeReview}
+        gradeDetailId={gradeDetailId}
         studentId={studentId}
         gradeStructureName={gradeStructureName}
         gradeStructureGrade={gradeStructureGrade}

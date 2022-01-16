@@ -14,7 +14,7 @@ interface GradeViewCardProps {
   gradeStructureName: string;
   gradeStructureGrade: number;
   grade: number;
-  isReviewed: number;
+  reviewState: number;
   updatedDate: any;
   teachers: any;
 }
@@ -24,12 +24,12 @@ export default function GradeViewCard({
   gradeStructureName,
   gradeStructureGrade,
   grade,
-  isReviewed,
+  reviewState,
   updatedDate,
   teachers,
 }: GradeViewCardProps) {
   const maximumGrade = 100;
-  const [reviewState, setReviewState] = useState(isReviewed);
+  const [reviewStatus, setReviewStatus] = useState(reviewState);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   function showModal() {
@@ -51,7 +51,7 @@ export default function GradeViewCard({
     if (reviewState === 1) {
       return;
     }
-    setReviewState(1);
+    setReviewStatus(1);
   };
 
   return (
@@ -81,7 +81,7 @@ export default function GradeViewCard({
               <div className="description-wrapper">
                 <p>Structure: {gradeStructureGrade}</p>
                 <p className="description-date">
-                  {moment(updatedDate).format("ll")}
+                  {moment(updatedDate).startOf("hour").fromNow()}
                 </p>
               </div>
             </>

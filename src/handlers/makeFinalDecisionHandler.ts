@@ -3,13 +3,13 @@ import { postData } from "./api";
 
 const makeFinalDecisionHandler = async (
   classroomId: any,
-  reviewId: any,
+  gradeDetailId: any,
   values: any
 ) => {
   try {
     const data = await postData(
       `/classrooms/${classroomId}/grade-reviews/make-final-decision`,
-      { ...values, reviewId }
+      { ...values, gradeDetailId }
     );
 
     if (data) {

@@ -32,7 +32,7 @@ export default function GradeViewSection({ teachers }: any) {
             gradeStructureName={gradeDetail.gradeStructureName}
             gradeStructureGrade={gradeDetail.gradeStructureGrade}
             grade={gradeDetail.grade}
-            isReviewed={gradeDetail.isReviewed}
+            reviewState={gradeDetail.reviewState}
             updatedDate={gradeDetail.updatedDate}
             teachers={teachers}
           />

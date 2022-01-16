@@ -21,7 +21,7 @@ export default function GradeReviewSection() {
     fetchData();
   }, []);
 
-  const handleFinalizedReview = (index: number) => {
+  const handleFinalizeReview = (index: number) => {
     console.log(compositionReviews.splice(index, 1));
     setCompositionReviews(compositionReviews.splice(index, 1));
   };
@@ -35,10 +35,11 @@ export default function GradeReviewSection() {
           <GradeReviewCard
             key={index}
             index={index}
-            handleFinalizedReview={handleFinalizedReview}
+            reviewState={review.reviewState}
+            handleFinalizeReview={handleFinalizeReview}
             gradeStructureName={review.gradeStructureName}
             gradeStructureGrade={review.gradeStructureGrade}
-            reviewId={review.id}
+            gradeDetailId={review.gradeDetailId}
             studentId={review.studentId}
             currentGrade={review.currentGrade}
             expectationGrade={review.expectationGrade}

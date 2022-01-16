@@ -1,13 +1,15 @@
 import { Button, Modal } from "antd";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import acceptReviewHandler from "../../../../../handlers/acceptReviewHandler";
 import GradeReviewModalProps from "./GradeReviewModalProps";
 import "./index.css";
 import MakeFinalDecisionModal from "./MakeFinalDecisionModal";
 
 interface ReviewDetailsModalProps extends GradeReviewModalProps {
   index: number;
-  handleFinalizedReview: (index: number) => void;
-  reviewId: number;
+  handleFinalizeReview: (index: number) => void;
+  gradeDetailId: any;
   studentId: string;
   gradeStructureName: string;
   gradeStructureGrade: number;
@@ -18,10 +20,10 @@ interface ReviewDetailsModalProps extends GradeReviewModalProps {
 
 export default function ReviewDetailsModal({
   index,
-  handleFinalizedReview,
+  handleFinalizeReview,
   isModalVisible,
   handleCancel,
-  reviewId,
+  gradeDetailId,
   studentId,
   gradeStructureName,
   gradeStructureGrade,
@@ -29,6 +31,7 @@ export default function ReviewDetailsModal({
   expectationGrade,
   explanationMessage,
 }: ReviewDetailsModalProps) {
+  const { id } = useParams<any>();
   const [makeFinalDecisionModalVisible, setMakeFinalDecisionModalVisible] =
     useState(false);
 
@@ -43,10 +46,16 @@ export default function ReviewDetailsModal({
   const handleMakeFinalDecisionSuccessfully = () => {
     handleCancelMakeFinalDecisionModal();
     handleCancel();
-    handleFinalizedReview(index);
+    handleFinalizeReview(index);
   };
 
-  const handleOk = () => {};
+  const handleOnClickReview = async () => {
+    const isReviewAccepted = await acceptReviewHandler(id, gradeDetailId);
+
+    if (isReviewAccepted) {
+      handleCancel();
+    }
+  };
 
   return (
     <>
@@ -64,7 +73,9 @@ export default function ReviewDetailsModal({
             >
               Make final decision
             </Button>
-            <Button type="primary">Review</Button>
+            <Button type="primary" onClick={handleOnClickReview}>
+              Review
+            </Button>
           </>
         }
         centered
@@ -105,7 +116,7 @@ export default function ReviewDetailsModal({
         </ul>
       </Modal>
       <MakeFinalDecisionModal
-        reviewedId={reviewId}
+        gradeDetailId={gradeDetailId}
         studentCurrentGrade={currentGrade}
         studentExpectationGrade={expectationGrade}
         isModalVisible={makeFinalDecisionModalVisible}
