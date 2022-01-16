@@ -1,0 +1,10 @@
+.ant-space.grade-section {
+  width: 100%;
+  align-items: center;
+  gap: 24px !important;
+}
+
+.ant-space.grade-section .ant-space-item {
+  width: 100%;
+  max-width: 502px;
+}

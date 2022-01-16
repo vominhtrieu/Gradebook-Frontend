@@ -1,0 +1,78 @@
+.grade-viewing_section {
+  width: 100%;
+  gap: 24px !important;
+}
+
+.grade-card p {
+  margin-bottom: 0;
+}
+
+.grade-card .ant-card-body {
+  padding: 19px 24px;
+}
+
+.grade-card .ant-card-meta-detail .ant-card-meta-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.grade-card .ant-card-meta-detail .ant-card-meta-description {
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.grade-card
+  .ant-card-meta-detail
+  .ant-card-meta-description
+  .description-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.grade-card
+  .ant-card-meta-detail
+  .ant-card-meta-description
+  .description-wrapper:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.grade-card
+  .ant-card-meta-detail
+  .ant-card-meta-description
+  .description-wrapper
+  .description-title {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+  margin-right: 50px;
+}
+
+.grade-card
+  .ant-card-meta-detail
+  .ant-card-meta-description
+  .description-wrapper
+  .description-title.grade-structure_name {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grade-card
+  .ant-card-meta-detail
+  .ant-card-meta-description
+  .description-wrapper
+  .description-title
+  .description-content {
+  color: rgba(0, 0, 0, 0.45);
+  margin-left: 5px;
+}
+
+.grade-card
+  .ant-card-meta-detail
+  .ant-card-meta-description
+  .description-wrapper
+  .description-date {
+  margin-left: auto;
+}
