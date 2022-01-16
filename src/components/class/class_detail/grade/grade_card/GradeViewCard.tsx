@@ -61,7 +61,7 @@ export default function GradeViewCard({
           avatar={
             <Avatar
               style={{
-                backgroundColor: cardColors[reviewState],
+                backgroundColor: cardColors[reviewStatus],
               }}
               size={32}
               icon={<SolutionOutlined />}
@@ -73,7 +73,7 @@ export default function GradeViewCard({
               <div className="description-wrapper">
                 <p className="description-title">Grade</p>
                 <Progress
-                  strokeColor={cardColors[reviewState]}
+                  strokeColor={cardColors[reviewStatus]}
                   percent={grade}
                   format={percent => percent}
                 />

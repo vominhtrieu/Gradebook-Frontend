@@ -22,7 +22,6 @@ export default function GradeReviewSection() {
   }, []);
 
   const handleFinalizeReview = (index: number) => {
-    console.log(compositionReviews.splice(index, 1));
     setCompositionReviews(compositionReviews.splice(index, 1));
   };
 
