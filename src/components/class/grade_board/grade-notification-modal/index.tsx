@@ -7,6 +7,9 @@ export default function GradeNotificationModal({markFinal, isFinal}: any) {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
+        if (isFinal) {
+            return;
+        }
         setIsModalVisible(true);
     };
 
@@ -21,12 +24,12 @@ export default function GradeNotificationModal({markFinal, isFinal}: any) {
 
     return (
         <>
-            <Tooltip title="Mark this column as final">
+            <Tooltip title={isFinal ? "This column is final" : "Mark this column as final"}>
                 <Checkbox className="finalization-checkbox" checked={isFinal} style={{marginRight: 5}}
                           onClick={showModal} />
             </Tooltip>
             <Modal
-                title="Update n grade"
+                title="Mark this column is final"
                 className="grade-notification-modal"
                 visible={isModalVisible}
                 onOk={handleOk}

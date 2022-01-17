@@ -24,6 +24,7 @@ export default function Homepage() {
         setCreatedClassrooms(classrooms);
         getData("/classrooms/role/student")
           .then(classrooms => {
+            console.log(classrooms);
             setJoinedClassrooms(classrooms);
             mainContext.setReloadNeeded(false);
           })
@@ -50,7 +51,7 @@ export default function Homepage() {
 
   return (
     <>
-      {createdClassrooms && createdClassrooms.map ? (
+      {createdClassrooms && createdClassrooms.length > 0 ? (
         <>
           <h3 style={{ marginTop: 20, textAlign: "center" }}>Your courses</h3>
           <Row>
@@ -74,7 +75,7 @@ export default function Homepage() {
         </>
       ) : null}
 
-      {joinedClassrooms && joinedClassrooms.length.map ? (
+      {joinedClassrooms && joinedClassrooms.length > 0 ? (
         <>
           <h3 style={{ marginTop: 20, textAlign: "center" }}>
             Your joined courses
