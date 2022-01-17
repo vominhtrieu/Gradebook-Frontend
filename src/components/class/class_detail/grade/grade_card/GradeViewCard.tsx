@@ -4,6 +4,7 @@ import Avatar from "antd/lib/avatar/avatar";
 import Meta from "antd/lib/card/Meta";
 import moment from "moment";
 import { useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import RequestReviewModal from "../grade_review_modal/RequestReviewModal";
 import "./index.css";
 
@@ -29,6 +30,8 @@ export default function GradeViewCard({
   teachers,
 }: GradeViewCardProps) {
   const maximumGrade = 100;
+  const history = useHistory();
+  const { id } = useParams<any>();
   const [reviewStatus, setReviewStatus] = useState(reviewState);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -43,7 +46,10 @@ export default function GradeViewCard({
   const handleOnClickCard = () => {
     if (reviewState === 0) {
       showModal();
-    } else {
+    } else if (reviewState === 2) {
+      history.push(
+        `/classrooms/${id}/grade_review/conversation/${gradeDetailId}`
+      );
     }
   };
 
@@ -81,7 +87,7 @@ export default function GradeViewCard({
               <div className="description-wrapper">
                 <p>Structure: {gradeStructureGrade}</p>
                 <p className="description-date">
-                  {moment(updatedDate).startOf("hour").fromNow()}
+                  {moment(updatedDate).fromNow()}
                 </p>
               </div>
             </>

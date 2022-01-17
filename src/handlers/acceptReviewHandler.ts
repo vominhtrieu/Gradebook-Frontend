@@ -1,11 +1,11 @@
 import { message } from "antd";
 import { postData } from "./api";
 
-const acceptReviewHandler = async (classroomId: any, reviewId: any) => {
+const acceptReviewHandler = async (classroomId: any, gradeDetailId: any) => {
   try {
     const data = await postData(
       `/classrooms/${classroomId}/grade-reviews/accept-review`,
-      { reviewId }
+      { gradeDetailId }
     );
 
     if (data) {

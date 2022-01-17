@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Card, message, Tabs } from "antd";
 import IntroductionSection from "./class_detail/class_introduction/IntroductionSection";
 import UserListSection from "./class_detail/user_list/UserListSection";

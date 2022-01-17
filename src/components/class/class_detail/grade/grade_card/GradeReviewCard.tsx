@@ -71,7 +71,7 @@ export default function GradeReviewCard({
               <div className="description-wrapper">
                 <p>Structure: {gradeStructureGrade}</p>
                 <p className="description-date">
-                  {moment(updatedDate).startOf("hour").fromNow()}
+                  {moment(updatedDate).fromNow()}
                 </p>
               </div>
             </>
