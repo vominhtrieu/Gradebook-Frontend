@@ -1,35 +1,13 @@
-import { MinusOutlined } from '@ant-design/icons';
-import { Button, message, Table, Tag, } from 'antd';
+import { Input, message, Table, Tag, } from 'antd';
 import React, { useEffect } from 'react';
-import { getData, postData } from "../../handlers/api";
+import { getData } from "../../handlers/api";
 
 
 export default function ClassroomManagement() {
     const [classrooms, setClassrooms] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-
-    const blockUser = (record: any) => {
-        postData("/admin/users/block", {
-            id: record.id
-        }).then(() => {
-            message.success("Success");
-            setClassrooms((users:any)=>{
-                return users.map((user:any)=>user.id === record.id ?{...user, blocked: true}:user)
-            })
-        })
-    }
-    console.log(classrooms);
-
-    const unBlockUser = (record: any) => {
-        postData("/admin/users/unblock", {
-            id: record.id
-        }).then(() => {
-            message.success("Success");
-            setClassrooms((users:any)=>{
-                return users.map((user:any)=>user.id === record.id ?{...user, blocked: false}:user)
-            })
-        })
-    }
+    const [loading, setLoading] = React.useState(false);
+    const [searchString, setSearchString] = React.useState<any>("");
+    const [lastSearchString, setLastSearchString] = React.useState<any>(null);
 
     const columns = [
         {
@@ -71,16 +49,28 @@ export default function ClassroomManagement() {
     ];
 
     useEffect(() => {
-        getData("/admin/classrooms")
+        if (loading || searchString === lastSearchString) {
+            return;
+        }
+        setLoading(true);
+        getData("/admin/classrooms?q=" + searchString)
             .then((data: any) => {
+                setLastSearchString(searchString);
                 setLoading(false);
                 setClassrooms(data);
             })
             .catch(() => message.error("Something went wrong!"));
-    }, [])
+    }, [loading, lastSearchString, searchString])
 
     return (
         <Table dataSource={classrooms} columns={columns} bordered
-               title={() => <h3 style={{padding: 0, margin: 0}}>Classroom Management</h3>} loading={loading} />
+               title={() => (
+                   <div style={{display: "flex"}}>
+                       <h3 style={{padding: 0, margin: 0}}>Classroom Management</h3>
+                       <Input style={{marginLeft: "auto", height: 30, maxWidth: 300}} value={searchString}
+                              onChange={(e) => setSearchString(e.target.value)}
+                              placeholder="Search..." />
+                   </div>
+               )} loading={loading} />
     );
 };
