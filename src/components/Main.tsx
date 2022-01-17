@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { Layout, Menu, Space } from "antd";
+import { Layout } from "antd";
 import { Header, Content, Footer } from "antd/lib/layout/layout";
-import { Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import Homepage from "./class/Homepage";
 import Profile from "./profile/Profile";
-import NewClass from "./class/NewClass";
 import { MainContext } from "../contexts/main";
 import ChangeStudentId from "./profile/single-field/ChangeStudentId";
 import ChangeName from "./profile/single-field/ChangeName";
@@ -12,109 +11,100 @@ import ChangePassword from "./profile/single-field/ChangePassword";
 import ClassDetailJoined from "./class/ClassDetailJoined";
 import { RoutingContext } from "../contexts/routing";
 import { getData } from "../handlers/api";
+import io, { Socket } from "socket.io-client";
+import Notification from "./notifications/Notification";
+import NavigationBar from "./common/NavigationBar";
 
 export default function Main() {
-    console.log("Token: ", localStorage.getItem("token"));
-    const location = useLocation();
-    const [newClassVisible, setNewClassVisible] = useState(false);
-    const [reloadNeeded, setReloadNeeded] = useState(true);
-    const [userStudentId, setUserStudentId] = useState("");
+  const location = useLocation();
+  const [reloadNeeded, setReloadNeeded] = useState(true);
+  const [user, setUser] = useState({
+    id: 0,
+    name: "",
+    email: "",
+    studentId: "",
+    role: 1,
+  });
+  const [socket, setSocket] = useState<Socket>(
+    io(process.env.REACT_APP_API_HOST + "", {
+      auth: {
+        token: localStorage.getItem("token"),
+      },
+    })
+  );
 
-    const routingContext = useContext(RoutingContext);
+  const routingContext = useContext(RoutingContext);
 
-    const token = localStorage.getItem("token");
-    useEffect(() => {
-        if (token === null || token.length === 0) {
-            routingContext.setRequestedURL(location.pathname + location.search);
-        }
-        getData("/users/profile").then((user: any) => {
-            setUserStudentId(user.studentId);
-        })
-    }, [location.pathname, location.search, routingContext, token]);
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token === null || token.length === 0) {
+      routingContext.setRequestedURL(location.pathname + location.search);
+    }
+    getData("/users/profile").then((user: any) => {
+      setUser(user);
+    });
+  }, [location.pathname, location.search, routingContext, token]);
 
-    return (
-        <MainContext.Provider
-            value={{reloadNeeded: reloadNeeded, setReloadNeeded: setReloadNeeded, userStudentId: userStudentId}}
+  return (
+    <MainContext.Provider
+      value={{
+        user: user,
+        setUser: setUser,
+        reloadNeeded: reloadNeeded,
+        setReloadNeeded: setReloadNeeded,
+        socket: socket,
+        setSocket: setSocket,
+      }}
+    >
+      {token === null || token.length === 0 ? <Redirect to="/signin" /> : null}
+      <Layout>
+        <Header
+          style={{
+            position: "fixed",
+            zIndex: 100,
+            width: "100%",
+            background: "white",
+          }}
         >
-            {token === null || token.length === 0 ? <Redirect to="/signin" /> : null}
-            <NewClass visible={newClassVisible} setVisible={setNewClassVisible} />
-            <Layout>
-                <Header
-                    style={{
-                        position: "fixed",
-                        zIndex: 100,
-                        width: "100%",
-                        background: "white",
-                    }}
-                >
-                    <Space
-                        style={{
-                            maxWidth: 1200,
-                            margin: "auto",
-                            display: "flex",
-                            justifyContent: "right",
-                        }}
-                    >
-                        <Menu
-                            style={{padding: "0 10px", width: "auto"}}
-                            mode="horizontal"
-                            defaultSelectedKeys={[location.pathname]}
-                        >
-                            <Menu.Item
-                                key={"/new-classroom"}
-                                onClick={() => setNewClassVisible(true)}
-                            >
-                                Create
-                            </Menu.Item>
-                            <Menu.Item key={"/"}>
-                                <Link to={"/"}>Home</Link>
-                            </Menu.Item>
-                            <Menu.Item key={"/profile"}>
-                                <Link to={"/profile"}>Profile</Link>
-                            </Menu.Item>
-                            <Menu.Item key={"/signin"}>
-                                <Link to={"/signin"}>Sign out</Link>
-                            </Menu.Item>
-                        </Menu>
-                    </Space>
-                </Header>
-                <Content
-                    style={{
-                        paddingTop: 70,
-                        maxWidth: 1200,
-                        width: "100%",
-                        margin: "auto",
-                    }}
-                >
-                    <Switch>
-                        <Route exact path="/">
-                            <Homepage />
-                        </Route>
-                        <Route exact path="/profile">
-                            <Profile />
-                        </Route>
-                        <Route
-                            path="/classrooms/:id/:tab?"
-                            component={ClassDetailJoined}
-                        />
-                        <Route exact path="/profile/studentId">
-                            <ChangeStudentId />
-                        </Route>
-                        <Route exact path="/profile/name">
-                            <ChangeName />
-                        </Route>
-                        <Route exact path="/profile/password">
-                            <ChangePassword />
-                        </Route>
-                        <Route path="*">
-                            <p>404 Page Not Found</p>
-                        </Route>
-                    </Switch>
-                </Content>
-                <Footer style={{textAlign: "center"}}>
-                    Gradebook ©2021. Image from Freepik.
-                </Footer>
-            </Layout>
-        </MainContext.Provider>
-    );
+          <NavigationBar />
+        </Header>
+        <Content
+          style={{
+            paddingTop: 70,
+            maxWidth: 1200,
+            width: "100%",
+            margin: "auto",
+          }}
+        >
+          <Switch>
+            <Route exact path="/">
+              {user.role === 2 ? <Redirect to={"/admin"} /> : <Homepage />}
+            </Route>
+            <Route exact path="/profile">
+              <Profile />
+            </Route>
+            <Route exact path="/notifications">
+              <Notification />
+            </Route>
+            <Route path="/classrooms/:id/:tab?" component={ClassDetailJoined} />
+            <Route exact path="/profile/studentId">
+              <ChangeStudentId />
+            </Route>
+            <Route exact path="/profile/name">
+              <ChangeName />
+            </Route>
+            <Route exact path="/profile/password">
+              <ChangePassword />
+            </Route>
+            <Route path="*">
+              <p>404 Page Not Found</p>
+            </Route>
+          </Switch>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>
+          Gradebook ©2021. Image from Freepik.
+        </Footer>
+      </Layout>
+    </MainContext.Provider>
+  );
 }

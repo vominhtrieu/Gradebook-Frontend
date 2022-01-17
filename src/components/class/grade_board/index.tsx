@@ -91,7 +91,7 @@ export default function GradeBoard({classId}:any) {
                                     <GradeBoardGradeColumnHeader gradeStructure={gradeItem} classId={classId} />
                                 )
                             },
-                            width: 120,
+                            width: 140,
                             dataIndex: "grades",
                             key: "grade",
                             render: (text: any, record: any, index: any) => {

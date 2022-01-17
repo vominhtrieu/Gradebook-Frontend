@@ -1,0 +1,163 @@
+.ant-space.grade-review-conversation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0 !important;
+  width: 100%;
+  height: 100vh;
+}
+
+.ant-space.grade-review-conversation .ant-space-item {
+  width: 100%;
+}
+
+.ant-space.grade-review-conversation .ant-space-item:first-child {
+  margin-bottom: auto;
+}
+
+.grade-review-conversation_header {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+.grade-review-conversation_header p {
+  margin-bottom: 0;
+}
+
+.grade-review-conversation_header .left-column .student-name,
+.grade-review-conversation_header .right-column .current-grade {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.grade-review-conversation_header .left-column .expectation-grade {
+  font-size: 13px;
+  color: #5f6368;
+}
+
+.grade-review-conversation_header .right-column {
+  text-align: right;
+  margin-left: auto;
+}
+
+.grade-review-conversation_header .right-column .current-grade {
+  margin-left: 25px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.grade-review-conversation_header .right-column .current-grade span {
+  color: #5f6368;
+}
+
+.grade-review-conversation_header .right-column .make-final-decision {
+  font-size: 12px;
+  color: #1890ff;
+  cursor: pointer;
+}
+
+.grade-review-conversation_body,
+.grade-review-conversation_footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.grade-review-conversation_body .ant-list.comment-list .ant-list-header {
+  padding: 0;
+  border-bottom: none;
+}
+
+.grade-review-conversation_body .ant-list.comment-list .comment-list_header {
+  margin-bottom: 0.5rem;
+}
+
+.grade-review-conversation_body
+  .ant-list.comment-list
+  .comment-list_header
+  span {
+  vertical-align: middle;
+  margin-bottom: 0;
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+.grade-review-conversation_body
+  .ant-list.comment-list
+  .comment-list_header
+  .comment-quantity {
+  margin-left: 0.5rem;
+}
+
+.grade-review-conversation_body .ant-list-item.comment-item {
+  padding: 8px 0;
+  border-bottom: none;
+}
+
+.grade-review-conversation_body
+  .ant-list-item.comment-item
+  .ant-list-item-meta {
+  align-items: center;
+}
+
+.grade-review-conversation_body
+  .ant-list-item.comment-item
+  .ant-list-item-meta-title {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.grade-review-conversation_body
+  .ant-list-item.comment-item
+  .ant-list-item-meta-title
+  .comment-date {
+  margin-left: 0.5rem;
+  font-size: 12px;
+  color: #5f6368;
+}
+
+.grade-review-conversation_body
+  .ant-list-item.comment-item
+  .ant-list-item-meta-description {
+  color: #3c4043;
+}
+
+.grade-review-conversation_footer {
+  display: flex;
+  align-items: center;
+}
+
+.grade-review-conversation_footer .ant-avatar {
+  margin-right: 1rem;
+}
+
+.grade-review-conversation_footer .ant-input-group {
+  position: relative;
+}
+
+.grade-review-conversation_footer .ant-input-group .ant-input {
+  resize: none;
+  padding: 6px 15px;
+  font-size: 14px;
+  border-radius: 20px;
+}
+
+.grade-review-conversation_footer .ant-input-group .ant-input:focus {
+  box-shadow: none;
+}
+
+.grade-review-conversation_footer .ant-input-group .ant-btn {
+  position: absolute;
+  z-index: 10;
+  width: 30px;
+  height: 30px;
+  right: 0.25rem;
+  top: 50%;
+  border: none;
+  transform: translateY(-50%);
+}
+
+.grade-review-conversation_footer .ant-input-group .ant-btn:hover,
+.grade-review-conversation_footer .ant-input-group .ant-btn:focus {
+  background-color: rgba(24, 144, 255, 0.04);
+}

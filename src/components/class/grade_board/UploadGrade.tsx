@@ -24,7 +24,7 @@ export default function UploadGrade({classId}: GradeBoardMoreMenuProps) {
     }
 
     return (
-        <Button style={{marginLeft: "auto"}}>
+        <Button>
             <Tooltip title="Upload grades for this column">
                 <Upload accept=".xlsx" showUploadList={false}
                         headers={{Authorization: `Bearer ${localStorage.getItem("token")}`}}

@@ -81,9 +81,7 @@ export default function GradeBoardGradeCell({
             >
               {metaDataWrapperState === " containing" ? (
                 <>
-                  <p className="current-grade">
-                    {grade}/{maximumGrade}
-                  </p>
+                  <p className="current-grade">{grade}</p>
                   {isSaving && <p className="current-state">Saving...</p>}
                 </>
               ) : (

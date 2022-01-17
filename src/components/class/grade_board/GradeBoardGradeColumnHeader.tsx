@@ -10,7 +10,7 @@ export default function GradeBoardGradeColumnHeader({gradeStructure, classId}: a
         putData(`/classrooms/${classId}/mark-final`, {
             gradeStructureId: gradeStructure.id,
         }).then((msg) => {
-            return message.error("Marked column as final");
+            return message.success("Marked column as final");
         }).catch((e) => {
             return message.error("Can't save grade");
         })
@@ -22,11 +22,10 @@ export default function GradeBoardGradeColumnHeader({gradeStructure, classId}: a
                     <p className="title" style={{marginBottom: 0}}><b>{gradeStructure.name}</b> ({gradeStructure.grade})
                     </p>
                 </Tooltip>
-                <UploadGrade classId={classId} />
-            </div>
-
-            <div className="finalization-wrapper">
-                <GradeNotificationModal isFinal={gradeStructure.isFinal} markFinal={markFinal} />
+                <div style={{marginLeft: "auto"}}>
+                    <GradeNotificationModal isFinal={gradeStructure.isFinal} markFinal={markFinal} />
+                    <UploadGrade classId={classId} />
+                </div>
             </div>
         </div>
     );
