@@ -1,5 +1,5 @@
 import {Menu} from "antd";
-import { exportStudentList} from "../../../handlers/exportDataHandler";
+import {exportAssignmentGrade, exportStudentList} from "../../../handlers/exportDataHandler";
 
 interface GradeBoardDownloadMenuProps {
     students: object[]
@@ -17,22 +17,27 @@ export default function GradeBoardDownloadMenu({ students }: GradeBoardDownloadM
         })
         exportStudentList(data);
     }
+
+    const onDownloadAssignmentGradeTemplate = () => {
+        exportAssignmentGrade([]);
+    }
+
     return (
         <Menu>
             <Menu.Item onClick={onDownloadStudentList}>
                 <a
-                    target="_blank"
                     rel="noopener noreferrer"
                     href=""
+                    onClick={(e) => e.preventDefault()}
                 >
                     Default template for student list
                 </a>
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item onClick={onDownloadAssignmentGradeTemplate}>
                 <a
-                    target="_blank"
                     rel="noopener noreferrer"
                     href=""
+                    onClick={(e) => e.preventDefault()}
                 >
                     Default template for grades for an assignment
                 </a>

@@ -24,7 +24,7 @@ export default function GradeBoardGradeColumnHeader({gradeStructure, classId}: a
                 </Tooltip>
                 <div style={{marginLeft: "auto"}}>
                     <GradeNotificationModal isFinal={gradeStructure.isFinal} markFinal={markFinal} />
-                    <UploadGrade classId={classId} />
+                    <UploadGrade classId={classId} gradeStructureId={gradeStructure.id}/>
                 </div>
             </div>
         </div>
