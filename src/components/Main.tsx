@@ -14,7 +14,6 @@ import { getData } from "../handlers/api";
 import io, { Socket } from "socket.io-client";
 import Notification from "./notifications/Notification";
 import NavigationBar from "./common/NavigationBar";
-import GradeReviewConversation from "./class/class_detail/grade/grade_review_conversation";
 
 export default function Main() {
   const location = useLocation();
@@ -88,12 +87,6 @@ export default function Main() {
               <Notification />
             </Route>
             <Route path="/classrooms/:id/:tab?" component={ClassDetailJoined} />
-            <Route
-              exact
-              path="/classrooms/:id/grade_review/conversation/:gradeDetailId"
-            >
-              <GradeReviewConversation />
-            </Route>
             <Route exact path="/profile/studentId">
               <ChangeStudentId />
             </Route>
