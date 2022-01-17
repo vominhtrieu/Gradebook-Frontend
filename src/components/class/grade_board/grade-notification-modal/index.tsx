@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import Checkbox from "antd/lib/checkbox/Checkbox";
 import { useState } from "react";
 import "./index.css";
@@ -21,7 +21,10 @@ export default function GradeNotificationModal({markFinal, isFinal}: any) {
 
     return (
         <>
-            <Checkbox className="finalization-checkbox" checked={isFinal} style={{marginRight:5}} onClick={showModal} />
+            <Tooltip title="Mark this column as final">
+                <Checkbox className="finalization-checkbox" checked={isFinal} style={{marginRight: 5}}
+                          onClick={showModal} />
+            </Tooltip>
             <Modal
                 title="Update n grade"
                 className="grade-notification-modal"
