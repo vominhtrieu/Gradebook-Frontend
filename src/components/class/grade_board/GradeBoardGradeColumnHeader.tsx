@@ -10,7 +10,7 @@ export default function GradeBoardGradeColumnHeader({gradeStructure, classId}: a
         putData(`/classrooms/${classId}/mark-final`, {
             gradeStructureId: gradeStructure.id,
         }).then((msg) => {
-            return message.error("Marked column as final");
+            return message.success("Marked column as final");
         }).catch((e) => {
             return message.error("Can't save grade");
         })
