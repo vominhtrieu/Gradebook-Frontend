@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { Layout } from "antd";
 import MainSider from "./MainSider";
 import { Content } from "antd/es/layout/layout";
@@ -15,6 +15,9 @@ export default function Admin() {
             <MainSider />
             <Content style={{padding: 10}}>
                 <Switch>
+                    <Route exact path="/admin/">
+                        <Redirect to="/admin/users" />
+                    </Route>
                     <Route path="/admin/users">
                         <UserManagement />
                     </Route>

@@ -32,7 +32,7 @@ export default function ClassDetailPublic({classroom}: any) {
     }
 
     const handleInviteAccept = () => {
-        if (mainContext.userStudentId !== "" && mainContext.userStudentId !== null) {
+        if (mainContext.user.studentId !== "" && mainContext.user.studentId !== null) {
             const queryString = new URLSearchParams(location.search);
             postData(`/classrooms/${id}/enroll`, {
                 teacherInvitationCode: queryString.get("teacherInvitationCode"),
