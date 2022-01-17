@@ -7,8 +7,9 @@ import GradeBoardAverageRowHeader from "./GradeBoardAverageRowHeader";
 import GradeBoardOverallColumnHeader from "./GradeBoardOverallColumnHeader";
 import GradeBoardOverallGradeCell from "./GradeBoardOverallGradeCell";
 import GradeBoardButtonContainer from "./GradeBoardButtonContainer";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { getData } from "../../../handlers/api";
+import {MainContext} from "../../../contexts/main";
 
 interface DataSourceProps {
     key: number,
@@ -17,8 +18,10 @@ interface DataSourceProps {
         studentName: string
     },
     overall: number,
-    grades: number[]
+    grades: number[],
 }
+
+let totalMaxGrade = 0;
 
 const columns: any = [
     {
@@ -47,8 +50,12 @@ const columns: any = [
         width: 80,
         key: "overall",
         dataIndex: "overall",
-        render: (text: any) => {
-            return <GradeBoardOverallGradeCell overallGrade={`${text}%`} />;
+        render: (text: any, record: any) => {
+            let total = 0;
+            record.grades.forEach((grade: number) => {
+               total += grade;
+            });
+            return <GradeBoardOverallGradeCell overallGrade={`${(total * 100/totalMaxGrade).toPrecision(4)}%`} />;
         },
     },
 ];
@@ -61,7 +68,7 @@ const data: DataSourceProps[] = [
             studentName: "Name"
         },
         overall: 50,
-        grades: []
+        grades: [],
     }
 ]
 
@@ -69,14 +76,21 @@ export default function GradeBoard({classId}:any) {
     const [gradeColumns, setGradeColumns] = useState(columns);
     const [dataSource, setDataSource] = useState(data);
     const [students, setStudents] = useState([]);
+    const [loading, setLoading] = useState(false)
+    const mainContext = useContext(MainContext);
+
+    useEffect(() => {
+        setLoading(mainContext.reloadNeeded);
+    }, [mainContext.reloadNeeded])
 
     useEffect(() => {
         const tempColumns = [...columns];
-        const tempDataSource = [...dataSource];
+        const tempDataSource = [...data];
         const fetchData = () => {
             getData(`/classrooms/${classId}/grade-structures`)
                 .then((gradeStructure: any) => {
                     gradeStructure.reverse().forEach((gradeItem: any, gradeStructureIndex: number) => {
+                        totalMaxGrade += gradeItem.grade;
                         getData(`/classrooms/${classId}/grade-board?gradeStructureId=${gradeItem.id}`).then((data) => {
                             for (let i = 1; i < tempDataSource.length; i++) {
                                 if (data) {
@@ -103,6 +117,7 @@ export default function GradeBoard({classId}:any) {
                                             studentId={record.name.studentId}
                                             gradeStructureId={gradeItem.id}
                                             classId={classId}
+                                            maximumGrade={gradeItem.grade}
                                             value={tempDataSource[index].grades[gradeStructureIndex]}
                                         />
                                     );
@@ -128,20 +143,21 @@ export default function GradeBoard({classId}:any) {
                             studentName: student.name
                         },
                         overall: 50,
-                        grades: []
+                        grades: [],
                     })
                 })
                 fetchData();
             })
             .catch(() => message.error("Something went wrong!"));
         // eslint-disable-next-line
-    }, []);
+    }, [loading]);
 
     return (
         <>
             <GradeBoardButtonContainer classId={classId} students={students} />
             <Table columns={[...gradeColumns]} pagination={false}
                    scroll={{x: "max-content"}}
+                   loading={loading}
                    dataSource={[...dataSource]} bordered />
         </>
     );

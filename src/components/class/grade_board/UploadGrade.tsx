@@ -4,10 +4,11 @@ import { MainContext } from "../../../contexts/main";
 import { UploadOutlined } from "@ant-design/icons";
 
 interface GradeBoardMoreMenuProps {
-    classId: number
+    classId: number,
+    gradeStructureId: string
 }
 
-export default function UploadGrade({classId}: GradeBoardMoreMenuProps) {
+export default function UploadGrade({classId, gradeStructureId}: GradeBoardMoreMenuProps) {
     const mainContext = useContext(MainContext);
 
     const handleUploadChanged = (info: any) => {
@@ -28,7 +29,8 @@ export default function UploadGrade({classId}: GradeBoardMoreMenuProps) {
             <Tooltip title="Upload grades for this column">
                 <Upload accept=".xlsx" showUploadList={false}
                         headers={{Authorization: `Bearer ${localStorage.getItem("token")}`}}
-                        action={`/classrooms/${classId}/grades/import`}
+                        action={`${process.env.REACT_APP_API_HOST}/classrooms/${classId}/grades/import`}
+                        data={{gradeStructureId: gradeStructureId}}
                         onChange={handleUploadChanged}>
                     <UploadOutlined />
                 </Upload>
