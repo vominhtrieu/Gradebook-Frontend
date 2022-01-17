@@ -11,7 +11,7 @@ import { useState } from "react";
 import userNameRules from "../../form-rules/userName";
 import userPasswordRules from "../../form-rules/userPassword";
 import userEmailRules from "../../form-rules/userEmail";
-import signUpHandler from "../../handlers/signUp";
+import signUpHandler from "../../handlers/signUpHandler";
 import userStudentIdRules from "../../form-rules/userStudentId";
 
 function SignUp() {
@@ -66,8 +66,8 @@ function SignUp() {
         </Form.Item>
         <Form.Item name="studentId">
           <Input
-              prefix={<IdcardOutlined className="site-form-item-icon" />}
-              placeholder="Student ID"
+            prefix={<IdcardOutlined className="site-form-item-icon" />}
+            placeholder="Student ID"
           />
         </Form.Item>
         <Form.Item name="password" rules={userPasswordRules}>

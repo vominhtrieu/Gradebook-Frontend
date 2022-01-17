@@ -1,0 +1,125 @@
+.review-grade-modal-wrap {
+  overflow: hidden;
+}
+
+.ant-modal.review-grade-modal {
+  max-width: 520px;
+  padding-bottom: 0;
+}
+
+.ant-modal.review-grade-modal.make-final-decision-modal {
+  max-width: 480px;
+}
+
+.ant-modal.review-grade-modal .ant-modal-content {
+  overflow: auto;
+  border-radius: 8px;
+  background-color: #f5f7f8;
+}
+
+.ant-modal.review-grade-modal .ant-modal-header {
+  padding: 18px 24px 14px;
+  border-bottom: none;
+  background-color: #f5f7f8;
+}
+
+.ant-modal.review-grade-modal .ant-modal-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ant-modal.review-grade-modal .ant-modal-body {
+  max-height: calc(100vh - 54px - 56px - calc(0.05 * 100vh));
+  overflow-y: overlay;
+  padding: 3px 24px;
+}
+
+.ant-modal.review-grade-modal .ant-modal-body p {
+  margin-bottom: 0.5rem;
+}
+
+.ant-modal.review-grade-modal .ant-modal-body .ant-form .ant-row:last-child {
+  margin-bottom: 0;
+}
+
+.ant-modal.review-grade-modal .ant-modal-body .ant-input {
+  height: auto;
+  resize: none;
+  padding: 6px 15px;
+  font-size: 13px;
+  border-radius: 20px;
+}
+
+.ant-modal.review-grade-modal .ant-modal-body .ant-input:focus {
+  box-shadow: none;
+}
+
+.ant-modal.review-grade-modal .ant-modal-body .information-list {
+  padding: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+  font-size: 13px;
+}
+
+.ant-modal.review-grade-modal .ant-modal-body .information-item {
+  margin-bottom: 1rem;
+}
+
+.ant-modal.review-grade-modal .ant-modal-body .information-item_title {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.ant-modal.review-grade-modal .ant-modal-body .information-item_description {
+  padding: 5px 10px;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.ant-modal.review-grade-modal .ant-modal-footer {
+  padding: 14px 8px 10px 16px;
+  border-top: none;
+}
+
+.ant-modal.review-grade-modal .ant-modal-footer .ant-btn {
+  padding: 4px 8px;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  font-weight: 600;
+  color: grey;
+}
+
+.ant-modal.review-grade-modal .ant-modal-footer .ant-btn:hover,
+.ant-modal.review-grade-modal .ant-modal-footer .ant-btn:focus {
+  background-color: rgba(128, 128, 128, 0.04);
+}
+
+.ant-modal.review-grade-modal .ant-modal-footer .ant-btn.ant-btn-primary {
+  color: #1890ff;
+}
+
+.ant-modal.review-grade-modal .ant-modal-footer .ant-btn.ant-btn-primary:hover,
+.ant-modal.review-grade-modal .ant-modal-footer .ant-btn.ant-btn-primary:focus {
+  background-color: rgba(24, 144, 255, 0.04);
+}
+
+@media only screen and (max-width: 444px) {
+  .ant-modal.review-grade-modal {
+    width: auto !important;
+  }
+}
+
+.ant-modal.review-grade-modal .ant-modal-footer .ant-btn.ant-btn-secondary {
+  color: #007b83;
+}
+
+.ant-modal.review-grade-modal
+  .ant-modal-footer
+  .ant-btn.ant-btn-secondary:hover,
+.ant-modal.review-grade-modal
+  .ant-modal-footer
+  .ant-btn.ant-btn-secondary:focus {
+  background-color: rgba(0, 123, 131, 0.04);
+}
