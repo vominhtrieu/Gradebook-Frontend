@@ -21,7 +21,7 @@ export default function GradeNotificationModal({markFinal, isFinal}: any) {
 
     return (
         <>
-            <Checkbox className="finalization-checkbox" checked={false} onClick={showModal} />
+            <Checkbox className="finalization-checkbox" checked={isFinal} style={{marginRight:5}} onClick={showModal} />
             <Modal
                 title="Update n grade"
                 className="grade-notification-modal"

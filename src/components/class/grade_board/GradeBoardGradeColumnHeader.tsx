@@ -22,11 +22,10 @@ export default function GradeBoardGradeColumnHeader({gradeStructure, classId}: a
                     <p className="title" style={{marginBottom: 0}}><b>{gradeStructure.name}</b> ({gradeStructure.grade})
                     </p>
                 </Tooltip>
-                <UploadGrade classId={classId} />
-            </div>
-
-            <div className="finalization-wrapper">
-                <GradeNotificationModal isFinal={gradeStructure.isFinal} markFinal={markFinal} />
+                <div style={{marginLeft: "auto"}}>
+                    <GradeNotificationModal isFinal={gradeStructure.isFinal} markFinal={markFinal} />
+                    <UploadGrade classId={classId} />
+                </div>
             </div>
         </div>
     );
