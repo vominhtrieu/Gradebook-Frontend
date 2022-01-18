@@ -98,7 +98,7 @@ export default function GradeBoardGradeCell({
                   {isSaving && <p className="current-state">Saving...</p>}
                 </>
               ) : (
-                <p className="current-grade">____/{maximumGrade}</p>
+                <p className="current-grade">____</p>
               )}
             </div>
           )}
