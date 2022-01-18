@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import "./App.css";
@@ -8,9 +8,11 @@ import { RoutingContext } from "../contexts/routing";
 import React, { useEffect, useState } from "react";
 import Admin from "./admin/Admin";
 import io, { Socket } from "socket.io-client";
-import { getData } from "../handlers/api";
+import { apiHistory, getData, setUpAPI } from "../handlers/api";
+import { useHistory } from "react-router";
 
 function App() {
+    const history = useHistory();
     const [requestedURL, setRequestedURL] = React.useState("/");
     const [reloadNeeded, setReloadNeeded] = useState(true);
     const [user, setUser] = useState({
@@ -27,6 +29,9 @@ function App() {
             },
         })
     );
+    useEffect(() => {
+        setUpAPI(history);
+    }, [history]);
 
     useEffect(() => {
         getData("/users/profile").then((user: any) => {
@@ -46,25 +51,30 @@ function App() {
             }}
         >
             <RoutingContext.Provider value={{requestedURL: requestedURL, setRequestedURL: setRequestedURL}}>
-                <Router>
-                    <Switch>
-                        <Route path="/signin">
-                            <SignIn />
-                        </Route>
-                        <Route path="/signup">
-                            <SignUp />
-                        </Route>
-                        <Route path="/admin/">
-                            <Admin />
-                        </Route>
-                        <Route path="/admin/*">
-                            <Admin />
-                        </Route>
+                <Switch>
+                    <Route path="/signin">
+                        <SignIn />
+                    </Route>
+                    <Route path="/signup">
+                        <SignUp />
+                    </Route>
+                    {user.role === 2 ?
+                        <>
+                            <Route path="/admin/">
+                                <Admin />
+                            </Route>
+                            <Route path="/admin/*">
+                                <Admin />
+                            </Route>
+                            <Route path="*">
+                                <Redirect to="/admin/users" />
+                            </Route>
+                        </> :
                         <Route path="*">
                             <Main />
                         </Route>
-                    </Switch>
-                </Router>
+                    }
+                </Switch>
             </RoutingContext.Provider>
         </MainContext.Provider>
     );

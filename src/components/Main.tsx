@@ -9,11 +9,9 @@ import ChangeName from "./profile/single-field/ChangeName";
 import ChangePassword from "./profile/single-field/ChangePassword";
 import ClassDetailJoined from "./class/ClassDetailJoined";
 import { RoutingContext } from "../contexts/routing";
-import { getData } from "../handlers/api";
 import Notification from "./notifications/Notification";
 import NavigationBar from "./common/NavigationBar";
 import GradeReviewConversation from "./class/class_detail/grade/grade_review_conversation";
-import { MainContext } from "../contexts/main";
 
 export default function Main() {
   const location = useLocation();

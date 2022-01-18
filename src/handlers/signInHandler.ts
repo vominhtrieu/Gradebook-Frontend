@@ -5,18 +5,19 @@ import { postData } from "./api";
 const signInHandler = async (values: any): Promise<any> => {
     try {
         const data = await postData("/signin", values);
-        if (data.token.length > 0) {
+        if (data.token && data.token.length > 0) {
             localStorage.setItem("token", data.token);
             localStorage.setItem("studentId", data.studentId);
             message.success(`Hi ${data.name}, welcome!`);
             return data;
         } else {
-            message.error("Email or password is incorrect!");
+            if (data !== "Blocked") {
+                message.error(data);
+            }
             return null;
         }
     } catch (e) {
-        // message.error("Something went wrong!");
-        message.error("Email or password is incorrect!");
+        message.error("Incorrect email or password!");
         return null;
     }
 };
