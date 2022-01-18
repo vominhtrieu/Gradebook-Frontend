@@ -1,7 +1,8 @@
-import { Button, Input, message, Table, } from 'antd';
+import { Button, Input, message, Modal, Table, } from 'antd';
 import React, { useEffect } from 'react';
 import { getData } from "../../handlers/api";
 import NewAdminModal from "./NewAdminModal";
+import Profile from "../profile/Profile";
 
 
 export default function AdminManagement() {
@@ -10,6 +11,7 @@ export default function AdminManagement() {
     const [searchString, setSearchString] = React.useState<any>("");
     const [lastSearchString, setLastSearchString] = React.useState<any>(null);
     const [isCreatingNewAdmin, setIsCreatingNewAdmin] = React.useState(false);
+    const [selectedUser, setSelectedUser] = React.useState<any>(null);
 
     const columns = [
         {
@@ -26,6 +28,8 @@ export default function AdminManagement() {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            render: (text: any, user: any) => (
+                <b style={{cursor: "pointer", fontWeight: 500}} onClick={() => setSelectedUser(user)}>{text}</b>)
         },
         {
             title: 'Email',
@@ -63,6 +67,9 @@ export default function AdminManagement() {
 
     return (
         <>
+            <Modal visible={selectedUser !== null} footer={null} onCancel={() => setSelectedUser(null)}>
+                <Profile id={selectedUser ? selectedUser.id : null} />
+            </Modal>
             <NewAdminModal visible={isCreatingNewAdmin} onSuccess={() => {
                 refresh();
                 closeNewModel();

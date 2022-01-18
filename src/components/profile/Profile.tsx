@@ -50,7 +50,7 @@ export default function Profile({id}: any) {
         <>
             <Card
                 style={{width: "100%", borderRadius: "8px", marginBottom: "20px"}}
-                title={"Your information"}
+                title={id > 0 ? null : "Your information"}
                 bodyStyle={{
                     maxWidth: "840px",
                     margin: "0 auto",
@@ -58,7 +58,7 @@ export default function Profile({id}: any) {
                 }}
             >
                 <Meta
-                    avatar={<ProfileAvatar user={user} size={120} editable />}
+                    avatar={<ProfileAvatar user={user} size={120} editable={!(id > 0)} />}
                     className="profile-card-meta"
                     description={
                         <p>

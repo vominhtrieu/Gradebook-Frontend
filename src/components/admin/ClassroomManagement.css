@@ -1,0 +1,8 @@
+.ant-card-body {
+    padding: 0;
+}
+
+.ant-card-body > div > div {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}

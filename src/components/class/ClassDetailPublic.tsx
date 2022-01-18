@@ -12,7 +12,7 @@ type URLParams = {
     tab: string
 }
 
-export default function ClassDetailPublic({classroom}: any) {
+export default function ClassDetailPublic({classroom, small}: any) {
     const location = useLocation();
     const {id} = useParams<URLParams>();
     const history = useHistory();

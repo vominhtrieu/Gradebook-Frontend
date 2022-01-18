@@ -1,7 +1,8 @@
-import { Button, Input, message, Table, } from 'antd';
+import { Button, Input, message, Modal, Table, } from 'antd';
 import React, { useEffect } from 'react';
 import { getData, postData } from "../../handlers/api";
 import ChangeStudentIDModal from "./ChangeStudentIDModal";
+import Profile from "../profile/Profile";
 
 
 export default function UserManagement() {
@@ -11,6 +12,7 @@ export default function UserManagement() {
     const [searchString, setSearchString] = React.useState<any>("");
     const [lastSearchString, setLastSearchString] = React.useState<any>(null);
     const [selectedRecord, setSelectedRecord] = React.useState(null);
+    const [selectedUser, setSelectedUser] = React.useState<any>(null);
 
     const blockUser = (record: any) => {
         postData("/admin/users/block", {
@@ -54,6 +56,8 @@ export default function UserManagement() {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            render: (text: any, user: any) => (
+                <b style={{cursor: "pointer", fontWeight: 500}} onClick={() => setSelectedUser(user)}>{text}</b>)
         },
         {
             title: 'Email',
@@ -113,6 +117,9 @@ export default function UserManagement() {
 
     return (
         <>
+            <Modal visible={selectedUser !== null} footer={null} onCancel={() => setSelectedUser(null)}>
+                <Profile id={selectedUser ? selectedUser.id : null} />
+            </Modal>
             <ChangeStudentIDModal record={selectedRecord}
                                   visible={isChangingStudentID}
                                   onSuccess={() => {

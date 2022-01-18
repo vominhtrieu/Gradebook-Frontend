@@ -68,9 +68,6 @@ function App() {
                             </Route>
                             <Route path="/activation/:activationCode" component={Activate}>
                             </Route>
-                            <Route path="/admin/">
-                                <Admin />
-                            </Route>
                             <Route path="/admin/*">
                                 <Admin />
                             </Route>
