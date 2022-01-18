@@ -13,9 +13,6 @@ const addGradeReviewCommentHandler = async (
     );
 
     if (data) {
-      message.success(
-        "Comment successfully! Reload the current page to view new comments"
-      );
       return true;
     } else {
       message.error("Comment unsuccessfully!");
