@@ -7,16 +7,15 @@ interface InputProps extends React.HTMLProps<HTMLInputElement> {
     classId?: number;
     gradeStructureId?: number;
     studentId?: string;
-    maximumGrade?: number;
 }
 
 export default function GradeBoardGradeCell({
                                                 classId,
                                                 gradeStructureId,
                                                 studentId,
-                                                maximumGrade,
                                                 ...props
                                             }: InputProps) {
+    const maximumGrade = 100;
     const inputRef = useRef<HTMLInputElement>(null);
     const [grade, setGrade] = useState<string>(
         props.value ? props.value.toString() : ""

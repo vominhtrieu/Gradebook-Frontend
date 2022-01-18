@@ -117,7 +117,6 @@ export default function GradeBoard({classId}:any) {
                                             studentId={record.name.studentId}
                                             gradeStructureId={gradeItem.id}
                                             classId={classId}
-                                            maximumGrade={gradeItem.grade}
                                             value={tempDataSource[index].grades[gradeStructureIndex]}
                                         />
                                     );

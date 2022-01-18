@@ -68,14 +68,13 @@ function App() {
                     <Route path="/signup">
                         <SignUp />
                     </Route>
+                    <Route path="/forgot-password">
+                        <ForgotPassword />
+                    </Route>
+                    <Route path="/activation/:activationCode" component={Activate}> </Route>
 
                     {user.role === 2 ?
                         <>
-                            <Route path="/forgot-password">
-                                <ForgotPassword />
-                            </Route>
-                            <Route path="/activation/:activationCode" component={Activate}>
-                            </Route>
                             <Route path="/admin/*">
                                 <Admin />
                             </Route>
