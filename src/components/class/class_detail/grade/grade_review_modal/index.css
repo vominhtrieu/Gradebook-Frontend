@@ -45,9 +45,8 @@
 .ant-modal.review-grade-modal .ant-modal-body .ant-input {
   height: auto;
   resize: none;
-  padding: 6px 15px;
+  padding: 6px 10px;
   font-size: 13px;
-  border-radius: 20px;
 }
 
 .ant-modal.review-grade-modal .ant-modal-body .ant-input:focus {

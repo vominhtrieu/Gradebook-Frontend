@@ -34,6 +34,7 @@ export default function MakeFinalDecisionModal({
         );
 
         if (makingFinalDecisionSuccessful) {
+          handleCancel();
           handleMakeFinalDecisionSuccessfully();
         }
       })

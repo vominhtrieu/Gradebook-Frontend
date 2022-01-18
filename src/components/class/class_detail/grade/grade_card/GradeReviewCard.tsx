@@ -4,6 +4,7 @@ import Avatar from "antd/lib/avatar/avatar";
 import Meta from "antd/lib/card/Meta";
 import moment from "moment";
 import { useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import ReviewDetailsModal from "../grade_review_modal/ReviewDetailsModal";
 
 const cardColors = ["#808080", "#ffdb58", "#1890ff", "#87d068"];
@@ -35,6 +36,8 @@ export default function GradeReviewCard({
   expectationGrade,
   explanationMessage,
 }: GradeReviewCardProps) {
+  const history = useHistory();
+  const { id } = useParams<any>();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   function showModal() {
@@ -45,8 +48,16 @@ export default function GradeReviewCard({
     setIsModalVisible(false);
   }
 
+  const handleAcceptReview = () => {
+    history.push(`/classrooms/${id}/review/conversation/${gradeDetailId}`);
+  };
+
   const handleOnClickCard = () => {
-    showModal();
+    if (reviewState === 1) {
+      showModal();
+    } else if (reviewState === 2) {
+      history.push(`/classrooms/${id}/review/conversation/${gradeDetailId}`);
+    }
   };
 
   return (
@@ -80,6 +91,7 @@ export default function GradeReviewCard({
       </Card>
       <ReviewDetailsModal
         index={index}
+        handleAcceptReview={handleAcceptReview}
         handleFinalizeReview={handleFinalizeReview}
         gradeDetailId={gradeDetailId}
         studentId={studentId}

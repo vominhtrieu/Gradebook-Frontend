@@ -47,9 +47,7 @@ export default function GradeViewCard({
     if (reviewState === 0) {
       showModal();
     } else if (reviewState === 2) {
-      history.push(
-        `/classrooms/${id}/grade_review/conversation/${gradeDetailId}`
-      );
+      history.push(`/classrooms/${id}/review/conversation/${gradeDetailId}`);
     }
   };
 

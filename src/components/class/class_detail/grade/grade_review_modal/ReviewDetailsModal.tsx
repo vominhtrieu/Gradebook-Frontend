@@ -8,6 +8,7 @@ import MakeFinalDecisionModal from "./MakeFinalDecisionModal";
 
 interface ReviewDetailsModalProps extends GradeReviewModalProps {
   index: number;
+  handleAcceptReview: () => void;
   handleFinalizeReview: (index: number) => void;
   gradeDetailId: any;
   studentId: string;
@@ -20,6 +21,7 @@ interface ReviewDetailsModalProps extends GradeReviewModalProps {
 
 export default function ReviewDetailsModal({
   index,
+  handleAcceptReview,
   handleFinalizeReview,
   isModalVisible,
   handleCancel,
@@ -54,6 +56,7 @@ export default function ReviewDetailsModal({
 
     if (isReviewAccepted) {
       handleCancel();
+      handleAcceptReview();
     }
   };
 
