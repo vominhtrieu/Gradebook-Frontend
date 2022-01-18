@@ -7,6 +7,8 @@ import { MainContext } from "../contexts/main";
 import { RoutingContext } from "../contexts/routing";
 import React, { useEffect, useState } from "react";
 import Admin from "./admin/Admin";
+import ForgotPassword from "./auth/ForgotPassword";
+import Activate from "./auth/Activate";
 import io, { Socket } from "socket.io-client";
 import { apiHistory, getData, setUpAPI } from "../handlers/api";
 import { useHistory } from "react-router";
@@ -58,8 +60,14 @@ function App() {
                     <Route path="/signup">
                         <SignUp />
                     </Route>
+
                     {user.role === 2 ?
                         <>
+                            <Route path="/forgot-password">
+                                <ForgotPassword />
+                            </Route>
+                            <Route path="/activation/:activationCode" component={Activate}>
+                            </Route>
                             <Route path="/admin/">
                                 <Admin />
                             </Route>

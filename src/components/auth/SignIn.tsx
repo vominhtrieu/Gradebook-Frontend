@@ -88,6 +88,9 @@ function SignIn() {
         <Form.Item style={{ textAlign: "center", marginBottom: 0 }}>
           <Link to="/signup">Create a new account</Link>
         </Form.Item>
+        <Form.Item style={{ textAlign: "center", marginBottom: 0 }}>
+          <Link to="/forgot-password">Forgot password</Link>
+        </Form.Item>
       </Form>
     </Card>
   );
