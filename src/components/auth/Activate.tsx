@@ -1,14 +1,11 @@
-import {Link, RouteComponentProps} from "react-router-dom";
-import {Card, message} from "antd";
-import {postData} from "../../handlers/api";
-import {useEffect} from "react";
+import { Link, useParams } from "react-router-dom";
+import { Card, message } from "antd";
+import { postData } from "../../handlers/api";
+import { useEffect } from "react";
 
-interface Params {
-    activationCode: string
-}
-
-function Activate({match}: RouteComponentProps<Params>) {
-    const { activationCode } = match.params;
+function Activate() {
+    const params = useParams();
+    const {activationCode}: any = params;
 
     useEffect(() => {
         if (activationCode) {
@@ -22,7 +19,7 @@ function Activate({match}: RouteComponentProps<Params>) {
 
     return (
         <Card title="Account activated" className="auth-form">
-            <b>Welcome to Gradebook System</b><br/>
+            <b>Welcome to Gradebook System</b><br />
             <Link to="/signin">Go to Sign in</Link>
         </Card>
     )

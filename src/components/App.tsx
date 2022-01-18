@@ -48,7 +48,7 @@ function App() {
             },
         }));
     }
-
+    console.log(user);
     return (
         <MainContext.Provider
             value={{
@@ -68,10 +68,10 @@ function App() {
                     <Route path="/signup">
                         <SignUp />
                     </Route>
+                    <Route path="/activation/:activationCode"><Activate /></Route>
                     <Route path="/forgot-password">
                         <ForgotPassword />
                     </Route>
-                    <Route path="/activation/:activationCode" component={Activate}> </Route>
 
                     {user.role === 2 ?
                         <>
