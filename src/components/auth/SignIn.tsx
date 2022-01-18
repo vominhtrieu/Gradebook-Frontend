@@ -33,11 +33,11 @@ function SignIn() {
   }, [loginIsSuccessful, history, routingContext.requestedURL]);
 
   const callSignIn = () => {
-    signIn(mainContext.setUser, setLoading, setLoginIsSuccessful, form);
+    signIn(mainContext, setLoading, setLoginIsSuccessful, form);
   };
 
   const callGoogleSignInSuccess = (res: any) => {
-    googleSignInSuccessHandler(mainContext.setUser, setLoading, setLoginIsSuccessful, res);
+    googleSignInSuccessHandler(mainContext, setLoading, setLoginIsSuccessful, res);
   };
 
   return (

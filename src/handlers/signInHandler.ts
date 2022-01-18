@@ -23,7 +23,7 @@ const signInHandler = async (values: any): Promise<any> => {
 };
 
 export const signIn = (
-    setUser: (value: React.SetStateAction<any>) => void,
+    mainContext: any,
     setLoading: (value: React.SetStateAction<boolean>) => void,
     setLoginIsSuccessful: (value: React.SetStateAction<boolean>) => void,
     form: FormInstance
@@ -36,7 +36,7 @@ export const signIn = (
 
             setLoading(false);
             if (data != null) {
-                setUser(data);
+                mainContext.setUser(data);
             }
             setLoginIsSuccessful(data !== null);
         })
@@ -51,7 +51,7 @@ export const signIn = (
 };
 
 export const googleSignInSuccessHandler = async (
-    setUser: (value: React.SetStateAction<any>) => void,
+    mainContext: any,
     setLoading: (value: React.SetStateAction<boolean>) => void,
     setLoginIsSuccessful: (value: React.SetStateAction<boolean>) => void,
     res: any
@@ -73,7 +73,7 @@ export const googleSignInSuccessHandler = async (
             localStorage.setItem("studentId", data.studentId);
 
             message.success(`Hi ${data.name}, welcome!`);
-            setUser(data);
+            mainContext.setUser(data);
             setLoginIsSuccessful(true);
         } else {
             message.error("Email or password is incorrect!");

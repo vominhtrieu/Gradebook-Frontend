@@ -40,12 +40,20 @@ function App() {
             setUser(user);
         });
     }, []);
+    const updateUser = (user: any) => {
+        setUser(user);
+        setSocket(io(process.env.REACT_APP_API_HOST + "", {
+            auth: {
+                token: localStorage.getItem("token"),
+            },
+        }));
+    }
 
     return (
         <MainContext.Provider
             value={{
                 user: user,
-                setUser: setUser,
+                setUser: updateUser,
                 reloadNeeded: reloadNeeded,
                 setReloadNeeded: setReloadNeeded,
                 socket: socket,

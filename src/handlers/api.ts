@@ -16,7 +16,6 @@ export const getData = (url: string): Promise<any> => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
     }).then((res: Response) => {
-        console.log(apiHistory)
         if (res.status === 401) {
             message.error("You must signin first");
             localStorage.removeItem("token");
