@@ -3,14 +3,38 @@ import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import "./App.css";
 import Main from "./Main";
+import { MainContext } from "../contexts/main";
 import { RoutingContext } from "../contexts/routing";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Admin from "./admin/Admin";
 import ForgotPassword from "./auth/ForgotPassword";
 import Activate from "./auth/Activate";
+import io, { Socket } from "socket.io-client";
+import { getData } from "../handlers/api";
 
 function App() {
     const [requestedURL, setRequestedURL] = React.useState("/");
+    const [reloadNeeded, setReloadNeeded] = useState(true);
+    const [user, setUser] = useState({
+        id: 0,
+        name: "",
+        email: "",
+        studentId: "",
+        role: 1,
+    });
+    const [socket, setSocket] = useState<Socket>(
+        io(process.env.REACT_APP_API_HOST + "", {
+            auth: {
+                token: localStorage.getItem("token"),
+            },
+        })
+    );
+
+    useEffect(() => {
+        getData("/users/profile").then((user: any) => {
+            setUser(user);
+        });
+    }, []);
 
     return (
         <RoutingContext.Provider value={{requestedURL: requestedURL, setRequestedURL: setRequestedURL}}>

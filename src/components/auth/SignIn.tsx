@@ -12,6 +12,7 @@ import {
   signIn,
 } from "../../handlers/signInHandler";
 import { RoutingContext } from "../../contexts/routing";
+import { MainContext } from "../../contexts/main";
 
 function SignIn() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -19,6 +20,7 @@ function SignIn() {
   const [form] = Form.useForm();
   const history = useHistory();
   const routingContext = useContext(RoutingContext);
+  const mainContext = useContext(MainContext);
 
   useEffect(() => {
     localStorage.removeItem("token");
@@ -31,11 +33,11 @@ function SignIn() {
   }, [loginIsSuccessful, history, routingContext.requestedURL]);
 
   const callSignIn = () => {
-    signIn(setLoading, setLoginIsSuccessful, form);
+    signIn(mainContext.setUser, setLoading, setLoginIsSuccessful, form);
   };
 
   const callGoogleSignInSuccess = (res: any) => {
-    googleSignInSuccessHandler(setLoading, setLoginIsSuccessful, res);
+    googleSignInSuccessHandler(mainContext.setUser, setLoading, setLoginIsSuccessful, res);
   };
 
   return (
