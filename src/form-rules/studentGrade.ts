@@ -15,11 +15,11 @@ const studentGradeValidator = async (
   if (pattern.test(valueStr) && valueNumber >= 0 && valueNumber <= 100) {
     return "";
   } else if (valueNumber < 0) {
-    throw Error(`Student grade must be equal or greater than 0`);
+    throw Error("Student grade must be equal or greater than 0");
   } else if (valueNumber > 100) {
-    throw Error(`Student grade must be equal or less than 100`);
+    throw Error("Student grade must be equal or less than 100");
   } else {
-    throw Error(`Student grade must be a value between 0 and 100`);
+    throw Error("Student grade must be a value between 0 and 100");
   }
 };
 
