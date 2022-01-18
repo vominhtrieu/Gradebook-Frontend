@@ -1,6 +1,6 @@
 import { Button, Input, message, Table, } from 'antd';
 import React, { useEffect } from 'react';
-import { getData, postData } from "../../handlers/api";
+import { getData } from "../../handlers/api";
 import NewAdminModal from "./NewAdminModal";
 
 

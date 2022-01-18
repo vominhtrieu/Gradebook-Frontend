@@ -37,7 +37,7 @@ export default function Profile({id}: any) {
         }
 
         fetchData();
-    }, [mainContext]);
+    }, [mainContext, id]);
 
     useEffect(() => {
         if (!user) {

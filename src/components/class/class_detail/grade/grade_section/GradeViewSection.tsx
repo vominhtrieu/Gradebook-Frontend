@@ -18,7 +18,7 @@ export default function GradeViewSection({ teachers }: any) {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <Space className="grade-section" direction="vertical">

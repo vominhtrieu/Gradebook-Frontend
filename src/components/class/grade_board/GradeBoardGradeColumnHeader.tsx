@@ -1,7 +1,7 @@
 import { message, Tooltip } from "antd";
 import GradeNotificationModal from "./grade-notification-modal";
 import UploadGrade from "./UploadGrade";
-import { postData, putData } from "../../../handlers/api";
+import {  putData } from "../../../handlers/api";
 
 
 export default function GradeBoardGradeColumnHeader({gradeStructure, classId}: any) {

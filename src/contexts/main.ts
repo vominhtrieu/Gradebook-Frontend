@@ -1,13 +1,6 @@
 import { createContext } from "react";
 import io from "socket.io-client";
 
-interface User {
-    id: number,
-    name: string,
-    email: string,
-    role: number,
-}
-
 export const MainContext = createContext({
     reloadNeeded: true,
     setReloadNeeded: (param: any) => {

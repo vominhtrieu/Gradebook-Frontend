@@ -19,7 +19,7 @@ export default function GradeReviewSection() {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
   const handleFinalizeReview = (index: number) => {
     setCompositionReviews(compositionReviews.splice(index, 1));

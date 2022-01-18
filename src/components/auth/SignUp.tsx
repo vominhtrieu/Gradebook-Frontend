@@ -12,7 +12,6 @@ import userNameRules from "../../form-rules/userName";
 import userPasswordRules from "../../form-rules/userPassword";
 import userEmailRules from "../../form-rules/userEmail";
 import signUpHandler from "../../handlers/signUpHandler";
-import userStudentIdRules from "../../form-rules/userStudentId";
 
 function SignUp() {
   const [loading, setLoading] = useState(false);

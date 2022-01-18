@@ -30,7 +30,7 @@ export default function GradeReviewConversation() {
     };
 
     fetchData();
-  }, []);
+  }, [id, gradeDetailId]);
 
   return (
     <Space className="grade-review-conversation">

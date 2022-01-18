@@ -1,6 +1,5 @@
 import {Button, Dropdown, message, Tooltip, Upload} from "antd";
 import {
-    RollbackOutlined,
     DownloadOutlined,
     UploadOutlined,
     CaretDownOutlined,
