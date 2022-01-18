@@ -36,7 +36,7 @@ function ForgotPassword() {
         postData("/reset-password", {
             email: form.getFieldsValue().email
         }).then((msg) => {
-            message.success(msg)
+            message.success("New password has been sent to your email")
         }).catch((e) => {
             setLoading(false);
             clearInterval(intervalId);

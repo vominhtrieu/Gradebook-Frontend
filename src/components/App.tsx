@@ -7,6 +7,7 @@ import { RoutingContext } from "../contexts/routing";
 import React from "react";
 import Admin from "./admin/Admin";
 import ForgotPassword from "./auth/ForgotPassword";
+import Activate from "./auth/Activate";
 
 function App() {
     const [requestedURL, setRequestedURL] = React.useState("/");
@@ -23,6 +24,8 @@ function App() {
                     </Route>
                     <Route path="/forgot-password">
                         <ForgotPassword />
+                    </Route>
+                    <Route path="/activation/:activationCode" component={Activate}>
                     </Route>
                     <Route path="/admin/">
                         <Admin />
