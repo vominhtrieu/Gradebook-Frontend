@@ -1,4 +1,4 @@
-import { Card, Col, message, Row, Space, Spin } from "antd";
+import { Card, Col, Row, Space, Spin } from "antd";
 import Class from "./Class";
 import React, { useContext, useEffect, useState } from "react";
 import { getData } from "../../handlers/api";

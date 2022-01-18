@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import "./App.css";
@@ -10,7 +10,7 @@ import Admin from "./admin/Admin";
 import ForgotPassword from "./auth/ForgotPassword";
 import Activate from "./auth/Activate";
 import io, { Socket } from "socket.io-client";
-import { apiHistory, getData, setUpAPI } from "../handlers/api";
+import { getData, setUpAPI } from "../handlers/api";
 import { useHistory } from "react-router";
 
 function App() {

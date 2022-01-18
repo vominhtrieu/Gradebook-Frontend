@@ -1,9 +1,9 @@
-import {Button, Card, Form, Input, message, Spin} from "antd";
+import { Button, Card, Form, Input, message, Spin } from "antd";
 import userEmailRules from "../../form-rules/userEmail";
-import {MailOutlined} from "@ant-design/icons";
-import {useEffect, useState} from "react";
-import {postData} from "../../handlers/api";
-import {Link} from "react-router-dom";
+import { MailOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { postData } from "../../handlers/api";
+import { Link } from "react-router-dom";
 
 const baseCounter: number = 60;
 
@@ -14,10 +14,10 @@ function ForgotPassword() {
     const [form] = Form.useForm();
 
     const timer = () => {
-            setCounter(prevCounter => {
-                if (prevCounter <= 0) setLoading(false);
-                return prevCounter - 1
-            });
+        setCounter(prevCounter => {
+            if (prevCounter <= 0) setLoading(false);
+            return prevCounter - 1
+        });
     }
 
     useEffect(() => {
@@ -28,7 +28,7 @@ function ForgotPassword() {
         if (counter < 0) {
             clearInterval(intervalId);
         }
-    }, [loading]);
+    }, [counter, loading, intervalId]);
 
     const onSendPassword = () => {
         setLoading(true);
@@ -55,16 +55,17 @@ function ForgotPassword() {
                         name="email"
                     />
                 </Form.Item>
-                <p style={{display: loading ? "block" : "none"}}>If you don't receive any email, resend after: {counter}s</p>
+                <p style={{display: loading ? "block" : "none"}}>If you don't receive any email, resend
+                    after: {counter}s</p>
                 <Form.Item>
                     <Button onClick={onSendPassword} disabled={loading} type="primary" block>
-                        {loading ? <Spin style={{ paddingRight: 5 }} /> : null}Send new password
+                        {loading ? <Spin style={{paddingRight: 5}} /> : null}Send new password
                     </Button>
                 </Form.Item>
-                <Form.Item style={{ textAlign: "center", marginBottom: 0 }}>
+                <Form.Item style={{textAlign: "center", marginBottom: 0}}>
                     <p>Remember to your password after sign in</p>
                 </Form.Item>
-                <Form.Item style={{ textAlign: "center", marginBottom: 0 }}>
+                <Form.Item style={{textAlign: "center", marginBottom: 0}}>
                     <Link to="/signin">Go sign in</Link>
                 </Form.Item>
             </Form>
