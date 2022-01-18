@@ -68,7 +68,7 @@
 }
 
 .ant-table-tbody > tr.ant-table-row:hover > td {
-  background: none;
+  background: white;
 }
 
 .ant-table-tbody > tr.ant-table-row:first-child td {
@@ -114,10 +114,6 @@
   /*display: none;*/
 }
 
-.ant-table-tbody .grade-board_grade-cell:hover .metadata-wrapper {
-  display: block;
-}
-
 .ant-table-tbody .grade-board_grade-cell .metadata-wrapper.containing {
   display: block;
 }
@@ -127,9 +123,9 @@
 }
 
 .ant-table-tbody,
-  .grade-board_grade-cell,
-  .metadata-wrapper.containing,
-  .current-grade {
+.grade-board_grade-cell,
+.metadata-wrapper.containing,
+.current-grade {
   color: #1e8e3e;
 }
 
@@ -143,7 +139,7 @@
 }
 
 .ant-table-tbody .grade-board_grade-cell .input-wrapper {
-  width: 54px;
+  width: 64px;
   display: flex;
   position: relative;
   font-size: 14px;
@@ -190,11 +186,6 @@
   transform: translateY(-50%);
   opacity: 0;
   visibility: hidden;
-}
-
-.ant-table-tbody .grade-board_grade-cell:hover .finalization-checkbox {
-  opacity: 1;
-  visibility: visible;
 }
 
 .ant-table-tbody .grade-board_grade-cell.focus .finalization-checkbox {
