@@ -31,16 +31,12 @@ const columns: any = [
     fixed: "left",
     key: "name",
     render: (text: any, record: any, index: any) => {
-      if (index === 0) {
-        return <GradeBoardAverageRowHeader />;
-      } else {
         return (
           <GradeBoardStudentCell
             studentId={text.studentId}
             studentName={text.studentName}
           />
         );
-      }
     },
   },
   {
@@ -64,17 +60,7 @@ const columns: any = [
   },
 ];
 
-const data: DataSourceProps[] = [
-  {
-    key: 0,
-    name: {
-      studentId: "",
-      studentName: "Name",
-    },
-    overall: 50,
-    grades: [],
-  },
-];
+const data: DataSourceProps[] = [];
 
 export default function GradeBoard({ classId }: any) {
   const [gradeColumns, setGradeColumns] = useState(columns);
@@ -100,7 +86,7 @@ export default function GradeBoard({ classId }: any) {
               getData(
                 `/classrooms/${classId}/grade-board?gradeStructureId=${gradeItem.id}`
               ).then(data => {
-                for (let i = 1; i < tempDataSource.length; i++) {
+                for (let i = 0; i < tempDataSource.length; i++) {
                   if (data) {
                     const gradeItem = data.find(
                       (e: any) =>
@@ -125,9 +111,6 @@ export default function GradeBoard({ classId }: any) {
                 dataIndex: "grades",
                 key: "grade",
                 render: (text: any, record: any, index: any) => {
-                  if (index === 0) {
-                    return <GradeBoardGradeCell readOnly />;
-                  } else {
                     return (
                       <GradeBoardGradeCell
                         studentId={record.name.studentId}
@@ -138,7 +121,6 @@ export default function GradeBoard({ classId }: any) {
                         }
                       />
                     );
-                  }
                 },
               });
             });
