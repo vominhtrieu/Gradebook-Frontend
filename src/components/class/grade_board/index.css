@@ -32,8 +32,6 @@
 
 .ant-table-thead .ant-table-cell .title b {
   display: inline-block;
-  min-height: 40px;
-  max-height: 40px;
   max-width: 70px;
   font-size: 14px;
   display: -webkit-box;

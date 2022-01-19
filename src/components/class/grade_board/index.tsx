@@ -3,7 +3,6 @@ import GradeBoardGradeCell from "./GradeBoardGradeCell";
 import GradeBoardStudentCell from "./GradeBoardStudentCell";
 import GradeBoardGradeColumnHeader from "./GradeBoardGradeColumnHeader";
 import "./index.css";
-import GradeBoardAverageRowHeader from "./GradeBoardAverageRowHeader";
 import GradeBoardOverallColumnHeader from "./GradeBoardOverallColumnHeader";
 import GradeBoardOverallGradeCell from "./GradeBoardOverallGradeCell";
 import GradeBoardButtonContainer from "./GradeBoardButtonContainer";
@@ -107,7 +106,7 @@ export default function GradeBoard({ classId }: any) {
                     />
                   );
                 },
-                width: 140,
+                width: 180,
                 dataIndex: "grades",
                 key: "grade",
                 render: (text: any, record: any, index: any) => {

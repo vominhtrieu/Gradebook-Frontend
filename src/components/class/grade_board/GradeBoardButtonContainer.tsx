@@ -1,4 +1,4 @@
-import {Button, Dropdown, message, Tooltip, Upload} from "antd";
+import { Button, Dropdown, message, Tooltip, Upload } from "antd";
 import {
     DownloadOutlined,
     UploadOutlined,
@@ -6,10 +6,10 @@ import {
     ExportOutlined,
 } from "@ant-design/icons";
 import GradeBoardDownloadMenu from "./GradeBoardDownloadMenu";
-import {useContext} from "react";
-import {MainContext} from "../../../contexts/main";
-import {getData} from "../../../handlers/api";
-import {exportFullGradeBoard} from "../../../handlers/exportDataHandler";
+import { useContext } from "react";
+import { MainContext } from "../../../contexts/main";
+import { getData } from "../../../handlers/api";
+import { exportFullGradeBoard } from "../../../handlers/exportDataHandler";
 
 interface GradeBoardButtonContainerProps {
     classId: number
@@ -20,7 +20,7 @@ export default function GradeBoardButtonContainer({classId, students}: GradeBoar
     const mainContext = useContext(MainContext);
 
     const menu = (
-        <GradeBoardDownloadMenu students={students}/>
+        <GradeBoardDownloadMenu students={students} />
     )
 
     const handleUploadChanged = (info: any) => {
@@ -37,7 +37,7 @@ export default function GradeBoardButtonContainer({classId, students}: GradeBoar
     }
 
     const handleExportGradeBoard = () => {
-        getData(`/classrooms/${classId}/grade-structures`).then((gradeStructure: any) => {
+        getData(`/classrooms/${classId}/grade-structures`).then(async (gradeStructure: any) => {
             const gradeBoardData: object[] = [];
             students.forEach((student: any) => {
                 gradeBoardData.push({
@@ -46,26 +46,27 @@ export default function GradeBoardButtonContainer({classId, students}: GradeBoar
                 });
             })
             const headers = [["MSSV", "Họ tên"]];
+            let promises: any = [];
             gradeStructure.reverse().forEach((gradeItem: any) => {
                 headers[0].push(gradeItem.name);
-                getData(`/classrooms/${classId}/grade-board?gradeStructureId=${gradeItem.id}`).then((studentGrades: any) => {
+                const promise = getData(`/classrooms/${classId}/grade-board?gradeStructureId=${gradeItem.id}`).then((studentGrades: any) => {
                     const grades = Array(students.length);
                     grades.fill("_");
-                        students.forEach((student: any, i: number) => {
-                            if (studentGrades) {
-                                const grade = studentGrades.find((e: any) => e.studentId === student.studentId);
-                                if (grade && grade.grade != null) {
-                                    gradeBoardData[i] = {...gradeBoardData[i], [gradeItem.name]: grade.grade.toString()};
-                                } else {
-                                    gradeBoardData[i] = {...gradeBoardData[i], [gradeItem.name]: "___"}
-                                }
+                    students.forEach((student: any, i: number) => {
+                        if (studentGrades) {
+                            const grade = studentGrades.find((e: any) => e.studentId === student.studentId);
+                            if (grade && grade.grade != null) {
+                                gradeBoardData[i] = {...gradeBoardData[i], [gradeItem.name]: grade.grade.toString()};
+                            } else {
+                                gradeBoardData[i] = {...gradeBoardData[i], [gradeItem.name]: "___"}
                             }
-                        })
-                })
+                        }
+                    })
+                });
+                promises.push(promise);
             })
-            setTimeout(() => {
-                exportFullGradeBoard(headers, gradeBoardData);
-            }, 100)
+            await Promise.all(promises);
+            exportFullGradeBoard(headers, gradeBoardData);
         }).catch((err) => {
             return message.error("Something went wrong");
         })
@@ -75,7 +76,7 @@ export default function GradeBoardButtonContainer({classId, students}: GradeBoar
         <div className="grade-board_button-container">
             <Dropdown overlay={menu} trigger={["click"]}>
                 <Button type="text">
-                    <DownloadOutlined/> Download <CaretDownOutlined/>
+                    <DownloadOutlined /> Download <CaretDownOutlined />
                 </Button>
             </Dropdown>
             <Tooltip title="Upload student list" placement="bottomLeft">
@@ -85,13 +86,13 @@ export default function GradeBoardButtonContainer({classId, students}: GradeBoar
                         action={`${process.env.REACT_APP_API_HOST}/classrooms/${classId}/students/import`}
                         onChange={handleUploadChanged}>
                     <Button type="text">
-                        <UploadOutlined/> Upload
+                        <UploadOutlined /> Upload
                     </Button>
                 </Upload>
             </Tooltip>
             <Tooltip title="Export this grade board" placement="bottomLeft">
                 <Button type="text" onClick={handleExportGradeBoard}>
-                    <ExportOutlined/> Export
+                    <ExportOutlined /> Export
                 </Button>
             </Tooltip>
         </div>
