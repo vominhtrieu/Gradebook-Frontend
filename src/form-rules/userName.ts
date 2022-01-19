@@ -15,11 +15,11 @@ const userNameValidator = async (rule: any, value: any): Promise<string> => {
   }
 
   if (valueStr.length < minLength) {
-    throw Error(`Name can be no shorter than ${minLength} characters!`);
+    throw Error(`Name cannot be no shorter than ${minLength} characters!`);
   }
 
   if (valueStr.length > maxLength) {
-    throw Error(`Name can be no longer than ${maxLength} characters!`);
+    throw Error(`Name cannot be no longer than ${maxLength} characters!`);
   }
 
   return "";

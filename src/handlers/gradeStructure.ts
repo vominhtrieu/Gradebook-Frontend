@@ -12,6 +12,10 @@ export const createGradeStructureHandler = async (
     return message.error("Please input title!");
   }
 
+  if (title.length > 40) {
+    return message.error("Name cannot be no longer than 40 characters!");
+  }
+
   if (detail === "") {
     return message.error("Please input grade!");
   }

@@ -3,12 +3,12 @@
 }
 
 .ant-modal.review-grade-modal {
-  max-width: 520px;
+  max-width: 520px !important;
   padding-bottom: 0;
 }
 
 .ant-modal.review-grade-modal.make-final-decision-modal {
-  max-width: 480px;
+  max-width: 480px !important;
 }
 
 .ant-modal.review-grade-modal .ant-modal-content {
@@ -104,8 +104,14 @@
   background-color: rgba(24, 144, 255, 0.04);
 }
 
-@media only screen and (max-width: 444px) {
+@media only screen and (max-width: 519px) {
   .ant-modal.review-grade-modal {
+    width: auto !important;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .ant-modal.review-grade-modal.make-final-decision-modal {
     width: auto !important;
   }
 }

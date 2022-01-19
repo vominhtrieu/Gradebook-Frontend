@@ -30,17 +30,18 @@
   top: 0;
 }
 
-.ant-table-thead .grade-board_grade-column-header .grade-structure .title {
+.ant-table-thead .ant-table-cell .title b {
+  display: inline-block;
   min-height: 40px;
   max-height: 40px;
   max-width: 70px;
   font-size: 14px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: bold;
-  color: #007b83;
 }
 
 .ant-table-thead .grade-board_grade-column-header .grade-structure .title,

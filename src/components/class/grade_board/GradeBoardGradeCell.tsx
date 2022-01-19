@@ -88,20 +88,6 @@ export default function GradeBoardGradeCell({
     }
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // @ts-ignore
-    if (
-      isNaN(Number(e.target.value)) ||
-      parseFloat(e.target.value) > maximumGrade ||
-      parseFloat(e.target.value) < 0
-    ) {
-      setIsSaving(false);
-      return message.error("Invalid grade");
-    } else {
-      setGrade(e.target.value);
-    }
-  };
-
   return (
     <div className={`grade-board_grade-cell${focusInput ? " focus" : ""}`}>
       {props.readOnly ? (
