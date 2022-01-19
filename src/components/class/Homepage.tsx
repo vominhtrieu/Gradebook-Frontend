@@ -24,7 +24,6 @@ export default function Homepage() {
                 setCreatedClassrooms(classrooms);
                 getData("/classrooms/role/student")
                     .then(classrooms => {
-                        console.log(classrooms);
                         setJoinedClassrooms(classrooms);
                         mainContext.setReloadNeeded(false);
                     })

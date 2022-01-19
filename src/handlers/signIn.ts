@@ -64,7 +64,7 @@ export const googleSignInSuccessHandler = async (
       name: res?.profileObj.name,
     };
     const data = await postData("/signin/google", values);
-    console.log(data);
+
     if (data.token.length > 0) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("studentId", data.studentId);

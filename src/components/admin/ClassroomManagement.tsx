@@ -64,7 +64,6 @@ export default function ClassroomManagement() {
                 setClassrooms(data);
             })
             .catch((e) => {
-                console.log(e);
                 message.error("Something went wrong!")
             });
     }, [loading, lastSearchString, searchString])

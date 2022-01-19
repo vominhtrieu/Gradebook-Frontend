@@ -48,7 +48,7 @@ function App() {
             },
         }));
     }
-    console.log(user);
+
     return (
         <MainContext.Provider
             value={{
