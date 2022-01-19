@@ -7,6 +7,7 @@ import { useState } from "react";
 
 export default function GradeBoardGradeColumnHeader({gradeStructure, classId}: any) {
     const [isFinal, setIsFinal] = useState(gradeStructure.isFinal);
+
     const markFinal = () => {
         putData(`/classrooms/${classId}/mark-final`, {
             gradeStructureId: gradeStructure.id,

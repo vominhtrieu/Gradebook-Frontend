@@ -18,6 +18,7 @@ export default function InviteModal({
     const [input, setInput]: any = useState(null);
     const [userOptions, setUserOptions]: any = React.useState([]);
     const [selectedEmail, setSelectedEmail]: any = React.useState(null);
+    const [loading, setLoading] = React.useState<boolean>(false);
 
     const handleSearch = (value: string) => {
         if (value !== "") {
@@ -41,6 +42,7 @@ export default function InviteModal({
     }
 
     const handleSendInvite = () => {
+        setLoading(true);
         if (selectedEmail !== "" && selectedEmail !== null) {
             postData("/classrooms/send-invitation-link", {
                 classroomId: classroomId,
@@ -52,12 +54,13 @@ export default function InviteModal({
         } else {
             message.error("Must enter email");
         }
+        setLoading(false);
     }
 
     const inviteLink = `${process.env.REACT_APP_CLIENT_URL}/classrooms/${classroomId}?${teacherInvitationCode ? "teacherInvitationCode" : "studentInvitationCode"}=${teacherInvitationCode ? teacherInvitationCode : studentInvitationCode}`;
 
     return (
-        <Modal visible={visible} onCancel={onClose} onOk={handleSendInvite} okText="Send" title="Invite User">
+        <Modal visible={visible} onCancel={onClose} onOk={handleSendInvite} okText="Send" title="Invite User" okButtonProps={{disabled: loading}}>
             <Space direction="vertical" style={{width: "100%"}}>
                 <div style={{display: "flex", width: "100%"}}>
                     <Input defaultValue={inviteLink} style={{marginRight: 5, height: "32px", padding: 4}}/>

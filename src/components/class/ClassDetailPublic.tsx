@@ -25,7 +25,7 @@ export default function ClassDetailPublic({classroom, small}: any) {
         if (queryString.has("teacherInvitationCode") || queryString.has("studentInvitationCode")) {
             setHaveInvitation(true);
         }
-    }, [location.search]);
+    }, [location]);
 
     const handleInviteCancel = () => {
         setInviteVisible(false);
@@ -38,7 +38,10 @@ export default function ClassDetailPublic({classroom, small}: any) {
                 teacherInvitationCode: queryString.get("teacherInvitationCode"),
                 studentInvitationCode: queryString.get("studentInvitationCode")
             }).then((data) => {
+                setInviteVisible(false);
+                setHaveInvitation(false);
                 history.push(`/classrooms/${id}`);
+                history.go(0);
             }).catch(() => message.error("Something went wrong!"));
         } else {
             return message.info("Set your student ID to be able to join class!");
@@ -47,6 +50,8 @@ export default function ClassDetailPublic({classroom, small}: any) {
     }
 
     const handleInviteReject = () => {
+        setInviteVisible(false);
+        setHaveInvitation(false);
         history.push(`/classrooms/${id}`);
     }
 
