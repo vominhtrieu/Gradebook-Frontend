@@ -69,10 +69,21 @@ export default function GradeBoard({classId}: any) {
     const mainContext = useContext(MainContext);
 
     useEffect(() => {
-        setLoading(mainContext.reloadNeeded);
+        mainContext.setReloadNeeded(true);
+    }, [])
+
+    useEffect(() => {
+        if (mainContext.reloadNeeded) {
+            setLoading(mainContext.reloadNeeded);
+        }
     }, [mainContext.reloadNeeded]);
 
     useEffect(() => {
+        if (loading || !mainContext.reloadNeeded) {
+            return;
+        }
+        mainContext.setReloadNeeded(false);
+        setLoading(true);
         const tempColumns: any = [...columns];
         const tempDataSource: any = [...data];
 
@@ -127,8 +138,9 @@ export default function GradeBoard({classId}: any) {
                             });
                         });
                     setTimeout(() => {
-                        setGradeColumns([...tempColumns]);
-                        setDataSource([...tempDataSource]);
+                        setGradeColumns(() => [...tempColumns]);
+                        setDataSource(() => [...tempDataSource]);
+                        setLoading(false)
                     }, 1000);
                 })
                 .catch(() => message.error("Something went wrong!"));
@@ -153,15 +165,20 @@ export default function GradeBoard({classId}: any) {
             .catch(() => message.error("Something went wrong!"));
     }, [loading, mainContext.reloadNeeded]);
 
+    useEffect(() => {
+        console.log("Data source changes");
+        console.log(dataSource);
+    }, [dataSource]);
+
     return (
         <>
             <GradeBoardButtonContainer classId={classId} students={students} />
             <Table
-                columns={gradeColumns}
+                columns={[...gradeColumns]}
                 pagination={false}
                 scroll={{x: "max-content"}}
                 loading={loading}
-                dataSource={dataSource}
+                dataSource={[...dataSource]}
                 bordered
             />
         </>
