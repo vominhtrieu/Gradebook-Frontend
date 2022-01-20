@@ -8,74 +8,77 @@ import { message } from "antd";
 import { MainContext } from "../../contexts/main";
 
 function compressImage(file: Blob, callback: any) {
-    try {
-        Compress.imageFileResizer(
-            file,
-            1080,
-            1080,
-            "JPEG",
-            80,
-            0,
-            (uri) => {
-                callback(null, uri);
-            },
-            "base64",
-        );
-    } catch {
-        callback(new Error("File is not supported"), null);
-    }
+  try {
+    Compress.imageFileResizer(
+      file,
+      1080,
+      1080,
+      "JPEG",
+      80,
+      0,
+      uri => {
+        callback(null, uri);
+      },
+      "base64"
+    );
+  } catch {
+    callback(new Error("File is not supported"), null);
+  }
 }
 
-export default function NewClass({visible, setVisible}: any) {
-    const [form] = useForm();
-    const [selectedCover, setSelectedCover] = useState(null);
-    const [loadingImage, setLoadingImage] = useState(false);
-    const [submitting, setSubmitting] = useState(false);
-    const mainContext = useContext(MainContext);
+export default function NewClass({ visible, setVisible }: any) {
+  const [form] = useForm();
+  const [selectedCover, setSelectedCover] = useState(null);
+  const [loadingImage, setLoadingImage] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const mainContext = useContext(MainContext);
 
-    function onSubmit() {
-        const data = form.getFieldsValue();
-        data.cover = selectedCover;
-        setSubmitting(true);
-        postData("/classrooms/", data).then((data) => {
-            if (data.name.length > 0) {
-                setVisible(false);
-                mainContext.setReloadNeeded(true);
-                form.resetFields();
-                setSelectedCover(null);
-                setSubmitting(false);
-                return message.success("Class is created");
-            } else {
-                setSubmitting(false);
-                return message.error("Something went wrong!")
-            }
-        }).catch(_ => {
-            setSubmitting(false);
-            return message.error("Something went wrong!")
-        })
-    }
-
-    function onCancel() {
-        setVisible(false);
-    }
-
-    function handleChange(e: any) {
-        if (loadingImage || e.file.status !== "uploading") {
-            return;
+  function onSubmit() {
+    const data = form.getFieldsValue();
+    data.cover = selectedCover;
+    setSubmitting(true);
+    postData("/classrooms/", data)
+      .then(data => {
+        if (data.name.length > 0) {
+          setVisible(false);
+          mainContext.setReloadNeeded(true);
+          form.resetFields();
+          setSelectedCover(null);
+          setSubmitting(false);
+          return message.success("Class is created");
+        } else {
+          setSubmitting(false);
+          return message.error("Something went wrong!");
         }
-        setLoadingImage(true);
-        compressImage(e.file.originFileObj, (err: any, url: any) => {
-            if (err) {
-                setLoadingImage(false);
-                return message.error("File is not supported");
-            } else {
-                setLoadingImage(false);
-                setSelectedCover(url);
-            }
-        })
-    }
+      })
+      .catch(_ => {
+        setSubmitting(false);
+        return message.error("Something went wrong!");
+      });
+  }
 
-    return <Modal title={"New Class"} visible={visible} okButtonProps={{disabled: submitting}}
+  function onCancel() {
+    setVisible(false);
+  }
+
+  function handleChange(e: any) {
+    if (loadingImage || e.file.status !== "uploading") {
+      return;
+    }
+    setLoadingImage(true);
+    compressImage(e.file.originFileObj, (err: any, url: any) => {
+      if (err) {
+        setLoadingImage(false);
+        return message.error("File is not supported");
+      } else {
+        setLoadingImage(false);
+        setSelectedCover(url);
+      }
+    });
+  }
+
+    return (
+        <Modal title={"New Class"} visible={visible} okButtonProps={{disabled: submitting}}
                   okText={submitting ? <><Spin style={{marginRight: 5}} /> Submit</> : "Submit"} onOk={onSubmit}
                   onCancel={onCancel}>
         <Form form={form} labelCol={{span: 5}} wrapperCol={{span: 19}}>
@@ -111,4 +114,5 @@ export default function NewClass({visible, setVisible}: any) {
             </Form.Item>
         </Form>
     </Modal>
+  );
 }
