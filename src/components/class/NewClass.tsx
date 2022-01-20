@@ -99,7 +99,7 @@ export default function NewClass({ visible, setVisible }: any) {
           name="name"
           label={"Class name"}
           rules={[
-            { required: true, message: "Please input your username!" },
+            { required: true, message: "Please input your class name!" },
             {
               min: 3,
               message: "Class name can not be shorter than 3 characters!",
