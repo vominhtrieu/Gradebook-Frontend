@@ -77,42 +77,69 @@ export default function NewClass({ visible, setVisible }: any) {
     });
   }
 
-    return (
-        <Modal title={"New Class"} visible={visible} okButtonProps={{disabled: submitting}}
-                  okText={submitting ? <><Spin style={{marginRight: 5}} /> Submit</> : "Submit"} onOk={onSubmit}
-                  onCancel={onCancel}>
-        <Form form={form} labelCol={{span: 5}} wrapperCol={{span: 19}}>
-            <Form.Item name="name" label={"Class name"}>
-                <Input type="text" />
-            </Form.Item>
-            <Form.Item name="description" label="Description">
-                <Input.TextArea autoSize={true} maxLength={255} />
-            </Form.Item>
-            <Form.Item name="cover" label="Cover image">
-                <Upload
-                    name="avatar"
-                    listType="picture-card"
-                    className="avatar-uploader"
-                    accept="image/*"
-                    customRequest={_ => {
-                    }}
-                    showUploadList={false}
-                    style={{width: "100%"}}
-                    onChange={handleChange}
-                    disabled={loadingImage}
-                >
-                    {
-                        loadingImage ? <Spin /> :
-                            (selectedCover ?
-                                <img src={selectedCover} alt="cover" style={{width: '100%'}} /> :
-                                <div>
-                                    <PlusOutlined />
-                                    <div style={{marginTop: 8}}>Upload</div>
-                                </div>)
-                    }
-                </Upload>
-            </Form.Item>
-        </Form>
+  return (
+    <Modal
+      title={"New Class"}
+      visible={visible}
+      okButtonProps={{ disabled: submitting }}
+      okText={
+        submitting ? (
+          <>
+            <Spin style={{ marginRight: 5 }} /> Submit
+          </>
+        ) : (
+          "Submit"
+        )
+      }
+      onOk={onSubmit}
+      onCancel={onCancel}
+    >
+      <Form form={form} labelCol={{ span: 5 }} wrapperCol={{ span: 19 }}>
+        <Form.Item
+          name="name"
+          label={"Class name"}
+          rules={[
+            { required: true, message: "Please input your username!" },
+            {
+              min: 3,
+              message: "Class name can not be shorter than 3 characters!",
+            },
+            {
+              max: 255,
+              message: "Class name can not be longer than 255 characters!",
+            },
+          ]}
+        >
+          <Input type="text" />
+        </Form.Item>
+        <Form.Item name="description" label="Description">
+          <Input.TextArea autoSize={true} maxLength={255} />
+        </Form.Item>
+        <Form.Item name="cover" label="Cover image">
+          <Upload
+            name="avatar"
+            listType="picture-card"
+            className="avatar-uploader"
+            accept="image/*"
+            customRequest={_ => {}}
+            showUploadList={false}
+            style={{ width: "100%" }}
+            onChange={handleChange}
+            disabled={loadingImage}
+          >
+            {loadingImage ? (
+              <Spin />
+            ) : selectedCover ? (
+              <img src={selectedCover} alt="cover" style={{ width: "100%" }} />
+            ) : (
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            )}
+          </Upload>
+        </Form.Item>
+      </Form>
     </Modal>
   );
 }
