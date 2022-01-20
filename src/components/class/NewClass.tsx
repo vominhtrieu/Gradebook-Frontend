@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Form, Input, Modal, Spin, Upload } from "antd";
 import Compress from "react-image-file-resizer";
 import { PlusOutlined } from "@ant-design/icons";
@@ -6,6 +6,7 @@ import { useForm } from "antd/es/form/Form";
 import { postData } from "../../handlers/api";
 import { message } from "antd";
 import { MainContext } from "../../contexts/main";
+import classNameRules from "../../form-rules/className";
 
 function compressImage(file: Blob, callback: any) {
   try {
@@ -37,23 +38,32 @@ export default function NewClass({ visible, setVisible }: any) {
     const data = form.getFieldsValue();
     data.cover = selectedCover;
     setSubmitting(true);
-    postData("/classrooms/", data)
-      .then(data => {
-        if (data.name.length > 0) {
-          setVisible(false);
-          mainContext.setReloadNeeded(true);
-          form.resetFields();
-          setSelectedCover(null);
-          setSubmitting(false);
-          return message.success("Class is created");
-        } else {
-          setSubmitting(false);
-          return message.error("Something went wrong!");
-        }
+    form
+      .validateFields()
+      .then(values => {
+        values.cover = selectedCover;
+        postData("/classrooms/", values)
+          .then(data => {
+            if (data.name.length > 0) {
+              setVisible(false);
+              mainContext.setReloadNeeded(true);
+              form.resetFields();
+              setSelectedCover(null);
+              setSubmitting(false);
+              return message.success("Class is created");
+            } else {
+              setSubmitting(false);
+              return message.error("Something went wrong!");
+            }
+          })
+          .catch(_ => {
+            setSubmitting(false);
+            return message.error("Something went wrong!");
+          });
       })
-      .catch(_ => {
+      .catch(errorInfo => {
         setSubmitting(false);
-        return message.error("Something went wrong!");
+        message.error(errorInfo.errorFields[0].errors[0]);
       });
   }
 
@@ -95,21 +105,7 @@ export default function NewClass({ visible, setVisible }: any) {
       onCancel={onCancel}
     >
       <Form form={form} labelCol={{ span: 5 }} wrapperCol={{ span: 19 }}>
-        <Form.Item
-          name="name"
-          label={"Class name"}
-          rules={[
-            { required: true, message: "Please input your class name!" },
-            {
-              min: 3,
-              message: "Class name can not be shorter than 3 characters!",
-            },
-            {
-              max: 255,
-              message: "Class name can not be longer than 255 characters!",
-            },
-          ]}
-        >
+        <Form.Item name="name" label={"Class name"} rules={classNameRules}>
           <Input type="text" />
         </Form.Item>
         <Form.Item name="description" label="Description">
