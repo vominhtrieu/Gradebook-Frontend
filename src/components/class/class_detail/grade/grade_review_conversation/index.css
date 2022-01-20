@@ -151,13 +151,13 @@
 
 .grade-review-conversation_footer .ant-input-group .ant-btn {
   position: absolute;
-  z-index: 10;
+  z-index: 5;
   width: 30px;
   height: 30px;
-  right: 0.5rem;
-  top: 50%;
+  right: 0.1rem;
+  bottom: 0;
   border: none;
-  transform: translateY(-50%);
+  background-color: transparent;
 }
 
 .grade-review-conversation_footer .ant-input-group .ant-btn:hover,
