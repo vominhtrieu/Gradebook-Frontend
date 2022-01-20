@@ -83,7 +83,7 @@ export default function NewClass({visible, setVisible}: any) {
                 <Input type="text" />
             </Form.Item>
             <Form.Item name="description" label="Description">
-                <Input.TextArea />
+                <Input.TextArea autoSize={true} maxLength={255} />
             </Form.Item>
             <Form.Item name="cover" label="Cover image">
                 <Upload
