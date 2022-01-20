@@ -23,8 +23,12 @@ export default function InviteModal({
     const handleSearch = (value: string) => {
         if (value !== "") {
             postData("/users/find-by-email", {email: value}).then((users) => {
-                setUserOptions(users);
-            }).catch(() => message.error("Something went wrong!"));
+                if (Array.isArray(users)) {
+                    setUserOptions(users);
+                }
+            }).catch(() => {
+                message.error("Something went wrong!")
+            });
         } else {
             setUserOptions([]);
         }
@@ -52,7 +56,7 @@ export default function InviteModal({
                 message.success(msg);
             }).catch(() => message.error("Something went wrong!"));
         } else {
-            message.error("Must enter email");
+            message.error("Must enter the right email");
         }
         setLoading(false);
     }
