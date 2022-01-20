@@ -79,10 +79,10 @@ export default function GradeBoard({classId}: any) {
     }, [mainContext.reloadNeeded]);
 
     useEffect(() => {
+        mainContext.setReloadNeeded(false);
         if (loading || !mainContext.reloadNeeded) {
             return;
         }
-        mainContext.setReloadNeeded(false);
         setLoading(true);
         const tempColumns: any = [...columns];
         const tempDataSource: any = [...data];
@@ -138,6 +138,7 @@ export default function GradeBoard({classId}: any) {
                             });
                         });
                     Promise.all(promises).then(() => {
+                        console.log(loading, mainContext.reloadNeeded);
                         setGradeColumns(() => [...tempColumns]);
                         setDataSource(() => [...tempDataSource]);
                         setLoading(false)

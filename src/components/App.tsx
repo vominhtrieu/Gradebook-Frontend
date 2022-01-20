@@ -40,6 +40,7 @@ function App() {
             setUser(user);
         });
     }, []);
+
     const updateUser = (user: any) => {
         setUser(user);
         setSocket(io(process.env.REACT_APP_API_HOST + "", {
