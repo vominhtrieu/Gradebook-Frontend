@@ -29,6 +29,7 @@ function App() {
             auth: {
                 token: localStorage.getItem("token"),
             },
+            transports: ["websocket"],
         })
     );
     useEffect(() => {
