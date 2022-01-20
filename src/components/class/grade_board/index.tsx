@@ -70,7 +70,7 @@ export default function GradeBoard({classId}: any) {
 
     useEffect(() => {
         mainContext.setReloadNeeded(true);
-    }, [])
+    }, [mainContext])
 
     useEffect(() => {
         if (mainContext.reloadNeeded) {
@@ -137,11 +137,11 @@ export default function GradeBoard({classId}: any) {
                                 },
                             });
                         });
-                    setTimeout(() => {
+                    Promise.all(promises).then(() => {
                         setGradeColumns(() => [...tempColumns]);
                         setDataSource(() => [...tempDataSource]);
                         setLoading(false)
-                    }, 1000);
+                    });
                 })
                 .catch(() => message.error("Something went wrong!"));
         };
@@ -163,12 +163,7 @@ export default function GradeBoard({classId}: any) {
                 fetchData();
             })
             .catch(() => message.error("Something went wrong!"));
-    }, [loading, mainContext.reloadNeeded]);
-
-    useEffect(() => {
-        console.log("Data source changes");
-        console.log(dataSource);
-    }, [dataSource]);
+    }, [loading, mainContext, classId]);
 
     return (
         <>
