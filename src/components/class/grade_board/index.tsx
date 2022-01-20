@@ -20,7 +20,7 @@ interface DataSourceProps {
     grades: number[];
 }
 
-let totalMaxGrade = 0;
+const maxGrades: number[] = [];
 
 const columns: any = [
     {
@@ -47,12 +47,12 @@ const columns: any = [
         dataIndex: "overall",
         render: (text: any, record: any) => {
             let total = 0;
-            record.grades.forEach((grade: number) => {
-                total += grade;
+            record.grades.forEach((grade: number, index: number) => {
+                total += (grade / 100) * maxGrades[index];
             });
             return (
                 <GradeBoardOverallGradeCell
-                    overallGrade={`${((total * 100) / totalMaxGrade).toPrecision(4)}%`}
+                    overallGrade={`${total.toPrecision(4)}%`}
                 />
             );
         },
@@ -94,7 +94,7 @@ export default function GradeBoard({classId}: any) {
                     gradeStructure
                         .reverse()
                         .forEach((gradeItem: any, gradeStructureIndex: number) => {
-                            totalMaxGrade += gradeItem.grade;
+                            maxGrades.push(gradeItem.grade);
                             promises.push(getData(
                                 `/classrooms/${classId}/grade-board?gradeStructureId=${gradeItem.id}`
                             ).then(data => {
